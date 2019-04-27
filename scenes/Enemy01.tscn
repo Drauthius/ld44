@@ -1,15 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://art/enemy_01.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Enemy01.gd" type="Script" id=1]
+[ext_resource path="res://art/enemy_01.png" type="Texture" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 12.745
 height = 7.43217
 
 [sub_resource type="Animation" id=2]
-resource_name = "down_run"
-length = 0.5
-loop = true
+resource_name = "down_death"
+length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -17,10 +17,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 10, 18 ]
+"values": [ 6, 14, 22 ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -36,10 +36,58 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 8, 16 ]
+"values": [ 10, 18 ]
 }
 
 [sub_resource type="Animation" id=4]
+resource_name = "left_death"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 12, 20 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 8, 16 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "right_death"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 5, 13, 21 ]
+}
+
+[sub_resource type="Animation" id=7]
 length = 0.5
 loop = true
 tracks/0/type = "value"
@@ -55,8 +103,23 @@ tracks/0/keys = {
 "values": [ 9, 17 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "up_run"
+[sub_resource type="Animation" id=8]
+resource_name = "up_death"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 7, 15, 23 ]
+}
+
+[sub_resource type="Animation" id=9]
 length = 0.5
 loop = true
 tracks/0/type = "value"
@@ -75,14 +138,16 @@ tracks/0/keys = {
 [node name="Enemy01" type="KinematicBody2D" groups=[
 "Living",
 ]]
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 vframes = 3
 hframes = 8
+frame = 23
 region_enabled = true
 region_rect = Rect2( 0, 0, 256, 96 )
 
@@ -91,7 +156,11 @@ rotation = 1.5708
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/down_run = SubResource( 2 )
-anims/left_run = SubResource( 3 )
-anims/right_run = SubResource( 4 )
-anims/up_run = SubResource( 5 )
+anims/down_death = SubResource( 2 )
+anims/down_run = SubResource( 3 )
+anims/left_death = SubResource( 4 )
+anims/left_run = SubResource( 5 )
+anims/right_death = SubResource( 6 )
+anims/right_run = SubResource( 7 )
+anims/up_death = SubResource( 8 )
+anims/up_run = SubResource( 9 )

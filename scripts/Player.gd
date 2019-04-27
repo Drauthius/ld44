@@ -11,11 +11,11 @@ onready var Bullet = preload("res://scenes/Bullet.tscn")
 func _process(_delta):
 	angle = (get_global_mouse_position() - position).angle() + PI
 	
-	if angle > 5*QPI:
+	if angle > 5*QPI and angle < 7*QPI:
 		$AnimationPlayer.play("down")
-	elif angle > 3*QPI:
+	elif angle > 3*QPI and angle < 5*QPI:
 		$AnimationPlayer.play("right")
-	elif angle > QPI:
+	elif angle > QPI and angle < 3*QPI:
 		$AnimationPlayer.play("up")
 	else:
 		$AnimationPlayer.play("left")
