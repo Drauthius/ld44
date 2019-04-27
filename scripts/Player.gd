@@ -3,12 +3,16 @@ extends KinematicBody2D
 export var speed: int = 200
 
 var angle = 0
+var is_dead = false
 
 const QPI = PI/4
 
 onready var Bullet = preload("res://scenes/Bullet.tscn")
 
 func _process(_delta):
+	if is_dead:
+		return
+	
 	angle = (get_global_mouse_position() - position).angle() + PI
 	
 	if angle > 5*QPI and angle < 7*QPI:
@@ -22,6 +26,9 @@ func _process(_delta):
 	$AnimationPlayer.advance(0.01)
 
 func _physics_process(_delta):
+	if is_dead:
+		return
+	
 	# Movement
 	var dir = Vector2(0, 0)
 
@@ -48,3 +55,8 @@ func _physics_process(_delta):
 		bullet.rotation = angle - PI
 		bullet.init(Color("002868"))
 		add_child(bullet)
+
+func die():
+	if not is_dead:
+		is_dead = true
+		$AnimationPlayer.play("death")
