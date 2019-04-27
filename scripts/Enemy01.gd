@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 const QPI = PI/4.0
 
-export var normal_speed = 100
+export var normal_speed = 150
 export var max_speed = 400
 export var time_until_removal = 4
 
@@ -23,16 +23,24 @@ func _physics_process(delta):
 	move_and_slide(direction * current_speed)
 	
 	var angle = direction.angle() + PI
-	
+	var wide = true
 	if angle > 5*QPI and angle < 7*QPI:
 		$AnimationPlayer.play("down_run")
+		wide = false
 	elif angle > 3*QPI and angle < 5*QPI:
 		$AnimationPlayer.play("right_run")
 	elif angle > QPI and angle < 3*QPI:
 		$AnimationPlayer.play("up_run")
+		wide = false
 	else:
 		$AnimationPlayer.play("left_run")
 	$AnimationPlayer.advance(0.01)
+	
+	# They're very oblong, so rotate the collision shape.
+	if wide:
+		$CollisionShape2D.rotation = PI/2
+	else:
+		$CollisionShape2D.rotation = 0
 	
 	for i in range(get_slide_count()):
 		var coll = get_slide_collision(i)

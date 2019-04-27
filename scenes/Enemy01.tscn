@@ -4,8 +4,8 @@
 [ext_resource path="res://art/enemy_01.png" type="Texture" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 12.745
-height = 7.43217
+radius = 5.5601
+height = 9.25033
 
 [sub_resource type="Animation" id=2]
 resource_name = "down_death"
@@ -147,7 +147,7 @@ __meta__ = {
 texture = ExtResource( 2 )
 vframes = 3
 hframes = 8
-frame = 23
+frame = 19
 region_enabled = true
 region_rect = Rect2( 0, 0, 256, 96 )
 

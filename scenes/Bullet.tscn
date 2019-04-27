@@ -4,7 +4,7 @@
 [ext_resource path="res://art/bullet-small.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 2.10188
+radius = 2.94254
 
 [node name="Bullet" type="Area2D"]
 script = ExtResource( 1 )

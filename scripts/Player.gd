@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var speed: int = 200
+export var speed: int = 120
 
 var angle = 0
 var is_dead = false
@@ -53,7 +53,7 @@ func _physics_process(_delta):
 		var bullet = Bullet.instance()
 		bullet.position = -Vector2(16, 0).rotated(angle)
 		bullet.rotation = angle - PI
-		bullet.init(Color("002868"))
+		bullet.init(Color("FFFF22"))
 		add_child(bullet)
 
 func die():
