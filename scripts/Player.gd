@@ -44,7 +44,7 @@ func _physics_process(_delta):
 	# Firing
 	if Input.is_action_just_pressed("game_fire"):
 		var bullet = Bullet.instance()
-		bullet.position = -Vector2(20, 0).rotated(angle)
+		bullet.position = -Vector2(16, 0).rotated(angle)
 		bullet.rotation = angle - PI
 		bullet.init(Color("002868"))
 		add_child(bullet)

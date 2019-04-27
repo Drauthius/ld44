@@ -29,3 +29,7 @@ func _physics_process(delta):
 	$AnimationPlayer.advance(0.01)
 	
 	pass
+
+func die():
+	queue_free()
+	pass

@@ -47,4 +47,3 @@ position = Vector2( 471.194, 224.938 )
 [node name="Enemy01" parent="." instance=ExtResource( 2 )]
 position = Vector2( 323.918, 290.388 )
 script = ExtResource( 3 )
-

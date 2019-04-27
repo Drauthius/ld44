@@ -72,7 +72,9 @@ tracks/0/keys = {
 "values": [ 11, 19 ]
 }
 
-[node name="Enemy01" type="KinematicBody2D"]
+[node name="Enemy01" type="KinematicBody2D" groups=[
+"Living",
+]]
 __meta__ = {
 "_edit_group_": true
 }
