@@ -52,6 +52,10 @@ func _ready():
 		
 	for key in sfx:
 		add_child(sfx[key])
+		if "enemy" in key:
+			sfx[key].set_bus("Enemy")
+		if "spawn" in key:
+			sfx[key].set_bus("Spawn")
 
 func stop_all_music():
 	for key in loops:
