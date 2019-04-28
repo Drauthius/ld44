@@ -11,7 +11,7 @@ var is_dead = false
 signal death
 
 onready var RoboSprite = preload("res://art/roboplayer.png")
-onready var Bullet = preload("res://scenes/Bullet.tscn")
+onready var Bullet = preload("res://scenes/BulletSmall.tscn")
 onready var MuzzleFlash = preload("res://scenes/MuzzleFlash.tscn")
 onready var SoundService = $"/root/SoundService"
 
@@ -60,7 +60,7 @@ func _physics_process(_delta):
 		var bullet = Bullet.instance()
 		bullet.position = get_global_transform().get_origin() - Vector2(16, 0).rotated(angle)
 		bullet.rotation = angle - PI
-		bullet.init(Color("FFFF22"))
+		bullet.init(Color("ffe699"))
 		$Gun.add_child(bullet)
 		
 		# Kickback

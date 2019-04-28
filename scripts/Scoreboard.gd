@@ -3,7 +3,9 @@ extends CanvasLayer
 const API_KEY_FILE = "res://resources/gamejolt_api_key.res"
 const SAVE_FILE = "user://savegame.save"
 
-onready var global_list = $ColorRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ItemList
+onready var global_list_rank = $ColorRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Rank
+onready var global_list_name = $ColorRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Name
+onready var global_list_score = $ColorRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Score
 onready var local_list = $ColorRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ItemList
 
 onready var post_label = $ColorRect/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/Label
@@ -26,8 +28,7 @@ func _ready():
 		
 		$GameJoltAPI.private_key = api_key
 		can_connect = true
-		global_list.add_item("Connecting...")
-		global_list.set_item_custom_fg_color(0, Color(0.8, 0.8, 0.2))
+		_set_global_list_message("Connecting", Color(0.8, 0.8, 0.2))
 	
 	# Read old save data
 	if file.open(SAVE_FILE, File.READ) == 0:
@@ -76,9 +77,7 @@ func add_score(score):
 		local_list.remove_item(10)
 	
 	if not can_connect:
-		global_list.clear()
-		global_list.add_item("Connection failed")
-		global_list.set_item_custom_fg_color(0, Color(0.8, 0.2, 0.2))
+		_set_global_list_message("Connection failed", Color(0.8, 0.2, 0.2))
 		disable_posting("Connection failed")
 	elif score < 100:
 		disable_posting()
@@ -100,6 +99,15 @@ func _save():
 		file.store_line(to_json(save))
 		file.close()
 
+func _set_global_list_message(msg = null, color = null):
+	global_list_rank.clear()
+	global_list_name.clear()
+	global_list_score.clear()
+	if msg:
+		global_list_name.add_item(msg)
+		if color:
+			global_list_name.set_item_custom_fg_color(0, color)
+
 func _on_RestartButton_pressed():
 	var err = get_tree().reload_current_scene()
 	if err != 0:
@@ -115,16 +123,19 @@ func _on_PostName_text_changed(new_text):
 
 func _on_GameJoltAPI_gamejolt_request_completed(requestResults):
 	if requestResults.requestPath == "/scores/":
-		global_list.clear()
+		_set_global_list_message()
 		if $GameJoltAPI.is_ok(requestResults):
 			var scores = requestResults.responseBody.scores
 			for i in range(scores.size()):
-				global_list.add_item("%2d  %-20s  %d" % [i+1, scores[i].guest, int(scores[i].score)])
+				global_list_rank.add_item(str(i+1))
+				global_list_name.add_item(scores[i].guest)
+				global_list_score.add_item(str(scores[i].score))
 				if scores[i].guest == post_edit.text:
-					global_list.set_item_custom_bg_color(global_list.get_item_count() - 1, highlight_color)
+					global_list_rank.set_item_custom_bg_color(i, highlight_color)
+					global_list_name.set_item_custom_bg_color(i, highlight_color)
+					global_list_score.set_item_custom_bg_color(i, highlight_color)
 		else:
-			global_list.add_item("Connection failed")
-			global_list.set_item_custom_fg_color(0, Color(0.8, 0.2, 0.2))
+			_set_global_list_message("Connection failed", Color(0.8, 0.2, 0.2))
 			disable_posting("Connection failed")
 	else:
 		if $GameJoltAPI.is_ok(requestResults):

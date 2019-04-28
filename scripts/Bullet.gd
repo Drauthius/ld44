@@ -1,7 +1,7 @@
 extends Area2D
 
 export var speed : int = 400
-export var lifetime : float = 0.4
+export var lifetime : float = 0.35
 export var push : int = 5
 
 onready var direction = Vector2(cos(rotation), sin(rotation))
@@ -10,14 +10,15 @@ func _ready():
 	$Timer.start(lifetime)
 
 func init(color):
-	#$Sprite.modulate = color
-	pass
+	$Sprite.self_modulate = color
 
 func _physics_process(delta):
-	position += direction * speed * delta
+	if not $AnimationPlayer.is_playing():
+		position += direction * speed * delta
 
 func _on_Timer_timeout():
-	queue_free()
+	$CollisionShape2D.disabled = true
+	$AnimationPlayer.play("despawn")
 	
 func _on_Bullet_body_entered(body):
 	if body == $"../..":
@@ -28,4 +29,9 @@ func _on_Bullet_body_entered(body):
 		# Push back
 		body.position += direction * push
 		body.die()
+	
+	$CollisionShape2D.set_deferred("disabled", true)
+	$AnimationPlayer.play("despawn")
+
+func _on_AnimationPlayer_animation_finished(_anim_name):
 	queue_free()

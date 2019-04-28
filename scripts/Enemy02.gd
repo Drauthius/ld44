@@ -98,7 +98,7 @@ func _physics_process(delta):
 			var bullet = Bullet.instance()
 			bullet.position = get_global_transform().get_origin() - Vector2(16, 0).rotated(angle)
 			bullet.rotation = angle - PI
-			bullet.init(Color(0.8, 0.5, 1.0, 1.0))
+			bullet.init(Color("e3c7ff"))
 			bullet.lifetime = shooting_distance / float(bullet_speed)
 			bullet.speed = bullet_speed
 			$Gun.add_child(bullet)
