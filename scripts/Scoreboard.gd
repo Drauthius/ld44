@@ -117,7 +117,7 @@ func _on_GameJoltAPI_gamejolt_request_completed(requestResults):
 		if $GameJoltAPI.is_ok(requestResults):
 			var scores = requestResults.responseBody.scores
 			for i in range(scores.size()):
-				global_list.add_item("%2d  %-20s  %d" % [i+1, scores[i].guest, int(scores[i].score)*10])
+				global_list.add_item("%2d  %-20s  %d" % [i+1, scores[i].guest, int(scores[i].score)])
 				if scores[i].guest == post_edit.text:
 					global_list.set_item_custom_bg_color(global_list.get_item_count() - 1, highlight_color)
 		else:
