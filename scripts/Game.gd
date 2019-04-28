@@ -1,11 +1,12 @@
 extends Node2D
 
 onready var Enemy = preload("res://scenes/Enemy01.tscn")
-onready var Scoreboard = preload("res://scenes/Scoreboard.tscn")
+onready var Scoreboard = $"/root/Scoreboard"
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	$GUI.set_score(0)
+	Scoreboard.hide()
 	$ScoreTimer.start()
 
 func _on_SpawnTimer_timeout():
@@ -23,4 +24,5 @@ func _on_Enemy_death():
 
 func _on_Player_death():
 	$ScoreTimer.stop()
-	add_child(Scoreboard.instance())
+	Scoreboard.show()
+	Scoreboard.add_score($GUI.get_score())

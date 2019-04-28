@@ -22,6 +22,11 @@ config/icon="res://icon.png"
 [autoload]
 
 SoundService="*res://scripts/SoundService.gd"
+Scoreboard="*res://scenes/Scoreboard.tscn"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "gamejolt" )
 
 [importer_defaults]
 
