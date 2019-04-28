@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://resources/tileset_grass_dirt.tres" type="TileSet" id=2]
 [ext_resource path="res://art/house.png" type="Texture" id=3]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/Enemy02.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/GUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/GUI.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Gradient" id=1]
 
@@ -71,8 +70,6 @@ shape = SubResource( 5 )
 ] instance=ExtResource( 4 )]
 position = Vector2( 460.917, 100.293 )
 
-[node name="Enemy02" parent="." instance=ExtResource( 5 )]
-
 [node name="SpawnPoints" type="Node2D" parent="."]
 
 [node name="Spawn1" type="Position2D" parent="SpawnPoints"]
@@ -94,10 +91,10 @@ position = Vector2( 1013.7, 10.8652 )
 position = Vector2( 5.45996, 586.559 )
 
 [node name="Spawn7" type="Position2D" parent="SpawnPoints"]
-position = Vector2( 421.755, 585.785 )
+position = Vector2( 421.004, 586.786 )
 
 [node name="Spawn8" type="Position2D" parent="SpawnPoints"]
-position = Vector2( 701.09, 583.464 )
+position = Vector2( 705.507, 587.328 )
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -106,7 +103,7 @@ autostart = true
 [node name="ScoreTimer" type="Timer" parent="."]
 wait_time = 10.0
 
-[node name="GUI" parent="." instance=ExtResource( 6 )]
+[node name="GUI" parent="." instance=ExtResource( 5 )]
 [connection signal="death" from="Player" to="." method="_on_Player_death"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]

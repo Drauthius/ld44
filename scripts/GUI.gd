@@ -13,4 +13,4 @@ func get_money():
 	return int(money.text)
 
 func set_money(new_amount):
-	money.text = str(new_amount)
+	money.text = "$" + str(new_amount)

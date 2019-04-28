@@ -1,6 +1,5 @@
 extends Node2D
 
-onready var Enemy = preload("res://scenes/Enemy01.tscn")
 onready var Enemies = [
 	preload("res://scenes/Enemy01.tscn"),
 	preload("res://scenes/Enemy02.tscn")
@@ -22,11 +21,12 @@ func _on_SpawnTimer_timeout():
 		var enemy = null
 		var enemy_index = null
 		if $GUI.get_score() < 100:
-			enemy_index = randi() % 2
-			
-#			var enemy = Enemy.instance()
+			var rand = randf()
+			enemy_index = int(rand * rand * 2)
 		else:
-			enemy_index = randi() % Enemies.size()
+			var rand = randf()
+			enemy_index = int(rand * rand * Enemies.size())
+			#enemy_index = randi() % Enemies.size()
 			
 		num_spawns += enemy_index + 1
 		enemy = Enemies[enemy_index].instance()
@@ -40,7 +40,9 @@ func _on_ScoreTimer_timeout():
 	$GUI.set_score($GUI.get_score() + 1)
 
 func _on_Enemy_death():
-	$GUI.set_score($GUI.get_score() + 5)
+	if not $ScoreTimer.is_stopped():
+		$GUI.set_score($GUI.get_score() + 5)
+		$GUI.set_money($GUI.get_money() + 5)
 
 func _on_Player_death():
 	$ScoreTimer.stop()

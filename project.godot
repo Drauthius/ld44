@@ -24,6 +24,10 @@ config/icon="res://icon.png"
 SoundService="*res://scripts/SoundService.gd"
 Scoreboard="*res://scenes/Scoreboard.tscn"
 
+[display]
+
+window/size/height=800
+
 [editor_plugins]
 
 enabled=PoolStringArray( "gamejolt" )

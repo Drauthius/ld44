@@ -9,6 +9,8 @@ export var bullet_speed = 180
 var shooting_distance_sqrd = shooting_distance*shooting_distance
 var evasion_distance_sqrd = evasion_distance*evasion_distance
 #export var max_speed = 400
+export var cornered_distance = 20
+export var bounds = Vector2(1024, 600)
 
 export var time_until_removal = 4
 export var time_until_next_shot = 0.8
@@ -43,7 +45,7 @@ func _physics_process(delta):
 			queue_free()
 		return
 	
-	var player_distance_sqrd = (position - player.position).length_squared()
+	var player_distance_sqrd = position.distance_squared_to(player.position)
 	angle = (-position + player.position).angle() + PI
 	
 	if behaviour_state == PURSUE:
@@ -52,7 +54,11 @@ func _physics_process(delta):
 		pass
 	elif behaviour_state == SHOOT:
 		if player_distance_sqrd < evasion_distance_sqrd:
-			behaviour_state = EVADE
+			if position.x >= cornered_distance and position.y >= cornered_distance and \
+			   position.x <= bounds.x - cornered_distance and position.y <= bounds.y - cornered_distance:
+				behaviour_state = EVADE
+		elif player_distance_sqrd > shooting_distance_sqrd:
+			behaviour_state = PURSUE
 	
 	var current_speed = normal_speed
 	var direction = (player.position - position).normalized()
