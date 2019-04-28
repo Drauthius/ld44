@@ -1,6 +1,10 @@
 extends Node2D
 
 onready var Enemy = preload("res://scenes/Enemy01.tscn")
+onready var Enemies = [
+	preload("res://scenes/Enemy01.tscn"),
+	preload("res://scenes/Enemy02.tscn")
+]
 onready var Scoreboard = $"/root/Scoreboard"
 
 func _ready():
@@ -8,14 +12,19 @@ func _ready():
 	$GUI.set_score(0)
 	Scoreboard.hide()
 	$ScoreTimer.start()
+	SoundService.game()
 
 func _on_SpawnTimer_timeout():
-	var spawn_point = randi() % $SpawnPoints.get_child_count()
-	var enemy = Enemy.instance()
-	SoundService.enemy01_spawn()
-	enemy.position = $SpawnPoints.get_child(spawn_point).position
-	enemy.connect("death", self, "_on_Enemy_death")
-	add_child(enemy)
+	var num_spawns = 0
+	while num_spawns < $GUI.get_score() / 10 + 1:
+		var spawn_point = randi() % $SpawnPoints.get_child_count()
+		var enemy = Enemy.instance()
+		enemy.position = $SpawnPoints.get_child(spawn_point).position
+		enemy.connect("death", self, "_on_Enemy_death")
+		add_child(enemy)
+		num_spawns += 1
+	
+	
 
 func _on_ScoreTimer_timeout():
 	$GUI.set_score($GUI.get_score() + 1)

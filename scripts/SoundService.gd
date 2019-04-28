@@ -17,7 +17,11 @@ var sfx = {
 	"enemy01_death01": AudioStreamPlayer.new(),
 	"enemy01_death02": AudioStreamPlayer.new(),
 	"enemy02_speech01": AudioStreamPlayer.new(),
-	"enemy02_speech02": AudioStreamPlayer.new()
+	"enemy02_speech02": AudioStreamPlayer.new(),
+	"enemy02_speech03": AudioStreamPlayer.new(),
+	"enemy02_death01": AudioStreamPlayer.new(),
+	"enemy02_death02": AudioStreamPlayer.new(),
+	"enemy02_death03": AudioStreamPlayer.new()
 }
 
 
@@ -44,6 +48,10 @@ func _ready():
 	sfx.enemy01_death02.stream = preload("res://sounds/sfx/enemy01_death02.wav")
 	sfx.enemy02_speech01.stream = preload("res://sounds/sfx/enemy02_speech01.wav")
 	sfx.enemy02_speech02.stream = preload("res://sounds/sfx/enemy02_speech02.wav")
+	sfx.enemy02_speech03.stream = preload("res://sounds/sfx/enemy02_speech03.wav")
+	sfx.enemy02_death01.stream = preload("res://sounds/sfx/enemy02_death01.wav")
+	sfx.enemy02_death02.stream = preload("res://sounds/sfx/enemy02_death02.wav")
+	sfx.enemy02_death03.stream = preload("res://sounds/sfx/enemy02_death03.wav")
 	
 	for key in loops:
 		add_child(loops[key])
@@ -119,9 +127,21 @@ func enemy01_spawn():
 	sfx[key_string].play()
 	pass
 
+func enemy02_spawn():
+	var index = randi() % 3 + 1
+	var key_string = str("enemy02_speech0", index)
+	sfx[key_string].play()
+	pass
+
 func enemy01_death():
 	var index = randi() % 2 + 1
 	var key_string = str("enemy01_death0", index)
+	sfx[key_string].play()
+	pass
+
+func enemy02_death():
+	var index = randi() % 2 + 1
+	var key_string = str("enemy02_death0", index)
 	sfx[key_string].play()
 	pass
 

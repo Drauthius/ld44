@@ -33,6 +33,8 @@ onready var MuzzleFlash = preload("res://scenes/MuzzleFlash.tscn")
 onready var SoundService = $"/root/SoundService"
 
 
+func _ready():
+	SoundService.enemy02_spawn()
 
 func _physics_process(delta):
 	if is_dead:
@@ -106,6 +108,7 @@ func _physics_process(delta):
 func die():
 	if not is_dead:
 		is_dead = true
+		SoundService.enemy02_death()
 		#set_deferred("$CollisionShape2D.disabled", true)
 		emit_signal("death")
 		$AnimationPlayer.play("left_death")

@@ -19,6 +19,9 @@ var rand_direction = "r"
 
 onready var player = $"../Player"
 
+func _ready():
+	SoundService.enemy01_spawn()
+
 func _physics_process(delta):
 	if is_dead:
 		death_timer += delta
