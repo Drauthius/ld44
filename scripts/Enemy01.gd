@@ -3,11 +3,13 @@ extends KinematicBody2D
 const QPI = PI/4.0
 
 export var normal_speed = 150
-export var max_speed = 400
+#export var max_speed = 400
 export var time_until_removal = 4
 
 var death_timer = 0.0
 var is_dead = false
+
+signal death
 
 onready var player = $"../Player"
 
@@ -20,7 +22,7 @@ func _physics_process(delta):
 	
 	var current_speed = normal_speed
 	var direction = (player.position - position).normalized()
-	move_and_slide(direction * current_speed)
+	var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
 	
 	var angle = direction.angle() + PI
 	var wide = true
@@ -34,7 +36,6 @@ func _physics_process(delta):
 		wide = false
 	else:
 		$AnimationPlayer.play("left_run")
-	$AnimationPlayer.advance(0.01)
 	
 	# They're very oblong, so rotate the collision shape.
 	if wide:
@@ -47,9 +48,15 @@ func _physics_process(delta):
 		if coll.collider == player:
 			player.die()
 			$AnimationPlayer.stop()
+	
+	if velocity.length_squared() <= 1000:
+		$AnimationPlayer.stop()
+		return
 
 func die():
-	is_dead = true
-	$CollisionShape2D.disabled = true
+	if not is_dead:
+		is_dead = true
+		#set_deferred("$CollisionShape2D.disabled", true)
+		emit_signal("death")
 	
 	$AnimationPlayer.play($AnimationPlayer.current_animation.replace("_run", "_death"))

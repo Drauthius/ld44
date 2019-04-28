@@ -1,13 +1,17 @@
 extends KinematicBody2D
 
+const QPI = PI/4
+
 export var speed: int = 120
+export var kickback: int = 3
 
 var angle = 0
 var is_dead = false
 
-const QPI = PI/4
+signal death
 
 onready var Bullet = preload("res://scenes/Bullet.tscn")
+onready var MuzzleFlash = preload("res://scenes/MuzzleFlash.tscn")
 
 func _process(_delta):
 	if is_dead:
@@ -50,13 +54,24 @@ func _physics_process(_delta):
 	
 	# Firing
 	if Input.is_action_just_pressed("game_fire"):
+		# Bullet
 		var bullet = Bullet.instance()
 		bullet.position = -Vector2(16, 0).rotated(angle)
 		bullet.rotation = angle - PI
 		bullet.init(Color("FFFF22"))
 		add_child(bullet)
+		
+		# Kickback
+		position -= bullet.direction * kickback
+		
+		# Muzzle flash
+		var muzzle_flash = MuzzleFlash.instance()
+		muzzle_flash.position = bullet.position
+		muzzle_flash.rotation = bullet.rotation
+		add_child(muzzle_flash)
 
 func die():
 	if not is_dead:
 		is_dead = true
 		$AnimationPlayer.play("death")
+		emit_signal("death")
