@@ -8,6 +8,7 @@ var loops = {
 
 var sfx = {
 	"gunshot_player": AudioStreamPlayer.new(),
+	"player_death01": AudioStreamPlayer.new(),
 	"gunshot_enemy02": AudioStreamPlayer.new(),
 	"meny_click": AudioStreamPlayer.new(),
 	"end_game": AudioStreamPlayer.new(),
@@ -43,6 +44,7 @@ func _ready():
 	loops.main_loop.stream = preload("res://sounds/music/main_loop.wav")
 	loops.main_loop_intro.stream = preload("res://sounds/music/main_loop_intro.wav")
 	
+	sfx.player_death01.stream = preload("res://sounds/sfx/player_death01.wav")
 	sfx.gunshot_player.stream = preload("res://sounds/sfx/gun01.wav")
 	sfx.gunshot_enemy02.stream = preload("res://sounds/sfx/gun02.wav")
 	sfx.enemy01_spawn01.stream = preload("res://sounds/sfx/enemy01_spawn01.wav")
@@ -68,6 +70,8 @@ func _ready():
 			sfx[key].set_bus("Enemy")
 		if "spawn" in key:
 			sfx[key].set_bus("Spawn")
+		if "enemy02_speech" in key or "enemy02_death" in key:
+			sfx[key].set_bus("Speech")
 
 func stop_all_music():
 	for key in loops:
@@ -98,7 +102,7 @@ func play_or_queue(loops):
 			at_least_one_is_null = true
 		else:
 			all_are_null = false
-	print("all_are_null ", all_are_null, "; at_least_one_is_null ", at_least_one_is_null)
+#	print("all_are_null ", all_are_null, "; at_least_one_is_null ", at_least_one_is_null)
 	if all_are_null:
 		for key in current_bg_music:
 			if current_bg_music[key] != null:
@@ -130,38 +134,55 @@ func death_scene_transition():
 func enemy01_spawn():
 	var index = randi() % 3 + 1
 	var key_string = str("enemy01_spawn0", index)
+	sfx[key_string].pitch_scale = randf() * 0.8 + 0.8
 	sfx[key_string].play()
 	pass
 
 func enemy02_spawn():
 	var index = randi() % 3 + 1
 	var key_string = str("enemy02_speech0", index)
+	sfx[key_string].pitch_scale = randf() * 0.8 + 0.8
 	sfx[key_string].play()
 	pass
 
 func enemy01_death():
 	var index = randi() % 2 + 1
 	var key_string = str("enemy01_death0", index)
+	sfx[key_string].pitch_scale = randf() * 0.8 + 0.8
 	sfx[key_string].play()
 	pass
 
 func enemy02_death():
 	var index = randi() % 2 + 1
 	var key_string = str("enemy02_death0", index)
+	sfx[key_string].pitch_scale = randf() * 0.8 + 0.8
 	sfx[key_string].play()
 	pass
 
 func enemy02_speech():
 	var index = randi() % 2 + 1
 	var key_string = str("enemy02_speech0", index)
+	sfx[key_string].pitch_scale = randf() * 0.8 + 0.8
 	sfx[key_string].play()
 	pass
 
 func gunshot_player():
+	sfx.gunshot_player.pitch_scale = randf() * 0.8 + 0.8
 	sfx.gunshot_player.play()
 
 func gunshot_enemy02():
+	sfx.gunshot_enemy02.pitch_scale = randf() * 0.8 + 0.8
 	sfx.gunshot_enemy02.play()
+	
+func player_death():
+	var num_player_death = 0
+	for key in sfx:
+		if "player_death" in key:
+			num_player_death += 1
+	var index = randi() % num_player_death + 1
+	var key_string = str("player_death0", index)
+	sfx[key_string].pitch_scale = randf() * 0.8 + 0.8
+	sfx[key_string].play()
 
 func click():
 	sfx.click.play()

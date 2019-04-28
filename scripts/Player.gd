@@ -78,5 +78,6 @@ func die():
 		is_dead = true
 		$AnimationPlayer.play("death")
 		emit_signal("death")
+		SoundService.player_death()
 		
 		$Camera2D.shake(Vector2(1.5, 1.5), 0.25)
