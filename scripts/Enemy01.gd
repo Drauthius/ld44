@@ -11,6 +11,12 @@ var is_dead = false
 
 signal death
 
+var behaviour_timer = 0.0
+export var timer_long = 2.0
+export var timer_short = 0.5
+export var behaviour_switch = "pursue"
+var rand_direction = "r"
+
 onready var player = $"../Player"
 
 func _physics_process(delta):
@@ -20,8 +26,28 @@ func _physics_process(delta):
 			queue_free()
 		return
 	
+	behaviour_timer += delta
+	if behaviour_switch == "pursue":
+		if behaviour_timer > timer_long:
+			behaviour_switch = "evade"
+			behaviour_timer = 0.0
+	elif behaviour_switch == "evade":
+		if behaviour_timer > timer_short:
+			behaviour_switch = "pursue"
+			if rand_range(0.0, 1.0) > 0.5:
+				rand_direction = "r"
+			else:
+				rand_direction = "l"
+			behaviour_timer = 0.0
+	
 	var current_speed = normal_speed
 	var direction = (player.position - position).normalized()
+	if behaviour_switch == "evade":
+		if rand_direction == "r":
+			direction = (direction + direction.tangent()).normalized()
+		else:
+			direction = (direction - direction.tangent()).normalized()
+	
 	var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
 	
 	var angle = direction.angle() + PI

@@ -12,6 +12,7 @@ signal death
 
 onready var Bullet = preload("res://scenes/Bullet.tscn")
 onready var MuzzleFlash = preload("res://scenes/MuzzleFlash.tscn")
+onready var SoundService = $"/root/SoundService"
 
 func _process(_delta):
 	if is_dead:
@@ -66,6 +67,7 @@ func _physics_process(_delta):
 		
 		# Muzzle flash
 		var muzzle_flash = MuzzleFlash.instance()
+		SoundService.gunshot_player()
 		muzzle_flash.position = bullet.position
 		muzzle_flash.rotation = bullet.rotation
 		add_child(muzzle_flash)
