@@ -7,6 +7,7 @@ export var kickback: int = 3
 
 var angle = 0
 var is_dead = false
+var num_deaths = 0
 
 signal death
 
@@ -75,9 +76,16 @@ func _physics_process(_delta):
 
 func die():
 	if not is_dead:
+		num_deaths += 1
 		is_dead = true
 		$AnimationPlayer.play("death")
 		emit_signal("death")
 		SoundService.player_death()
 		
 		$Camera2D.shake(Vector2(1.5, 1.5), 0.25)
+
+func respawn():
+	$Sprite.texture = RoboSprite
+	speed *= 2
+	kickback *= 2
+	is_dead = false

@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/ChoicePanel.gd" type="Script" id=1]
+[ext_resource path="res://resources/theme.tres" type="Theme" id=2]
+
+[node name="ChoicePanel" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_left = 343.0
+margin_top = 340.0
+margin_right = 680.0
+margin_bottom = 460.0
+theme = ExtResource( 2 )
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer"]
+margin_right = 337.0
+margin_bottom = 120.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 335.0
+margin_bottom = 118.0
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
+margin_right = 333.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "WE CAN REBUILD IT!
+For the small fee of $0
+you can get a new life"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/Panel/VBoxContainer"]
+margin_top = 94.0
+margin_right = 333.0
+margin_bottom = 116.0
+size_flags_horizontal = 3
+
+[node name="YesButton" type="Button" parent="CenterContainer/Panel/VBoxContainer/HBoxContainer"]
+margin_right = 100.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_horizontal = 2
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="CenterContainer/Panel/VBoxContainer/HBoxContainer"]
+margin_left = 233.0
+margin_right = 333.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_horizontal = 9
+size_flags_vertical = 9
+text = "No"
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/HBoxContainer/YesButton" to="." method="_on_YesButton_pressed"]
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/HBoxContainer/NoButton" to="." method="_on_NoButton_pressed"]

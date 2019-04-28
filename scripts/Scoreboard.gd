@@ -47,7 +47,7 @@ func hide():
 	$ColorRect.hide()
 
 func disable_posting(reason = null):
-	post_label.text = reason if reason else "Score too low"
+	post_label.text = reason if reason else "Score too low (<100)"
 	post_edit.editable = false
 	post_button.disabled = true
 

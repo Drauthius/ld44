@@ -17,8 +17,10 @@ export var time_until_next_shot = 0.8
 var death_timer = 0.0
 var shooting_timer = 0.0
 var is_dead = false
+var worth = 0
+var difficulty = 0
 
-signal death
+signal death(KinematicBody2D)
 
 var behaviour_timer = 0.0
 export var timer_long = 2.0
@@ -37,6 +39,8 @@ onready var SoundService = $"/root/SoundService"
 
 func _ready():
 	SoundService.enemy02_spawn()
+	if difficulty <= 2:
+		time_until_next_shot *= max(1, 2 - difficulty)
 
 func _physics_process(delta):
 	if is_dead:
@@ -56,7 +60,8 @@ func _physics_process(delta):
 		if player_distance_sqrd < evasion_distance_sqrd:
 			if position.x >= cornered_distance and position.y >= cornered_distance and \
 			   position.x <= bounds.x - cornered_distance and position.y <= bounds.y - cornered_distance:
-				behaviour_state = EVADE
+				if difficulty > 2:
+					behaviour_state = EVADE
 		elif player_distance_sqrd > shooting_distance_sqrd:
 			behaviour_state = PURSUE
 	
@@ -122,7 +127,7 @@ func die():
 		is_dead = true
 		SoundService.enemy02_death()
 		#set_deferred("$CollisionShape2D.disabled", true)
-		emit_signal("death")
+		emit_signal("death", self)
 		$AnimationPlayer.play("left_death")
 	else:
 		$AnimationPlayer.play("left_death")
