@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/speech02.wav-01e02e644c321ad37e80ba7a0c42a678.sample"
+
+[deps]
+
+source_file="res://sounds/sfx/speech02.wav"
+dest_files=[ "res://.import/speech02.wav-01e02e644c321ad37e80ba7a0c42a678.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

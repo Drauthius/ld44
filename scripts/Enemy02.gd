@@ -66,8 +66,29 @@ func _physics_process(delta):
 			behaviour_timer = 0.0
 			behaviour_state = PURSUE
 	
+	#movement handling
+	if behaviour_state != SHOOT:
+		var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
+		if angle > 5*QPI and angle < 7*QPI:
+			$AnimationPlayer.play("down_run")
+		elif angle > 3*QPI and angle < 5*QPI:
+			$AnimationPlayer.play("right_run")
+		elif angle > QPI and angle < 3*QPI:
+			$AnimationPlayer.play("up_run")
+		else:
+			$AnimationPlayer.play("left_run")
+	
 	#handle shooting
 	if behaviour_state == SHOOT:
+		var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
+		if angle > 5*QPI and angle < 7*QPI:
+			$AnimationPlayer.play("down")
+		elif angle > 3*QPI and angle < 5*QPI:
+			$AnimationPlayer.play("right")
+		elif angle > QPI and angle < 3*QPI:
+			$AnimationPlayer.play("up")
+		else:
+			$AnimationPlayer.play("left")
 		
 		if shooting_timer < time_until_next_shot:
 			shooting_timer += delta
@@ -80,26 +101,15 @@ func _physics_process(delta):
 			bullet.lifetime = 1.2
 			bullet.speed = 300
 			add_child(bullet)
-		
 		pass
-	
-	#movement handling
-	if behaviour_state != SHOOT:
-		var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
-		if angle > 5*QPI and angle < 7*QPI:
-			$AnimationPlayer.play("down_run")
-		elif angle > 3*QPI and angle < 5*QPI:
-			$AnimationPlayer.play("right_run")
-		elif angle > QPI and angle < 3*QPI:
-			$AnimationPlayer.play("up_run")
-		else:
-			$AnimationPlayer.play("left_run")
 
 func die():
 	if not is_dead:
 		is_dead = true
 		#set_deferred("$CollisionShape2D.disabled", true)
 		emit_signal("death")
-	
-	$AnimationPlayer.play($AnimationPlayer.current_animation.replace("_run", "_death"))
+		$AnimationPlayer.play("left_death")
+	else:
+		$AnimationPlayer.play("left_death")
+		$AnimationPlayer.seek(0.1)
 

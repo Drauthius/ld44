@@ -81,6 +81,7 @@ func _physics_process(delta):
 
 func die():
 	if not is_dead:
+		SoundService.enemy01_death()
 		is_dead = true
 		#set_deferred("$CollisionShape2D.disabled", true)
 		emit_signal("death")

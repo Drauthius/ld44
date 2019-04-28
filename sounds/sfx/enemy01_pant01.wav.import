@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/enemy01_pant01.wav-11ca5b7d9464d09e4d9de47ecff74f6f.sample"
+
+[deps]
+
+source_file="res://sounds/sfx/enemy01_pant01.wav"
+dest_files=[ "res://.import/enemy01_pant01.wav-11ca5b7d9464d09e4d9de47ecff74f6f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

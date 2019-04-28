@@ -1,14 +1,23 @@
 extends Node
 
 var loops = {
-#	"drum_01_main_menu": AudioStreamPlayer.new(),
+	"intro": AudioStreamPlayer.new(),
+	"main_loop": AudioStreamPlayer.new(),
+	"main_loop_intro": AudioStreamPlayer.new()
 }
 
 var sfx = {
 	"gunshot_player": AudioStreamPlayer.new(),
 	"meny_click": AudioStreamPlayer.new(),
 	"end_game": AudioStreamPlayer.new(),
-	"weapon_hit": AudioStreamPlayer.new()
+	"weapon_hit": AudioStreamPlayer.new(),
+	"enemy01_spawn01": AudioStreamPlayer.new(),
+	"enemy01_spawn02": AudioStreamPlayer.new(),
+	"enemy01_spawn03": AudioStreamPlayer.new(),
+	"enemy01_death01": AudioStreamPlayer.new(),
+	"enemy01_death02": AudioStreamPlayer.new(),
+	"enemy02_speech01": AudioStreamPlayer.new(),
+	"enemy02_speech02": AudioStreamPlayer.new()
 }
 
 
@@ -28,6 +37,13 @@ func _ready():
 #	loops.drum_01_main_menu.stream = preload("res://assets/sounds/music/drums 01 - menu.wav")
 	
 	sfx.gunshot_player.stream = preload("res://sounds/sfx/gun01.wav")
+	sfx.enemy01_spawn01.stream = preload("res://sounds/sfx/enemy01_spawn01.wav")
+	sfx.enemy01_spawn02.stream = preload("res://sounds/sfx/enemy01_spawn02.wav")
+	sfx.enemy01_spawn03.stream = preload("res://sounds/sfx/enemy01_spawn03.wav")
+	sfx.enemy01_death01.stream = preload("res://sounds/sfx/enemy01_death01.wav")
+	sfx.enemy01_death02.stream = preload("res://sounds/sfx/enemy01_death02.wav")
+	sfx.enemy02_speech01.stream = preload("res://sounds/sfx/enemy02_speech01.wav")
+	sfx.enemy02_speech02.stream = preload("res://sounds/sfx/enemy02_speech02.wav")
 	
 	for key in loops:
 		add_child(loops[key])
@@ -36,9 +52,6 @@ func _ready():
 		
 	for key in sfx:
 		add_child(sfx[key])
-	
-	#something
-#	physics_start_player.stream = preload("res://music/physics_start.wav")
 
 func stop_all_music():
 	for key in loops:
@@ -82,17 +95,13 @@ func play_or_queue(loops):
 
 func main_menu():
 	var loopses = {
-		"drums":loops.drum_01_main_menu,
-		"koto": null,
-		"flute": null
+		"music":loops.intro
 		}
 	play_or_queue(loopses)
 
-func survive_2x_waves():
+func game():
 	var loopses = {
-		"drums":loops.drum_04_survive_2x_waves,
-		"koto": loops.koto_01_heated_battle,
-		"flute": loops.flute_01_lohealth
+		"music":loops.intro
 		}
 	play_or_queue(loopses)
 
@@ -100,8 +109,22 @@ func death_scene_transition():
 	sfx.death_scene_transition.play()
 	pass
 
-func weapon_sacrifice():
-	sfx.weapon_sacrifice.play()
+func enemy01_spawn():
+	var index = randi() % 3 + 1
+	var key_string = str("enemy01_spawn0", index)
+	sfx[key_string].play()
+	pass
+
+func enemy01_death():
+	var index = randi() % 2 + 1
+	var key_string = str("enemy01_death0", index)
+	sfx[key_string].play()
+	pass
+
+func enemy02_speech():
+	var index = randi() % 2 + 1
+	var key_string = str("enemy02_speech0", index)
+	sfx[key_string].play()
 	pass
 
 func gunshot_player():

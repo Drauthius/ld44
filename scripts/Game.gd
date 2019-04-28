@@ -12,6 +12,7 @@ func _ready():
 func _on_SpawnTimer_timeout():
 	var spawn_point = randi() % $SpawnPoints.get_child_count()
 	var enemy = Enemy.instance()
+	SoundService.enemy01_spawn()
 	enemy.position = $SpawnPoints.get_child(spawn_point).position
 	enemy.connect("death", self, "_on_Enemy_death")
 	add_child(enemy)
