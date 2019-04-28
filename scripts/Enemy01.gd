@@ -4,8 +4,8 @@ const QPI = PI/4.0
 
 export var normal_speed = 150
 #export var max_speed = 400
-export var time_until_removal = 4
 
+export var time_until_removal = 4
 var death_timer = 0.0
 var is_dead = false
 
