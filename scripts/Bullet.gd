@@ -10,7 +10,8 @@ func _ready():
 	$Timer.start(lifetime)
 
 func init(color):
-	$Sprite.modulate = color
+	#$Sprite.modulate = color
+	pass
 
 func _physics_process(delta):
 	position += direction * speed * delta
@@ -19,7 +20,7 @@ func _on_Timer_timeout():
 	queue_free()
 	
 func _on_Bullet_body_entered(body):
-	if body == $"..":
+	if body == $"../..":
 		return
 	
 	var groups = body.get_groups()

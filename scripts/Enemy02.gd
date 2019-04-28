@@ -5,6 +5,7 @@ const QPI = PI/4.0
 export var normal_speed = 90
 export var shooting_distance = 200
 export var evasion_distance = 150
+export var bullet_speed = 180
 var shooting_distance_sqrd = shooting_distance*shooting_distance
 var evasion_distance_sqrd = evasion_distance*evasion_distance
 #export var max_speed = 400
@@ -28,10 +29,9 @@ var rand_direction = RIGHT
 
 onready var player = $"../Player"
 
-onready var Bullet = preload("res://scenes/Bullet.tscn")
+onready var Bullet = preload("res://scenes/BulletBig.tscn")
 onready var MuzzleFlash = preload("res://scenes/MuzzleFlash.tscn")
 onready var SoundService = $"/root/SoundService"
-
 
 func _ready():
 	SoundService.enemy02_spawn()
@@ -70,7 +70,7 @@ func _physics_process(delta):
 	
 	#movement handling
 	if behaviour_state != SHOOT:
-		var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
+		var _velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
 		if angle > 5*QPI and angle < 7*QPI:
 			$AnimationPlayer.play("down_run")
 		elif angle > 3*QPI and angle < 5*QPI:
@@ -82,7 +82,7 @@ func _physics_process(delta):
 	
 	#handle shooting
 	if behaviour_state == SHOOT:
-		var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
+		var _velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
 		if angle > 5*QPI and angle < 7*QPI:
 			$AnimationPlayer.play("down")
 		elif angle > 3*QPI and angle < 5*QPI:
@@ -97,12 +97,18 @@ func _physics_process(delta):
 		else:
 			shooting_timer = 0.0
 			var bullet = Bullet.instance()
-			bullet.position = -Vector2(16, 0).rotated(angle)
+			bullet.position = get_global_transform().get_origin() - Vector2(16, 0).rotated(angle)
 			bullet.rotation = angle - PI
-			bullet.init(Color("4f75ee"))
-			bullet.lifetime = 1.2
-			bullet.speed = 300
-			add_child(bullet)
+			bullet.init(Color(0.8, 0.5, 1.0, 1.0))
+			bullet.lifetime = shooting_distance / float(bullet_speed)
+			bullet.speed = bullet_speed
+			$Gun.add_child(bullet)
+			
+			# Muzzle flash
+			var muzzle_flash = MuzzleFlash.instance()
+			muzzle_flash.position = -Vector2(16, 0).rotated(angle)
+			muzzle_flash.rotation = bullet.rotation
+			add_child(muzzle_flash)
 		pass
 
 func die():

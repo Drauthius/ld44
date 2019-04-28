@@ -10,6 +10,7 @@ var is_dead = false
 
 signal death
 
+onready var RoboSprite = preload("res://art/roboplayer.png")
 onready var Bullet = preload("res://scenes/Bullet.tscn")
 onready var MuzzleFlash = preload("res://scenes/MuzzleFlash.tscn")
 onready var SoundService = $"/root/SoundService"
@@ -57,10 +58,10 @@ func _physics_process(_delta):
 	if Input.is_action_just_pressed("game_fire"):
 		# Bullet
 		var bullet = Bullet.instance()
-		bullet.position = -Vector2(16, 0).rotated(angle)
+		bullet.position = get_global_transform().get_origin() - Vector2(16, 0).rotated(angle)
 		bullet.rotation = angle - PI
 		bullet.init(Color("FFFF22"))
-		add_child(bullet)
+		$Gun.add_child(bullet)
 		
 		# Kickback
 		position -= bullet.direction * kickback
@@ -68,7 +69,7 @@ func _physics_process(_delta):
 		# Muzzle flash
 		var muzzle_flash = MuzzleFlash.instance()
 		SoundService.gunshot_player()
-		muzzle_flash.position = bullet.position
+		muzzle_flash.position = -Vector2(16, 0).rotated(angle)
 		muzzle_flash.rotation = bullet.rotation
 		add_child(muzzle_flash)
 
@@ -77,3 +78,5 @@ func die():
 		is_dead = true
 		$AnimationPlayer.play("death")
 		emit_signal("death")
+		
+		$Camera2D.shake(Vector2(1.5, 1.5), 0.25)

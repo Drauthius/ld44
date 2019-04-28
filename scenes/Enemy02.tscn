@@ -177,3 +177,5 @@ anims/right = SubResource( 7 )
 anims/right_run = SubResource( 8 )
 anims/up = SubResource( 9 )
 anims/up_run = SubResource( 10 )
+
+[node name="Gun" type="Node" parent="."]

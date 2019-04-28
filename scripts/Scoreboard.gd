@@ -101,7 +101,9 @@ func _save():
 		file.close()
 
 func _on_RestartButton_pressed():
-	get_tree().reload_current_scene()
+	var err = get_tree().reload_current_scene()
+	if err != 0:
+		print(err)
 
 func _on_PostButton_pressed():
 	disable_posting("Posting score...")

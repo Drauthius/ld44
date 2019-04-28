@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://art/player.png" type="Texture" id=2]
+[ext_resource path="res://scripts/Camera.gd" type="Script" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 6.77373
@@ -118,6 +119,10 @@ drag_margin_left = 0.1
 drag_margin_top = 0.1
 drag_margin_right = 0.1
 drag_margin_bottom = 0.1
+script = ExtResource( 3 )
+
+[node name="CompleteTimer" type="Timer" parent="Camera2D"]
+one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/death = SubResource( 2 )
@@ -125,3 +130,6 @@ anims/down = SubResource( 3 )
 anims/left = SubResource( 4 )
 anims/right = SubResource( 5 )
 anims/up = SubResource( 6 )
+
+[node name="Gun" type="Node" parent="."]
+[connection signal="timeout" from="Camera2D/CompleteTimer" to="Camera2D" method="_on_CompleteTimer_timeout"]
