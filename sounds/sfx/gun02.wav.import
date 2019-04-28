@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/gun02.wav-6d0219495a53a6dfacb3fc6bbf4148c1.sample"
+
+[deps]
+
+source_file="res://sounds/sfx/gun02.wav"
+dest_files=[ "res://.import/gun02.wav-6d0219495a53a6dfacb3fc6bbf4148c1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

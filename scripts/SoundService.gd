@@ -8,6 +8,7 @@ var loops = {
 
 var sfx = {
 	"gunshot_player": AudioStreamPlayer.new(),
+	"gunshot_enemy02": AudioStreamPlayer.new(),
 	"meny_click": AudioStreamPlayer.new(),
 	"end_game": AudioStreamPlayer.new(),
 	"weapon_hit": AudioStreamPlayer.new(),
@@ -38,9 +39,12 @@ var next_bg_music = {
 }
 
 func _ready():
-#	loops.drum_01_main_menu.stream = preload("res://assets/sounds/music/drums 01 - menu.wav")
+	loops.intro.stream = preload("res://sounds/music/intro.wav")
+	loops.main_loop.stream = preload("res://sounds/music/main_loop.wav")
+	loops.main_loop_intro.stream = preload("res://sounds/music/main_loop_intro.wav")
 	
 	sfx.gunshot_player.stream = preload("res://sounds/sfx/gun01.wav")
+	sfx.gunshot_enemy02.stream = preload("res://sounds/sfx/gun02.wav")
 	sfx.enemy01_spawn01.stream = preload("res://sounds/sfx/enemy01_spawn01.wav")
 	sfx.enemy01_spawn02.stream = preload("res://sounds/sfx/enemy01_spawn02.wav")
 	sfx.enemy01_spawn03.stream = preload("res://sounds/sfx/enemy01_spawn03.wav")
@@ -111,10 +115,12 @@ func main_menu():
 		}
 	play_or_queue(loopses)
 
+func game_start():
+	var loopses = {"music":loops.main_loop_intro}
+	play_or_queue(loopses)
+
 func game():
-	var loopses = {
-		"music":loops.intro
-		}
+	var loopses = {"music":loops.main_loop}
 	play_or_queue(loopses)
 
 func death_scene_transition():
@@ -153,6 +159,9 @@ func enemy02_speech():
 
 func gunshot_player():
 	sfx.gunshot_player.play()
+
+func gunshot_enemy02():
+	sfx.gunshot_enemy02.play()
 
 func click():
 	sfx.click.play()

@@ -82,7 +82,6 @@ func _physics_process(delta):
 	
 	#handle shooting
 	if behaviour_state == SHOOT:
-		var _velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
 		if angle > 5*QPI and angle < 7*QPI:
 			$AnimationPlayer.play("down")
 		elif angle > 3*QPI and angle < 5*QPI:
@@ -103,6 +102,7 @@ func _physics_process(delta):
 			bullet.lifetime = shooting_distance / float(bullet_speed)
 			bullet.speed = bullet_speed
 			$Gun.add_child(bullet)
+			SoundService.gunshot_enemy02()
 			
 			# Muzzle flash
 			var muzzle_flash = MuzzleFlash.instance()

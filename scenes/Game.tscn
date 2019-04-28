@@ -79,25 +79,25 @@ position = Vector2( 460.917, 100.293 )
 position = Vector2( 7.02443, 239.165 )
 
 [node name="Spawn2" type="Position2D" parent="SpawnPoints"]
-position = Vector2( 1016.37, 359.166 )
+position = Vector2( 1015.6, 328.215 )
 
 [node name="Spawn3" type="Position2D" parent="SpawnPoints"]
-position = Vector2( 24.0307, 16.2817 )
+position = Vector2( 4.6861, 11.639 )
 
 [node name="Spawn4" type="Position2D" parent="SpawnPoints"]
-position = Vector2( 995.128, 567.215 )
+position = Vector2( 1013.7, 585.012 )
 
 [node name="Spawn5" type="Position2D" parent="SpawnPoints"]
-position = Vector2( 1009.83, 13.9603 )
+position = Vector2( 1013.7, 10.8652 )
 
 [node name="Spawn6" type="Position2D" parent="SpawnPoints"]
-position = Vector2( 13.1978, 573.405 )
+position = Vector2( 5.45996, 586.559 )
 
 [node name="Spawn7" type="Position2D" parent="SpawnPoints"]
-position = Vector2( 418.66, 571.857 )
+position = Vector2( 421.755, 585.785 )
 
 [node name="Spawn8" type="Position2D" parent="SpawnPoints"]
-position = Vector2( 701.09, 572.631 )
+position = Vector2( 701.09, 583.464 )
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 2.0

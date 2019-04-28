@@ -12,17 +12,27 @@ func _ready():
 	$GUI.set_score(0)
 	Scoreboard.hide()
 	$ScoreTimer.start()
-	SoundService.game()
+	SoundService.game_start()
 
 func _on_SpawnTimer_timeout():
+	SoundService.game()
 	var num_spawns = 0
-	while num_spawns < $GUI.get_score() / 10 + 1:
+	while num_spawns < $GUI.get_score() / 50 + 1:
 		var spawn_point = randi() % $SpawnPoints.get_child_count()
-		var enemy = Enemy.instance()
+		var enemy = null
+		var enemy_index = null
+		if $GUI.get_score() < 100:
+			enemy_index = randi() % 2
+			
+#			var enemy = Enemy.instance()
+		else:
+			enemy_index = randi() % Enemies.size()
+			
+		num_spawns += enemy_index + 1
+		enemy = Enemies[enemy_index].instance()
 		enemy.position = $SpawnPoints.get_child(spawn_point).position
 		enemy.connect("death", self, "_on_Enemy_death")
 		add_child(enemy)
-		num_spawns += 1
 	
 	
 
