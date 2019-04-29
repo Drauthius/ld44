@@ -20,6 +20,7 @@ extents = Vector2( 600, 50 )
 script = ExtResource( 1 )
 
 [node name="Ground" type="TileMap" parent="."]
+z_index = -2
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 32, 32 )
 format = 1
@@ -89,7 +90,7 @@ position = Vector2( 421.004, 586.786 )
 position = Vector2( 705.507, 587.328 )
 
 [node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 3.0
 autostart = true
 
 [node name="ScoreTimer" type="Timer" parent="."]

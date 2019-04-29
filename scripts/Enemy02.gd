@@ -27,7 +27,7 @@ export var timer_long = 2.0
 export var timer_short = 0.2
 var angle = 0.0
 
-enum {PURSUE, SHOOT, EVADE, RIGHT, LEFT} 
+enum {PURSUE, SHOOT, EVADE, RIGHT, LEFT}
 var behaviour_state = PURSUE
 var rand_direction = RIGHT
 
@@ -47,6 +47,9 @@ func _physics_process(delta):
 		death_timer += delta
 		if death_timer > time_until_removal:
 			queue_free()
+		return
+	elif $"..".is_choosing:
+		$AnimationPlayer.stop()
 		return
 	
 	var player_distance_sqrd = position.distance_squared_to(player.position)

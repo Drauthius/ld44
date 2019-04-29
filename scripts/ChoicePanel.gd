@@ -11,6 +11,9 @@ func set_sum(respawn_cost, monies):
 	if respawn_cost > monies:
 		yes_button.disabled = true
 
+func can_respawn():
+	return not yes_button.disabled
+
 func _on_YesButton_pressed():
 	emit_signal("respawn")
 	queue_free()

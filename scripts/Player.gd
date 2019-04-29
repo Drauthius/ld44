@@ -88,4 +88,4 @@ func respawn():
 	$Sprite.texture = RoboSprite
 	speed *= 2
 	kickback *= 2
-	is_dead = false
+	#is_dead = false # Set by Game.gd

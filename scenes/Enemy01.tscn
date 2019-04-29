@@ -164,3 +164,6 @@ anims/right_death = SubResource( 6 )
 anims/right_run = SubResource( 7 )
 anims/up_death = SubResource( 8 )
 anims/up_run = SubResource( 9 )
+
+[node name="Tween" type="Tween" parent="."]
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

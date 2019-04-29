@@ -2,8 +2,17 @@ extends KinematicBody2D
 
 const QPI = PI/4.0
 
-export var normal_speed = 150
-#export var max_speed = 400
+export var normal_speed : int = 150
+export var charge_distance : int = 220
+export var charge_distance_span : int = 40
+export var charge_speed : int = 300
+export var charge_chance : float = 0.65
+export var charge_timer : float = 2.0
+export var charge_cooldown : float = 1.0
+#var charge_distance_sqrd = charge_distance * charge_distance
+var charge_target
+
+export var evade_chance : float = 0.5
 
 export var time_until_removal = 4
 var death_timer = 0.0
@@ -13,11 +22,12 @@ var difficulty = 0
 
 signal death(KinematicBody2D)
 
-var behaviour_timer = 0.0
-export var timer_long = 2.0
+export var timer_long = 1.0
 export var timer_short = 0.5
-export var behaviour_switch = "pursue"
-var rand_direction = "r"
+enum {PURSUE, CHARGE, CHARGING, EVADE}
+var behaviour_switch = PURSUE
+var behaviour_timer = 0.0
+var evade_dir
 
 onready var player = $"../Player"
 
@@ -30,33 +40,84 @@ func _physics_process(delta):
 		if death_timer > time_until_removal:
 			queue_free()
 		return
+	elif $"..".is_choosing:
+		$AnimationPlayer.stop()
+		return
 	
 	behaviour_timer += delta
-	if behaviour_switch == "pursue":
-		if behaviour_timer > timer_long and difficulty > 2:
-			behaviour_switch = "evade"
+	if behaviour_timer < 0.0:
+		return
+	
+	if behaviour_switch == PURSUE:
+		if behaviour_timer > timer_long:
+			if difficulty >= 1 and abs(position.distance_to(player.position) - charge_distance) < charge_distance_span and randf() < charge_chance:
+				behaviour_switch = CHARGE
+				_set_sprite(player.position.angle_to_point(position), true)
+				$Tween.interpolate_property($AnimationPlayer, "playback_speed", 1.0, 4.0, charge_timer, Tween.TRANS_LINEAR, Tween.EASE_IN)
+				$Tween.start()
+			elif difficulty >= 2 and randf() < evade_chance:
+				behaviour_switch = EVADE
 			behaviour_timer = 0.0
-	elif behaviour_switch == "evade":
+	elif behaviour_switch == EVADE:
 		if behaviour_timer > timer_short:
-			behaviour_switch = "pursue"
-			if rand_range(0.0, 1.0) > 0.5:
-				rand_direction = "r"
-			else:
-				rand_direction = "l"
+			behaviour_switch = PURSUE
 			behaviour_timer = 0.0
+			evade_dir = "l" if randf() < 0.5 else "r"
+	elif behaviour_switch == CHARGE:
+		if behaviour_timer > charge_timer:
+			behaviour_switch = CHARGING
+			charge_target = player.position
+			_set_sprite(charge_target.angle_to_point(position))
+		return
+	elif behaviour_switch == CHARGING:
+		var direction = (charge_target - position).normalized()
+		var coll = move_and_collide(direction * delta * charge_speed)
+		if coll:
+			coll.collider.die()
+			behaviour_switch = PURSUE
+			behaviour_timer = -charge_cooldown
+			$AnimationPlayer.stop()
+		elif position.distance_squared_to(charge_target) < 10:
+			behaviour_switch = PURSUE
+			behaviour_timer = -charge_cooldown
+			$AnimationPlayer.stop()
+		return
 	
 	var current_speed = normal_speed
 	var direction = (player.position - position).normalized()
-	if behaviour_switch == "evade":
-		if rand_direction == "r":
+	if behaviour_switch == EVADE:
+		if evade_dir == "r":
 			direction = (direction + direction.tangent()).normalized()
 		else:
 			direction = (direction - direction.tangent()).normalized()
 	
 	var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
+	_set_sprite(direction.angle(), velocity.length_squared() <= 1000)
 	
-	var angle = direction.angle() + PI
+	# Check for player collision
+	for i in range(get_slide_count()):
+		var coll = get_slide_collision(i)
+		if coll.collider == player:
+			player.die()
+			$AnimationPlayer.stop()
+
+func die():
+	if not is_dead:
+		SoundService.enemy01_death()
+		is_dead = true
+		$Tween.stop_all()
+		$AnimationPlayer.playback_speed = 1.0
+		#$CollisionShape2D.set_deferred("disabled", true) # This is a feature.
+		emit_signal("death", self)
+	
+	$AnimationPlayer.play($AnimationPlayer.current_animation.replace("_run", "_death"))
+	# Bug?? Play won't change the current animation when called by Game from a signal
+	$AnimationPlayer.current_animation = $AnimationPlayer.current_animation.replace("_run", "_death")
+
+func _set_sprite(angle, paused = false):
+	angle += PI
 	var wide = true
+	
 	if angle > 5*QPI and angle < 7*QPI:
 		$AnimationPlayer.play("down_run")
 		wide = false
@@ -68,27 +129,15 @@ func _physics_process(delta):
 	else:
 		$AnimationPlayer.play("left_run")
 	
+	if paused:
+		$AnimationPlayer.advance(0.01)
+		$AnimationPlayer.stop()
+	
 	# They're very oblong, so rotate the collision shape.
 	if wide:
 		$CollisionShape2D.rotation = PI/2
 	else:
 		$CollisionShape2D.rotation = 0
-	
-	for i in range(get_slide_count()):
-		var coll = get_slide_collision(i)
-		if coll.collider == player:
-			player.die()
-			$AnimationPlayer.stop()
-	
-	if velocity.length_squared() <= 1000:
-		$AnimationPlayer.stop()
-		return
 
-func die():
-	if not is_dead:
-		SoundService.enemy01_death()
-		is_dead = true
-		#set_deferred("$CollisionShape2D.disabled", true)
-		emit_signal("death", self)
-	
-	$AnimationPlayer.play($AnimationPlayer.current_animation.replace("_run", "_death"))
+func _on_Tween_tween_completed(_object, _key):
+	$AnimationPlayer.playback_speed = 1.0
