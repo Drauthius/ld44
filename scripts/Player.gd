@@ -4,10 +4,13 @@ const QPI = PI/4
 
 export var speed: int = 120
 export var kickback: int = 3
+export var robospeed: int = 180
+export var robokickback: int = 5
 
 var angle = 0
 var is_dead = false
 var num_deaths = 0
+var fire_cooldown = 0.0
 
 signal death
 
@@ -16,7 +19,7 @@ onready var Bullet = preload("res://scenes/BulletSmall.tscn")
 onready var MuzzleFlash = preload("res://scenes/MuzzleFlash.tscn")
 onready var SoundService = $"/root/SoundService"
 
-func _process(_delta):
+func _process(delta):
 	if is_dead:
 		return
 	
@@ -31,6 +34,8 @@ func _process(_delta):
 	else:
 		$AnimationPlayer.play("left")
 	$AnimationPlayer.advance(0.01)
+	
+	fire_cooldown = max(0.0, fire_cooldown - delta)
 
 func _physics_process(_delta):
 	if is_dead:
@@ -56,7 +61,7 @@ func _physics_process(_delta):
 		$AnimationPlayer.play()
 	
 	# Firing
-	if Input.is_action_just_pressed("game_fire"):
+	if Input.is_action_just_pressed("game_fire") and fire_cooldown <= 0.0:
 		# Bullet
 		var bullet = Bullet.instance()
 		bullet.position = get_global_transform().get_origin() - Vector2(16, 0).rotated(angle)
@@ -73,6 +78,8 @@ func _physics_process(_delta):
 		muzzle_flash.position = -Vector2(16, 0).rotated(angle)
 		muzzle_flash.rotation = bullet.rotation
 		add_child(muzzle_flash)
+		
+		fire_cooldown = 0.1
 
 func die():
 	if not is_dead:
@@ -86,6 +93,6 @@ func die():
 
 func respawn():
 	$Sprite.texture = RoboSprite
-	speed *= 2
-	kickback *= 2
+	speed = robospeed
+	kickback = robokickback
 	#is_dead = false # Set by Game.gd

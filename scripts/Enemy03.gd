@@ -3,12 +3,14 @@ extends KinematicBody2D
 const QPI = PI/4.0
 
 export var normal_speed = 50
-export var shooting_distance = 200
+export var shooting_distance = 300
 #export var evasion_distance = 150
 export var bullet_speed = 180
 var shooting_distance_sqrd = shooting_distance*shooting_distance
 #var evasion_distance_sqrd = evasion_distance*evasion_distance
 #export var max_speed = 400
+
+export var health = 50
 
 export var time_until_removal = 4
 export var time_until_next_shot = 0.8
@@ -16,6 +18,7 @@ var death_timer = 0.0
 var shooting_timer = 0.0
 var is_dead = false
 export var worth : int = 15
+var difficulty = 0
 
 signal death
 
@@ -88,4 +91,12 @@ func get_worth():
 	return worth
 
 func die():
-	pass
+	if is_dead:
+		return
+	
+	health -= 1
+	if health <= 0:
+		is_dead = true
+		#SoundService.enemy02_death()
+		emit_signal("death", self)
+		$AnimationPlayer.play("death")

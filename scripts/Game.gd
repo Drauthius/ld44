@@ -7,7 +7,8 @@ var is_choosing = false
 
 onready var Enemies = [
 	preload("res://scenes/Enemy01.tscn"),
-	preload("res://scenes/Enemy02.tscn")
+	preload("res://scenes/Enemy02.tscn"),
+	preload("res://scenes/Enemy03.tscn")
 ]
 onready var ChoicePanel = preload("res://scenes/ChoicePanel.tscn")
 onready var Outhouse = preload("res://scenes/Outhouse.tscn")
@@ -28,7 +29,7 @@ func _on_SpawnTimer_timeout():
 	while num_spawns < $GUI.get_score() / 75 + 1:
 		var difficulty = $GUI.get_score() / 50
 		var enemy_index = null
-		if $GUI.get_score() < 100:
+		if $GUI.get_score() < 200:
 			var rand = randf()
 			enemy_index = int(rand * rand * 2)
 		else:

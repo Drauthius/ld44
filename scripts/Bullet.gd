@@ -25,8 +25,9 @@ func _on_Bullet_body_entered(body):
 		return
 	
 	if body.is_in_group("Living"):
-		# Push back
-		body.position += direction * push
+		if not body.is_in_group("Immovable"):
+			# Push back
+			body.position += direction * push
 		body.die()
 	
 	$CollisionShape2D.set_deferred("disabled", true)

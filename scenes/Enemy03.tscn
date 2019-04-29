@@ -203,6 +203,7 @@ tracks/1/keys = {
 [node name="Enemy03" type="KinematicBody2D" groups=[
 "Living",
 "Metal",
+"Immovable",
 ]]
 script = ExtResource( 1 )
 __meta__ = {
@@ -213,6 +214,7 @@ __meta__ = {
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 3
+frame = 2
 region_enabled = true
 region_rect = Rect2( 0, 0, 192, 320 )
 

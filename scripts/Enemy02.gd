@@ -132,7 +132,6 @@ func die():
 	if not is_dead:
 		is_dead = true
 		SoundService.enemy02_death()
-		#set_deferred("$CollisionShape2D.disabled", true)
 		emit_signal("death", self)
 		$AnimationPlayer.play("left_death")
 	else:
