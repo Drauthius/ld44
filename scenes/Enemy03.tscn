@@ -232,5 +232,6 @@ anims/up_run = SubResource( 7 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+bus = "Enemy"
 
 [node name="Gun" type="Node" parent="."]

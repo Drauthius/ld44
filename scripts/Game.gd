@@ -18,7 +18,7 @@ func _ready():
 	randomize()
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
-	$GUI.set_score(0)
+	$GUI.set_score(200)
 	Scoreboard.hide()
 	$ScoreTimer.start()
 	SoundService.game_start()

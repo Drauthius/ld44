@@ -77,6 +77,7 @@ func _physics_process(delta):
 	
 	#handle shooting
 	if behaviour_state == SHOOT:
+		$AnimationPlayer.play("idle")
 		if shooting_timer < time_until_next_shot:
 			shooting_timer += delta
 		else:
