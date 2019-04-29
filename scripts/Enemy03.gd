@@ -91,6 +91,7 @@ func get_worth():
 	return worth
 
 func die():
+	SoundService.ricochet()
 	if is_dead:
 		return
 	

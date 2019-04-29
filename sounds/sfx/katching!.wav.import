@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/katching!.wav-44a25fd2c03a875fc255840dd744d763.sample"
+
+[deps]
+
+source_file="res://sounds/sfx/katching!.wav"
+dest_files=[ "res://.import/katching!.wav-44a25fd2c03a875fc255840dd744d763.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

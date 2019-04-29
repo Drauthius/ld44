@@ -77,6 +77,7 @@ func _on_Choice_give_up():
 	$SpawnTimer.paused = false # Let them loose
 
 func _on_Choice_respawn():
+	SoundService.katching()
 	$GUI.set_money($GUI.get_money() - (respawn_cost_initial + respawn_cost_increase_per_death * ($Player.num_deaths - 1)))
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	

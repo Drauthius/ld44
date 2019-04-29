@@ -9,6 +9,7 @@ var loops = {
 var sfx = {
 	"gunshot_player": AudioStreamPlayer.new(),
 	"player_death01": AudioStreamPlayer.new(),
+	"katching": AudioStreamPlayer.new(),
 	"gunshot_enemy02": AudioStreamPlayer.new(),
 	"meny_click": AudioStreamPlayer.new(),
 	"end_game": AudioStreamPlayer.new(),
@@ -23,7 +24,8 @@ var sfx = {
 	"enemy02_speech03": AudioStreamPlayer.new(),
 	"enemy02_death01": AudioStreamPlayer.new(),
 	"enemy02_death02": AudioStreamPlayer.new(),
-	"enemy02_death03": AudioStreamPlayer.new()
+	"enemy02_death03": AudioStreamPlayer.new(),
+	"ricochet01": AudioStreamPlayer.new()
 }
 
 
@@ -45,6 +47,7 @@ func _ready():
 	loops.main_loop_intro.stream = preload("res://sounds/music/main_loop_intro.wav")
 	
 	sfx.player_death01.stream = preload("res://sounds/sfx/player_death01.wav")
+	sfx.katching.stream = preload("res://sounds/sfx/katching!.wav")
 	sfx.gunshot_player.stream = preload("res://sounds/sfx/gun01.wav")
 	sfx.gunshot_enemy02.stream = preload("res://sounds/sfx/gun02.wav")
 	sfx.enemy01_spawn01.stream = preload("res://sounds/sfx/enemy01_spawn01.wav")
@@ -58,6 +61,7 @@ func _ready():
 	sfx.enemy02_death01.stream = preload("res://sounds/sfx/enemy02_death01.wav")
 	sfx.enemy02_death02.stream = preload("res://sounds/sfx/enemy02_death02.wav")
 	sfx.enemy02_death03.stream = preload("res://sounds/sfx/enemy02_death03.wav")
+	sfx.ricochet01.stream = preload("res://sounds/sfx/ricochet01.wav")
 	
 	for key in loops:
 		add_child(loops[key])
@@ -72,6 +76,7 @@ func _ready():
 			sfx[key].set_bus("Spawn")
 		if "enemy02_speech" in key or "enemy02_death" in key:
 			sfx[key].set_bus("Speech")
+	sfx.ricochet.set_bus("Player")
 
 func stop_all_music():
 	for key in loops:
@@ -173,7 +178,15 @@ func gunshot_player():
 func gunshot_enemy02():
 	sfx.gunshot_enemy02.pitch_scale = randf() * 0.8 + 0.8
 	sfx.gunshot_enemy02.play()
-	
+
+func ricochet():
+	sfx.ricochet01.pitch_scale = randf() * 0.8 + 0.8
+	sfx.ricochet01.play()
+
+func katching():
+	sfx.katching.pitch_scale = randf() * 0.8 + 0.8
+	sfx.katching.play()
+
 func player_death():
 	var num_player_death = 0
 	for key in sfx:
