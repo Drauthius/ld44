@@ -4,30 +4,29 @@ const QPI = PI/4.0
 
 export var normal_speed = 50
 export var shooting_distance = 200
-export var evasion_distance = 150
+#export var evasion_distance = 150
 export var bullet_speed = 180
 var shooting_distance_sqrd = shooting_distance*shooting_distance
-var evasion_distance_sqrd = evasion_distance*evasion_distance
+#var evasion_distance_sqrd = evasion_distance*evasion_distance
 #export var max_speed = 400
-export var cornered_distance = 20
-export var bounds = Vector2(1024, 600)
 
 export var time_until_removal = 4
 export var time_until_next_shot = 0.8
 var death_timer = 0.0
 var shooting_timer = 0.0
 var is_dead = false
+export var worth : int = 15
 
 signal death
 
-var behaviour_timer = 0.0
-export var timer_long = 2.0
-export var timer_short = 0.2
+#var behaviour_timer = 0.0
+#export var timer_long = 2.0
+#export var timer_short = 0.2
 var angle = 0.0
 
 enum {PURSUE, SHOOT, COUNTER, EVADE, RIGHT, LEFT} 
 var behaviour_state = PURSUE
-var rand_direction = RIGHT
+#var rand_direction = RIGHT
 
 onready var player = $"../Player"
 
@@ -72,19 +71,21 @@ func _physics_process(delta):
 	
 	#handle shooting
 	if behaviour_state == SHOOT:
-		
 		if shooting_timer < time_until_next_shot:
 			shooting_timer += delta
 		else:
 			shooting_timer = 0.0
 			var bullet = Bullet.instance()
 			bullet.position = get_global_transform().get_origin() - Vector2(0, 16)
-			bullet.rotation = angle - PI
+			bullet.rotation = (-bullet.position + player.position).angle()
 			bullet.init(Color("e3c7ff"))
-			bullet.lifetime = shooting_distance / float(bullet_speed)
+			bullet.lifetime = shooting_distance / float(bullet_speed) * 1.1
 			bullet.speed = bullet_speed
 			$Gun.add_child(bullet)
 		pass
+
+func get_worth():
+	return worth
 
 func die():
 	pass

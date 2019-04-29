@@ -24,8 +24,7 @@ func _on_Bullet_body_entered(body):
 	if body == $"../..":
 		return
 	
-	var groups = body.get_groups()
-	if groups.has("Living"):
+	if body.is_in_group("Living"):
 		# Push back
 		body.position += direction * push
 		body.die()

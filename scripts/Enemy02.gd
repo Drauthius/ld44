@@ -17,13 +17,13 @@ export var time_until_next_shot = 0.8
 var death_timer = 0.0
 var shooting_timer = 0.0
 var is_dead = false
-var worth = 0
+export var worth : int = 10
 var difficulty = 0
 
 signal death(KinematicBody2D)
 
 var behaviour_timer = 0.0
-export var timer_long = 2.0
+#export var timer_long = 2.0
 export var timer_short = 0.2
 var angle = 0.0
 
@@ -124,6 +124,9 @@ func _physics_process(delta):
 			muzzle_flash.rotation = bullet.rotation
 			add_child(muzzle_flash)
 		pass
+
+func get_worth():
+	return worth
 
 func die():
 	if not is_dead:

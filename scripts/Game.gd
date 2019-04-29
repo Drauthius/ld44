@@ -40,7 +40,6 @@ func _on_SpawnTimer_timeout():
 		var enemy = Enemies[enemy_index].instance()
 		var spawn_point = randi() % $SpawnPoints.get_child_count()
 		enemy.position = $SpawnPoints.get_child(spawn_point).position
-		enemy.worth = (enemy_index + 1) * 5
 		enemy.difficulty = difficulty
 		add_child(enemy)
 		enemy.connect("death", self, "_on_Enemy_death")
@@ -51,7 +50,7 @@ func _on_ScoreTimer_timeout():
 func _on_Enemy_death(enemy):
 	if not $ScoreTimer.is_stopped():
 		$GUI.set_score($GUI.get_score() + 5)
-		$GUI.set_money($GUI.get_money() + enemy.worth)
+		$GUI.set_money($GUI.get_money() + enemy.get_worth())
 
 func _on_Player_death():
 	$ScoreTimer.stop()
@@ -89,7 +88,7 @@ func _on_Choice_respawn():
 
 func _on_Outhouse_dropped(bodies):
 	for body in bodies:
-		if body.is_class("KinematicBody2D"):
+		if body.is_in_group("Living"):
 			body.die()
 	$Player.get_node("Camera2D").shake(Vector2(5, 5), 0.4)
 	$Player.respawn()

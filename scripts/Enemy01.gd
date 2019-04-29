@@ -4,9 +4,9 @@ const QPI = PI/4.0
 
 export var normal_speed : int = 150
 export var charge_distance : int = 220
-export var charge_distance_span : int = 40
+export var charge_distance_span : int = 30
 export var charge_speed : int = 300
-export var charge_chance : float = 0.65
+export var charge_chance : float = 0.75
 export var charge_timer : float = 2.0
 export var charge_cooldown : float = 1.0
 #var charge_distance_sqrd = charge_distance * charge_distance
@@ -17,7 +17,7 @@ export var evade_chance : float = 0.5
 export var time_until_removal = 4
 var death_timer = 0.0
 var is_dead = false
-var worth = 0
+export var worth : int = 5
 var difficulty = 0
 
 signal death(KinematicBody2D)
@@ -66,21 +66,27 @@ func _physics_process(delta):
 	elif behaviour_switch == CHARGE:
 		if behaviour_timer > charge_timer:
 			behaviour_switch = CHARGING
-			charge_target = player.position
-			_set_sprite(charge_target.angle_to_point(position))
+			var direction = (player.position - position).normalized()
+			charge_target = position + direction * (charge_distance + charge_distance_span)
+			#charge_target = player.position
+			_set_sprite(direction.angle())
+			$AnimationPlayer.playback_speed = 2.0
 		return
 	elif behaviour_switch == CHARGING:
 		var direction = (charge_target - position).normalized()
 		var coll = move_and_collide(direction * delta * charge_speed)
 		if coll:
-			coll.collider.die()
+			if coll.collider.is_in_group("Living"):
+				coll.collider.die()
 			behaviour_switch = PURSUE
 			behaviour_timer = -charge_cooldown
 			$AnimationPlayer.stop()
+			$AnimationPlayer.playback_speed = 1.0
 		elif position.distance_squared_to(charge_target) < 10:
 			behaviour_switch = PURSUE
 			behaviour_timer = -charge_cooldown
 			$AnimationPlayer.stop()
+			$AnimationPlayer.playback_speed = 1.0
 		return
 	
 	var current_speed = normal_speed
@@ -100,6 +106,9 @@ func _physics_process(delta):
 		if coll.collider == player:
 			player.die()
 			$AnimationPlayer.stop()
+
+func get_worth():
+	return worth
 
 func die():
 	if not is_dead:

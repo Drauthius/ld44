@@ -40,7 +40,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0.4, 1.2 )
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=2]
 resource_name = "idle"
 length = 0.1
 tracks/0/type = "value"
@@ -56,43 +56,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "left_run"
-length = 1.6
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4, 0.8, 1.2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 3, 9, 4, 12 ]
-}
-tracks/1/type = "audio"
-tracks/1/path = NodePath("AudioStreamPlayer")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"clips": [ {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 3 )
-}, {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 3 )
-} ],
-"times": PoolRealArray( 0.4, 1.2 )
-}
-
 [sub_resource type="Animation" id=3]
-resource_name = "right_run"
 length = 1.6
 loop = true
 tracks/0/type = "value"
@@ -127,7 +91,40 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=4]
-resource_name = "spawn"
+length = 1.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 9, 4, 12 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0.4, 1.2 )
+}
+
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -155,8 +152,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "up_run"
+[sub_resource type="Animation" id=6]
 length = 1.6
 loop = true
 tracks/0/type = "value"
@@ -210,11 +206,11 @@ polygon = PoolVector2Array( 21.3552, -19.6698, 23.1826, -4.97709, 10.1652, -4.72
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/down_run = SubResource( 1 )
-anims/idle = SubResource( 6 )
-anims/left_run = SubResource( 2 )
-anims/right_run = SubResource( 3 )
-anims/spawn = SubResource( 4 )
-anims/up_run = SubResource( 5 )
+anims/idle = SubResource( 2 )
+anims/left_run = SubResource( 3 )
+anims/right_run = SubResource( 4 )
+anims/spawn = SubResource( 5 )
+anims/up_run = SubResource( 6 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 

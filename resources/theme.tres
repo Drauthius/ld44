@@ -41,7 +41,7 @@ border_blend = true
 expand_margin_left = 2.0
 expand_margin_right = 2.0
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=18]
 bg_color = Color( 0.803922, 0.454902, 0.454902, 1 )
 border_width_left = 1
 border_width_top = 1
@@ -103,7 +103,7 @@ Button/styles/disabled = SubResource( 2 )
 Button/styles/focus = SubResource( 3 )
 Button/styles/hover = SubResource( 4 )
 Button/styles/normal = SubResource( 5 )
-Button/styles/pressed = SubResource( 6 )
+Button/styles/pressed = SubResource( 18 )
 ItemList/colors/font_color = Color( 1, 1, 1, 1 )
 ItemList/colors/font_color_selected = Color( 1, 1, 1, 1 )
 ItemList/colors/guide_color = Color( 0, 0, 0, 0.1 )
