@@ -3,7 +3,7 @@
 [ext_resource path="res://scripts/Enemy03.gd" type="Script" id=1]
 [ext_resource path="res://art/enemy_03.png" type="Texture" id=2]
 [ext_resource path="res://sounds/sfx/enemy02_step.wav" type="AudioStream" id=3]
-[ext_resource path="res://sounds/sfx/enemy03_land01.wav" type="AudioStream" id=4]
+[ext_resource path="res://sounds/sfx/enemy03_land02.wav" type="AudioStream" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "death"
@@ -45,11 +45,11 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
-"start_offset": 0.0,
+"start_offset": 0.65,
 "stream": ExtResource( 3 )
 }, {
 "end_offset": 0.0,
-"start_offset": 0.0,
+"start_offset": 0.65,
 "stream": ExtResource( 3 )
 } ],
 "times": PoolRealArray( 0.4, 1.2 )
@@ -94,11 +94,11 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
-"start_offset": 0.0,
+"start_offset": 0.65,
 "stream": ExtResource( 3 )
 }, {
 "end_offset": 0.0,
-"start_offset": 0.0,
+"start_offset": 0.65,
 "stream": ExtResource( 3 )
 } ],
 "times": PoolRealArray( 0.4, 1.2 )
@@ -128,11 +128,11 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
-"start_offset": 0.0,
+"start_offset": 0.65,
 "stream": ExtResource( 3 )
 }, {
 "end_offset": 0.0,
-"start_offset": 0.0,
+"start_offset": 0.65,
 "stream": ExtResource( 3 )
 } ],
 "times": PoolRealArray( 0.4, 1.2 )
@@ -190,11 +190,11 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
-"start_offset": 0.0,
+"start_offset": 0.65,
 "stream": ExtResource( 3 )
 }, {
 "end_offset": 0.0,
-"start_offset": 0.0,
+"start_offset": 0.65,
 "stream": ExtResource( 3 )
 } ],
 "times": PoolRealArray( 0.4, 1.2 )
@@ -202,6 +202,7 @@ tracks/1/keys = {
 
 [node name="Enemy03" type="KinematicBody2D" groups=[
 "Living",
+"Metal",
 ]]
 script = ExtResource( 1 )
 __meta__ = {
@@ -212,7 +213,6 @@ __meta__ = {
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 3
-frame = 14
 region_enabled = true
 region_rect = Rect2( 0, 0, 192, 320 )
 
@@ -229,5 +229,6 @@ anims/spawn = SubResource( 6 )
 anims/up_run = SubResource( 7 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
 
 [node name="Gun" type="Node" parent="."]
