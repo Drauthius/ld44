@@ -17,7 +17,7 @@ _global_script_class_icons={
 
 config/name="Town of Currency"
 run/main_scene="res://scenes/IntroScreen.tscn"
-config/icon="res://icon.png"
+config/icon="res://art/icon.png"
 
 [autoload]
 

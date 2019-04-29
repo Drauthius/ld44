@@ -1,0 +1,8 @@
+This project includes different licenses, and listed below.
+
+Component                  Directory           License
+----------------------------------------------------------------------
+Town of Currency source    .                   GPLv3
+Town of Currency art       art/                Creative Common BY-SA 4.0
+Town of Currency sound     sounds/             Creative Common BY-SA 4.0 and other (see sounds/COPYING.txt)
+Fonts                      ttf/                100% free
