@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/Enemy03.gd" type="Script" id=1]
 [ext_resource path="res://art/enemy_03.png" type="Texture" id=2]
-[ext_resource path="res://sounds/sfx/enemy02_step.wav" type="AudioStream" id=3]
-[ext_resource path="res://sounds/sfx/enemy03_land02.wav" type="AudioStream" id=4]
+[ext_resource path="res://sounds/sfx/enemy03_death01.wav" type="AudioStream" id=3]
+[ext_resource path="res://sounds/sfx/enemy02_step.wav" type="AudioStream" id=4]
+[ext_resource path="res://sounds/sfx/enemy03_land02.wav" type="AudioStream" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "death"
@@ -19,6 +20,20 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 2, 5, 8, 11, 14 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=2]
@@ -46,11 +61,11 @@ tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.65,
-"stream": ExtResource( 3 )
+"stream": ExtResource( 4 )
 }, {
 "end_offset": 0.0,
 "start_offset": 0.65,
-"stream": ExtResource( 3 )
+"stream": ExtResource( 4 )
 } ],
 "times": PoolRealArray( 0.4, 1.2 )
 }
@@ -95,11 +110,11 @@ tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.65,
-"stream": ExtResource( 3 )
+"stream": ExtResource( 4 )
 }, {
 "end_offset": 0.0,
 "start_offset": 0.65,
-"stream": ExtResource( 3 )
+"stream": ExtResource( 4 )
 } ],
 "times": PoolRealArray( 0.4, 1.2 )
 }
@@ -129,11 +144,11 @@ tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.65,
-"stream": ExtResource( 3 )
+"stream": ExtResource( 4 )
 }, {
 "end_offset": 0.0,
 "start_offset": 0.65,
-"stream": ExtResource( 3 )
+"stream": ExtResource( 4 )
 } ],
 "times": PoolRealArray( 0.4, 1.2 )
 }
@@ -161,7 +176,7 @@ tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource( 4 )
+"stream": ExtResource( 5 )
 } ],
 "times": PoolRealArray( 0 )
 }
@@ -191,11 +206,11 @@ tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.65,
-"stream": ExtResource( 3 )
+"stream": ExtResource( 4 )
 }, {
 "end_offset": 0.0,
 "start_offset": 0.65,
-"stream": ExtResource( 3 )
+"stream": ExtResource( 4 )
 } ],
 "times": PoolRealArray( 0.4, 1.2 )
 }
@@ -214,7 +229,7 @@ __meta__ = {
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 3
-frame = 2
+frame = 14
 region_enabled = true
 region_rect = Rect2( 0, 0, 192, 320 )
 
@@ -231,7 +246,7 @@ anims/spawn = SubResource( 6 )
 anims/up_run = SubResource( 7 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
+stream = ExtResource( 3 )
 bus = "Enemy"
 
 [node name="Gun" type="Node" parent="."]

@@ -19,6 +19,9 @@ onready var Bullet = preload("res://scenes/BulletSmall.tscn")
 onready var MuzzleFlash = preload("res://scenes/MuzzleFlash.tscn")
 onready var SoundService = $"/root/SoundService"
 
+func _ready():
+	SoundService.player_speech()
+
 func _process(delta):
 	if is_dead:
 		return

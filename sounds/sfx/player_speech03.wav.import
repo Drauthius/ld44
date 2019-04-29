@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/player_speech03.wav-87af1b1d3a265a9b37f6dbfabbb51098.sample"
+
+[deps]
+
+source_file="res://sounds/sfx/player_speech03.wav"
+dest_files=[ "res://.import/player_speech03.wav-87af1b1d3a265a9b37f6dbfabbb51098.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

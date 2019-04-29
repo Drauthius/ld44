@@ -37,7 +37,7 @@ onready var Bullet = preload("res://scenes/BulletDaddy.tscn")
 onready var SoundService = $"/root/SoundService"
 
 func _ready():
-	SoundService.enemy02_spawn()
+	SoundService.enemy03_spawn()
 
 func _physics_process(delta):
 	if is_dead:
@@ -82,6 +82,7 @@ func _physics_process(delta):
 			shooting_timer += delta
 		else:
 			shooting_timer = 0.0
+			SoundService.gunshot_enemy03()
 			var bullet = Bullet.instance()
 			bullet.position = get_global_transform().get_origin() - Vector2(0, 16)
 			bullet.rotation = (-bullet.position + player.position).angle()
