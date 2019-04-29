@@ -24,6 +24,10 @@ config/icon="res://icon.png"
 SoundService="*res://scripts/SoundService.gd"
 Scoreboard="*res://scenes/Scoreboard.tscn"
 
+[debug]
+
+gdscript/completion/autocomplete_setters_and_getters=true
+
 [display]
 
 window/size/height=800

@@ -7,19 +7,7 @@ size = 20
 font_data = ExtResource( 1 )
 
 [sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.392157, 0.376471, 0.141176, 1 )
-expand_margin_left = 2.0
-expand_margin_right = 2.0
-
-[sub_resource type="StyleBoxEmpty" id=3]
-
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.784314, 0.776471, 0.619608, 1 )
-expand_margin_left = 2.0
-expand_margin_right = 2.0
-
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.705882, 0.694118, 0.47451, 1 )
+bg_color = Color( 0.34902, 0.164706, 0.164706, 1 )
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -29,7 +17,37 @@ border_blend = true
 expand_margin_left = 2.0
 expand_margin_right = 2.0
 
-[sub_resource type="StyleBoxEmpty" id=6]
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.67451, 0.239216, 0.239216, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.678431, 0.117647, 0.117647, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+
+[sub_resource type="StyleBoxFlat" id=18]
+bg_color = Color( 0.803922, 0.454902, 0.454902, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_blend = true
 
 [sub_resource type="DynamicFont" id=7]
 size = 21
@@ -56,7 +74,7 @@ size = 28
 font_data = ExtResource( 1 )
 
 [sub_resource type="StyleBoxFlat" id=16]
-bg_color = Color( 0.345098, 0.345098, 0.345098, 0.686275 )
+bg_color = Color( 0.0352941, 0.0196078, 0.286275, 0.823529 )
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -85,7 +103,7 @@ Button/styles/disabled = SubResource( 2 )
 Button/styles/focus = SubResource( 3 )
 Button/styles/hover = SubResource( 4 )
 Button/styles/normal = SubResource( 5 )
-Button/styles/pressed = SubResource( 6 )
+Button/styles/pressed = SubResource( 18 )
 ItemList/colors/font_color = Color( 1, 1, 1, 1 )
 ItemList/colors/font_color_selected = Color( 1, 1, 1, 1 )
 ItemList/colors/guide_color = Color( 0, 0, 0, 0.1 )

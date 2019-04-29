@@ -72,7 +72,5 @@ func _physics_process(delta):
 	if behaviour_state == SHOOT:
 		pass
 
-
-
-
-
+func die():
+	pass
