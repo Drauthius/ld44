@@ -181,7 +181,7 @@ func player_death():
 			num_player_death += 1
 	var index = randi() % num_player_death + 1
 	var key_string = str("player_death0", index)
-	sfx[key_string].pitch_scale = randf() * 0.8 + 0.8
+	sfx[key_string].pitch_scale = randf() * 0.6 + 0.8
 	sfx[key_string].play()
 
 func click():

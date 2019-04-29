@@ -3,7 +3,7 @@ extends KinematicBody2D
 const QPI = PI/4.0
 
 export var normal_speed = 50
-export var shooting_distance = 500
+export var shooting_distance = 200
 export var evasion_distance = 150
 export var bullet_speed = 180
 var shooting_distance_sqrd = shooting_distance*shooting_distance
@@ -31,8 +31,7 @@ var rand_direction = RIGHT
 
 onready var player = $"../Player"
 
-onready var Bullet = preload("res://scenes/BulletBig.tscn")
-onready var MuzzleFlash = preload("res://scenes/MuzzleFlash.tscn")
+onready var Bullet = preload("res://scenes/BulletDaddy.tscn")
 onready var SoundService = $"/root/SoundService"
 
 func _ready():
@@ -48,10 +47,13 @@ func _physics_process(delta):
 	var player_distance_sqrd = position.distance_squared_to(player.position)
 	angle = (-position + player.position).angle() + PI
 	
-	if false and behaviour_state == PURSUE:
+	if behaviour_state == PURSUE:
 		if player_distance_sqrd < shooting_distance_sqrd:
 			behaviour_state = SHOOT
 		pass
+	elif behaviour_state == SHOOT:
+		if player_distance_sqrd > shooting_distance_sqrd:
+			behaviour_state = PURSUE
 	
 	var current_speed = normal_speed
 	var direction = (player.position - position).normalized()
@@ -70,6 +72,18 @@ func _physics_process(delta):
 	
 	#handle shooting
 	if behaviour_state == SHOOT:
+		
+		if shooting_timer < time_until_next_shot:
+			shooting_timer += delta
+		else:
+			shooting_timer = 0.0
+			var bullet = Bullet.instance()
+			bullet.position = get_global_transform().get_origin() - Vector2(0, 16)
+			bullet.rotation = angle - PI
+			bullet.init(Color("e3c7ff"))
+			bullet.lifetime = shooting_distance / float(bullet_speed)
+			bullet.speed = bullet_speed
+			$Gun.add_child(bullet)
 		pass
 
 func die():

@@ -21,9 +21,9 @@ func _ready():
 	Scoreboard.hide()
 	$ScoreTimer.start()
 	SoundService.game_start()
+	SoundService.game()
 
 func _on_SpawnTimer_timeout():
-	SoundService.game()
 	var num_spawns = 0
 	while num_spawns < $GUI.get_score() / 75 + 1:
 		var difficulty = $GUI.get_score() / 50

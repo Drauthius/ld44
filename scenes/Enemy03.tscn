@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/Enemy03.gd" type="Script" id=1]
 [ext_resource path="res://art/enemy_03.png" type="Texture" id=2]
@@ -38,6 +38,22 @@ tracks/1/keys = {
 "stream": ExtResource( 3 )
 } ],
 "times": PoolRealArray( 0.4, 1.2 )
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -174,7 +190,9 @@ tracks/1/keys = {
 "times": PoolRealArray( 0.4, 1.2 )
 }
 
-[node name="Enemy03" type="KinematicBody2D"]
+[node name="Enemy03" type="KinematicBody2D" groups=[
+"Living",
+]]
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
@@ -184,7 +202,6 @@ __meta__ = {
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 3
-frame = 4
 region_enabled = true
 region_rect = Rect2( 0, 0, 192, 320 )
 
@@ -193,9 +210,12 @@ polygon = PoolVector2Array( 21.3552, -19.6698, 23.1826, -4.97709, 10.1652, -4.72
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/down_run = SubResource( 1 )
+anims/idle = SubResource( 6 )
 anims/left_run = SubResource( 2 )
 anims/right_run = SubResource( 3 )
 anims/spawn = SubResource( 4 )
 anims/up_run = SubResource( 5 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="Gun" type="Node" parent="."]
