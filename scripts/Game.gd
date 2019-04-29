@@ -26,15 +26,15 @@ func _ready():
 
 func _on_SpawnTimer_timeout():
 	var num_spawns = 0
-	while num_spawns < $GUI.get_score() / 75 + 1:
+	while num_spawns < $GUI.get_score() / 100 + 1:
 		var difficulty = $GUI.get_score() / 50
 		var enemy_index = null
 		var rand = randf()
-		if $GUI.get_score() < 200 or rand >= 0.05:
+		if $GUI.get_score() < 200 or rand >= 0.04:
 			enemy_index = int(rand * rand * 2)
 		else:
 			enemy_index = 2 # Boss time
-			
+		
 		num_spawns += enemy_index + 1
 		
 		var enemy = Enemies[enemy_index].instance()
@@ -58,7 +58,7 @@ func _on_Player_death():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	# Don't give players that can't shoot straight an option.
-	if $GUI.get_score() > 10:
+	if $GUI.get_score() >= 100:
 		var choice = ChoicePanel.instance()
 		add_child(choice)
 		choice.connect("give_up", self, "_on_Choice_give_up")

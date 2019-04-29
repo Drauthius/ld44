@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="LD44"
+config/name="Town of Currency"
 run/main_scene="res://scenes/Game.tscn"
 config/icon="res://icon.png"
 
