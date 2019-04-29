@@ -8,8 +8,10 @@ export var normal_speed = 150
 export var time_until_removal = 4
 var death_timer = 0.0
 var is_dead = false
+var worth = 0
+var difficulty = 0
 
-signal death
+signal death(KinematicBody2D)
 
 var behaviour_timer = 0.0
 export var timer_long = 2.0
@@ -31,7 +33,7 @@ func _physics_process(delta):
 	
 	behaviour_timer += delta
 	if behaviour_switch == "pursue":
-		if behaviour_timer > timer_long:
+		if behaviour_timer > timer_long and difficulty > 2:
 			behaviour_switch = "evade"
 			behaviour_timer = 0.0
 	elif behaviour_switch == "evade":
@@ -87,6 +89,6 @@ func die():
 		SoundService.enemy01_death()
 		is_dead = true
 		#set_deferred("$CollisionShape2D.disabled", true)
-		emit_signal("death")
+		emit_signal("death", self)
 	
 	$AnimationPlayer.play($AnimationPlayer.current_animation.replace("_run", "_death"))
