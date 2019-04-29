@@ -29,18 +29,18 @@ func _on_SpawnTimer_timeout():
 	while num_spawns < $GUI.get_score() / 75 + 1:
 		var difficulty = $GUI.get_score() / 50
 		var enemy_index = null
-		if $GUI.get_score() < 200:
-			var rand = randf()
+		var rand = randf()
+		if $GUI.get_score() < 200 or rand >= 0.05:
 			enemy_index = int(rand * rand * 2)
 		else:
-			var rand = randf()
-			enemy_index = int(rand * rand * Enemies.size())
+			enemy_index = 2 # Boss time
 			
 		num_spawns += enemy_index + 1
 		
 		var enemy = Enemies[enemy_index].instance()
 		var spawn_point = randi() % $SpawnPoints.get_child_count()
 		enemy.position = $SpawnPoints.get_child(spawn_point).position
+		enemy.position += Vector2(randf() * 6 - 3, randf() * 6 - 3) # Variance to avoid some physics problems hopefully
 		enemy.difficulty = difficulty
 		add_child(enemy)
 		enemy.connect("death", self, "_on_Enemy_death")

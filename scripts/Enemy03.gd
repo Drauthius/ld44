@@ -10,7 +10,7 @@ var shooting_distance_sqrd = shooting_distance*shooting_distance
 #var evasion_distance_sqrd = evasion_distance*evasion_distance
 #export var max_speed = 400
 
-export var health = 50
+export var health = 30
 
 export var time_until_removal = 4
 export var time_until_next_shot = 0.8
@@ -44,6 +44,9 @@ func _physics_process(delta):
 		death_timer += delta
 		if death_timer > time_until_removal:
 			queue_free()
+		return
+	elif $"..".is_choosing:
+		$AnimationPlayer.stop()
 		return
 	
 	var player_distance_sqrd = position.distance_squared_to(player.position)

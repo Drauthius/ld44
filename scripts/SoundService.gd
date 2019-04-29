@@ -76,7 +76,7 @@ func _ready():
 			sfx[key].set_bus("Spawn")
 		if "enemy02_speech" in key or "enemy02_death" in key:
 			sfx[key].set_bus("Speech")
-	sfx.ricochet.set_bus("Player")
+	sfx.ricochet01.set_bus("Player")
 
 func stop_all_music():
 	for key in loops:
