@@ -21,7 +21,6 @@ func _ready():
 	$GUI.set_score(0)
 	Scoreboard.hide()
 	$ScoreTimer.start()
-	SoundService.game_start()
 	SoundService.game()
 
 func _on_SpawnTimer_timeout():
@@ -103,3 +102,8 @@ func _on_Outhouse_opened():
 	$SpawnTimer.paused = false
 	$Player.is_dead = false
 	is_choosing = false # Start the enemies a little later
+
+func _unhandled_input(event):
+	if event is InputEventKey:
+		if event.pressed and event.scancode == KEY_ESCAPE:
+			get_tree().quit()
