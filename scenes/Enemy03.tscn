@@ -229,7 +229,6 @@ __meta__ = {
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 3
-frame = 14
 region_enabled = true
 region_rect = Rect2( 0, 0, 192, 320 )
 
@@ -246,7 +245,7 @@ anims/spawn = SubResource( 6 )
 anims/up_run = SubResource( 7 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
+stream = ExtResource( 5 )
 bus = "Enemy"
 
 [node name="Gun" type="Node" parent="."]

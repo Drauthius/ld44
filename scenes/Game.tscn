@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://resources/tileset_grass_dirt.tres" type="TileSet" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://art/barn.png" type="Texture" id=4]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/GUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/Enemy04.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 158.342, 23.1537 )
@@ -76,6 +77,7 @@ shape = SubResource( 4 )
 position = Vector2( 460.917, 100.293 )
 
 [node name="SpawnPoints" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="Spawn1" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 7.02443, 239.165 )
@@ -109,6 +111,9 @@ autostart = true
 wait_time = 10.0
 
 [node name="GUI" parent="." instance=ExtResource( 6 )]
+
+[node name="Enemy04" parent="." instance=ExtResource( 7 )]
+position = Vector2( 259.218, 180.292 )
 [connection signal="death" from="Player" to="." method="_on_Player_death"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]

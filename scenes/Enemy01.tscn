@@ -147,7 +147,7 @@ __meta__ = {
 texture = ExtResource( 2 )
 vframes = 3
 hframes = 8
-frame = 19
+frame = 22
 region_enabled = true
 region_rect = Rect2( 0, 0, 256, 96 )
 

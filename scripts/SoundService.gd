@@ -90,6 +90,8 @@ func _ready():
 			sfx[key].set_bus("Spawn")
 		if "enemy02_speech" in key or "enemy02_death" in key:
 			sfx[key].set_bus("Speech")
+		if "enemy03_spawn" in key or "enemy03_death" in key:
+			sfx[key].set_bus("Music") #this might be controversial, wanna find other soln
 	sfx.ricochet01.set_bus("Player")
 
 func stop_all_music():
@@ -153,20 +155,6 @@ func death_scene_transition():
 func enemy01_spawn():
 	var index = randi() % 3 + 1
 	var key_string = str("enemy01_spawn0", index)
-	sfx[key_string].pitch_scale = randf() * 0.8 + 0.8
-	sfx[key_string].play()
-	pass
-
-func enemy02_spawn():
-	var index = randi() % 3 + 1
-	var key_string = str("enemy02_speech0", index)
-	sfx[key_string].pitch_scale = randf() * 0.8 + 0.8
-	sfx[key_string].play()
-	pass
-
-func enemy03_spawn():
-	var index = randi() % 3 + 1
-	var key_string = str("enemy03_spawn0", index)
 	sfx[key_string].pitch_scale = randf() * 0.4 + 0.8
 	sfx[key_string].play()
 	pass
@@ -174,21 +162,35 @@ func enemy03_spawn():
 func enemy01_death():
 	var index = randi() % 2 + 1
 	var key_string = str("enemy01_death0", index)
-	sfx[key_string].pitch_scale = randf() * 0.8 + 0.8
+	sfx[key_string].pitch_scale = randf() * 0.4 + 1.2
+	sfx[key_string].play()
+	pass
+
+func enemy02_spawn():
+	var index = randi() % 3 + 1
+	var key_string = str("enemy02_speech0", index)
+	sfx[key_string].pitch_scale = randf() * 0.4 + 0.8
 	sfx[key_string].play()
 	pass
 
 func enemy02_death():
 	var index = randi() % 2 + 1
 	var key_string = str("enemy02_death0", index)
-	sfx[key_string].pitch_scale = randf() * 0.8 + 0.8
+	sfx[key_string].pitch_scale = randf() * 0.4 + 1.2
+	sfx[key_string].play()
+	pass
+
+func enemy03_spawn():
+	var index = randi() % 3 + 1
+	var key_string = str("enemy03_spawn0", index)
+	sfx[key_string].pitch_scale = randf() * 0.6 + 0.4
 	sfx[key_string].play()
 	pass
 
 func enemy02_speech():
 	var index = randi() % 2 + 1
 	var key_string = str("enemy02_speech0", index)
-	sfx[key_string].pitch_scale = randf() * 0.8 + 0.8
+	sfx[key_string].pitch_scale = randf() * 0.8 + 0.4
 	sfx[key_string].play()
 	pass
 
@@ -207,6 +209,10 @@ func gunshot_enemy03():
 func ricochet():
 	sfx.ricochet01.pitch_scale = randf() * 0.8 + 0.8
 	sfx.ricochet01.play()
+
+func fleshthump():
+	print("fleshy sound")
+	return
 
 func katching():
 	sfx.katching.pitch_scale = randf() * 0.8 + 0.8
