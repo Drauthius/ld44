@@ -11,6 +11,7 @@ export var charge_timer : float = 2.0
 export var charge_cooldown : float = 1.0
 #var charge_distance_sqrd = charge_distance * charge_distance
 var charge_target
+var mate
 
 export var evade_chance : float = 0.5
 

@@ -137,6 +137,7 @@ tracks/0/keys = {
 
 [node name="Enemy01" type="KinematicBody2D" groups=[
 "Living",
+"Mate",
 ]]
 script = ExtResource( 1 )
 __meta__ = {

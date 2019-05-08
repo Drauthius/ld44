@@ -173,6 +173,13 @@ func enemy02_spawn():
 	sfx[key_string].play()
 	pass
 
+func enemy02_speech():
+	var index = randi() % 2 + 1
+	var key_string = str("enemy02_speech0", index)
+	sfx[key_string].pitch_scale = randf() * 0.4 + 0.8
+	sfx[key_string].play()
+	pass
+
 func enemy02_death():
 	var index = randi() % 2 + 1
 	var key_string = str("enemy02_death0", index)
@@ -187,11 +194,8 @@ func enemy03_spawn():
 	sfx[key_string].play()
 	pass
 
-func enemy02_speech():
-	var index = randi() % 2 + 1
-	var key_string = str("enemy02_speech0", index)
-	sfx[key_string].pitch_scale = randf() * 0.8 + 0.4
-	sfx[key_string].play()
+func enemy04_spawn():
+	print("enemy04 spawn sound")
 	pass
 
 func gunshot_player():
