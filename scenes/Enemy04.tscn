@@ -217,3 +217,4 @@ shape = SubResource( 12 )
 
 [node name="MatingTimer" type="Timer" parent="."]
 wait_time = 10.0
+[connection signal="body_entered" from="MatingArea" to="." method="_on_MatingArea_body_entered"]

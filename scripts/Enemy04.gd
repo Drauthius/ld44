@@ -23,7 +23,7 @@ var death_timer = 0.0
 var is_dead = false
 export var worth : int = 5
 var difficulty = 0
-enum {PURSUE, CHARGE, CHARGING, EVADE}
+enum {PURSUE, CHARGE, CHARGING, EVADE, MATING, WANDER}
 var behaviour_switch = PURSUE
 var behaviour_timer = 0.0
 
@@ -56,6 +56,13 @@ func _physics_process(delta):
 			_set_sprite(direction.angle())
 			$AnimationPlayer.playback_speed = 2.0
 		return
+	elif behaviour_switch == MATING:
+		if mate == null:
+			behaviour_timer = WANDER
+			return
+		var direction = (mate.position - position).normalized()
+		direction = direction * 0.1 + direction.tangent()
+		var coll = move_and_collide(direction * delta * normal_speed)
 	elif behaviour_switch == CHARGING:
 		var direction = (charge_target - position).normalized()
 		var coll = move_and_collide(direction * delta * charge_speed)
@@ -130,5 +137,17 @@ func die():
 		$AnimationPlayer.play($AnimationPlayer.current_animation.replace("_run", "_death"))
 		# Bug?? Play won't change the current animation when called by Game from a signal
 		$AnimationPlayer.current_animation = $AnimationPlayer.current_animation.replace("_run", "_death")
+
+
+func _on_MatingArea_body_entered(body):
+	if mate != null:
+		print("mate: ", mate, ", returning ")
+		return
+	
+	if body.is_in_group("Mate"):
+		body.mate = self
+		behaviour_switch = MATING
+		mate = body
+
 
 

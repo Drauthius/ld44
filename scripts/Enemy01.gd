@@ -25,7 +25,7 @@ signal death(KinematicBody2D)
 
 export var timer_long = 1.0
 export var timer_short = 0.5
-enum {PURSUE, CHARGE, CHARGING, EVADE}
+enum {PURSUE, CHARGE, CHARGING, EVADE, MATING}
 var behaviour_switch = PURSUE
 var behaviour_timer = 0.0
 var evade_dir
@@ -45,6 +45,9 @@ func _physics_process(delta):
 		$AnimationPlayer.stop()
 		return
 	
+	if mate != null:
+		behaviour_switch = MATING
+	
 	behaviour_timer += delta
 	if behaviour_timer < 0.0:
 		return
@@ -59,6 +62,13 @@ func _physics_process(delta):
 			elif difficulty >= 2 and randf() < evade_chance:
 				behaviour_switch = EVADE
 			behaviour_timer = 0.0
+	elif behaviour_switch == MATING:
+		if mate == null:
+			behaviour_timer = PURSUE
+			return
+		var direction = (mate.position - position).normalized()
+		direction = direction * 0.1 + direction.tangent()
+		var coll = move_and_collide(direction * delta * normal_speed)
 	elif behaviour_switch == EVADE:
 		if behaviour_timer > timer_short:
 			behaviour_switch = PURSUE
