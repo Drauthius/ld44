@@ -2,7 +2,10 @@ extends KinematicBody2D
 
 const QPI = PI/4.0
 
-export var normal_speed : int = 150
+export var walk_speed : int = 70
+export var run_speed : int = 110
+var current_speed : int = 0
+var direction : Vector2 = Vector2()
 export var charge_distance : int = 220
 export var charge_distance_span : int = 30
 export var charge_speed : int = 300
@@ -23,8 +26,8 @@ var death_timer = 0.0
 var is_dead = false
 export var worth : int = 5
 var difficulty = 0
-enum {PURSUE, CHARGE, CHARGING, EVADE, MATING, WANDER}
-var behaviour_switch = PURSUE
+enum {PURSUE, CHARGE, CHARGING, EVADE, MATING, WANDER, WAIT}
+var behaviour_switch = WANDER
 var behaviour_timer = 0.0
 
 onready var player = $"../Player"
@@ -50,21 +53,43 @@ func _physics_process(delta):
 	if behaviour_switch == CHARGE:
 		if behaviour_timer > charge_timer:
 			behaviour_switch = CHARGING
-			var direction = (player.position - position).normalized()
+			direction = (player.position - position).normalized()
 			charge_target = position + direction * (charge_distance + charge_distance_span)
 			#charge_target = player.position
 			_set_sprite(direction.angle())
 			$AnimationPlayer.playback_speed = 2.0
 		return
 	elif behaviour_switch == MATING:
-		if mate == null:
+		if mate == null or mate.is_dead:
 			behaviour_timer = WANDER
 			return
-		var direction = (mate.position - position).normalized()
+		direction = (mate.position - position).normalized()
 		direction = direction * 0.1 + direction.tangent()
-		var coll = move_and_collide(direction * delta * normal_speed)
+		var coll = move_and_collide(direction * delta * run_speed)
+	elif behaviour_switch == PURSUE:
+		current_speed = run_speed
+		direction = (player.position - position).normalized()
+		var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
+		_set_sprite(direction.angle(), velocity.length_squared() <= 1000)
+	elif behaviour_switch == WANDER and not $WalkTimer.is_stopped():
+		if $WalkTimer.is_stopped():
+			$WalkTimer.start()
+			direction = _get_random_direction()
+			current_speed = walk_speed
+		var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
+		_set_sprite(direction.angle(), velocity.length_squared() <= 1000)
+		pass
+	elif behaviour_switch == WAIT and not $WaitTimer.is_stopped():
+		if $WaitTimer.is_stopped():
+			$WaitTimer.start()
+			direction = _get_random_direction()
+			current_speed = 0
+		direction = (player.position - position).normalized()
+		var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
+		_set_sprite(direction.angle(), velocity.length_squared() <= 1000)
+			
 	elif behaviour_switch == CHARGING:
-		var direction = (charge_target - position).normalized()
+		direction = (charge_target - position).normalized()
 		var coll = move_and_collide(direction * delta * charge_speed)
 		if coll:
 			if coll.collider.is_in_group("Living"):
@@ -79,12 +104,6 @@ func _physics_process(delta):
 			$AnimationPlayer.stop()
 			$AnimationPlayer.playback_speed = 1.0
 		return
-	
-	var current_speed = normal_speed
-	var direction = (player.position - position).normalized()
-	
-	var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
-	_set_sprite(direction.angle(), velocity.length_squared() <= 1000)
 	
 	# Check for player collision
 	for i in range(get_slide_count()):
@@ -117,6 +136,10 @@ func _set_sprite(angle, paused = false):
 		$CollisionShape2D.rotation = PI/2
 	else:
 		$CollisionShape2D.rotation = 0
+
+func _get_random_direction():
+	var angle = randf() * 2 * PI
+	return Vector2(cos(angle), sin(angle))
 
 func get_worth():
 	return worth

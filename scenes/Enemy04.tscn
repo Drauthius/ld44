@@ -185,7 +185,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-normal_speed = 100
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -215,6 +214,13 @@ anims/up_walk = SubResource( 11 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MatingArea"]
 shape = SubResource( 12 )
 
-[node name="MatingTimer" type="Timer" parent="."]
-wait_time = 10.0
+[node name="MatingCooldown" type="Timer" parent="."]
+wait_time = 20.0
+
+[node name="RunTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="WalkTimer" type="Timer" parent="."]
+
+[node name="WaitTimer" type="Timer" parent="."]
 [connection signal="body_entered" from="MatingArea" to="." method="_on_MatingArea_body_entered"]
