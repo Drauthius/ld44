@@ -71,7 +71,7 @@ func _physics_process(delta):
 		direction = (player.position - position).normalized()
 		var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
 		_set_sprite(direction.angle(), velocity.length_squared() <= 1000)
-	elif behaviour_switch == WANDER and not $WalkTimer.is_stopped():
+	elif behaviour_switch == WANDER:
 		if $WalkTimer.is_stopped():
 			$WalkTimer.start()
 			direction = _get_random_direction()
@@ -79,15 +79,20 @@ func _physics_process(delta):
 		var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
 		_set_sprite(direction.angle(), velocity.length_squared() <= 1000)
 		pass
-	elif behaviour_switch == WAIT and not $WaitTimer.is_stopped():
+	elif behaviour_switch == WAIT:
 		if $WaitTimer.is_stopped():
 			$WaitTimer.start()
 			direction = _get_random_direction()
 			current_speed = 0
-		direction = (player.position - position).normalized()
 		var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
 		_set_sprite(direction.angle(), velocity.length_squared() <= 1000)
-			
+	elif behaviour_switch == WANDER and $WalkTimer.is_stopped():
+		if $WalkTimer.is_stopped():
+			$WalkTimer.start()
+			direction = _get_random_direction()
+			current_speed = walk_speed
+		var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
+		_set_sprite(direction.angle(), velocity.length_squared() <= 1000)
 	elif behaviour_switch == CHARGING:
 		direction = (charge_target - position).normalized()
 		var coll = move_and_collide(direction * delta * charge_speed)
@@ -168,9 +173,30 @@ func _on_MatingArea_body_entered(body):
 		return
 	
 	if body.is_in_group("Mate"):
+		print("mate found, nothing done, see on MatinArea body entered")
+		return
 		body.mate = self
 		behaviour_switch = MATING
 		mate = body
 
 
 
+func _on_AttackArea_body_entered(body):
+	if body == player:
+		$WalkTimer.stop()
+		$WaitTimer.stop()
+		behaviour_switch = PURSUE
+		$RunTimer.start()
+		pass
+
+
+func _on_RunTimer_timeout():
+	behaviour_switch = WAIT
+
+
+func _on_WalkTimer_timeout():
+	behaviour_switch = WAIT
+
+
+func _on_WaitTimer_timeout():
+	behaviour_switch = WANDER
