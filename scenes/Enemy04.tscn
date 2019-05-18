@@ -3,12 +3,14 @@
 [ext_resource path="res://scripts/Enemy04.gd" type="Script" id=1]
 [ext_resource path="res://art/enemy_04.png" type="Texture" id=2]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=1]
+radius = 128.0
+
+[sub_resource type="CapsuleShape2D" id=2]
 radius = 14.0
 height = 14.0
 
-[sub_resource type="Animation" id=2]
-resource_name = "down_run"
+[sub_resource type="Animation" id=3]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -24,8 +26,7 @@ tracks/0/keys = {
 "values": [ 20, 26, 32, 38, 44 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "down_walk"
+[sub_resource type="Animation" id=4]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -41,8 +42,7 @@ tracks/0/keys = {
 "values": [ 2, 8, 2, 14 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "left_death"
+[sub_resource type="Animation" id=5]
 length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -57,8 +57,7 @@ tracks/0/keys = {
 "values": [ 4, 10, 16, 22, 28, 34, 40, 46 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "left_run"
+[sub_resource type="Animation" id=6]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -74,7 +73,7 @@ tracks/0/keys = {
 "values": [ 18, 24, 30, 36, 42 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -90,8 +89,7 @@ tracks/0/keys = {
 "values": [ 0, 6, 0, 12 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "right_death"
+[sub_resource type="Animation" id=8]
 length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -106,8 +104,7 @@ tracks/0/keys = {
 "values": [ 5, 11, 17, 23, 29, 35, 41, 47 ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "right_run"
+[sub_resource type="Animation" id=9]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -123,8 +120,7 @@ tracks/0/keys = {
 "values": [ 19, 25, 31, 37, 43 ]
 }
 
-[sub_resource type="Animation" id=9]
-resource_name = "right_walk"
+[sub_resource type="Animation" id=10]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -140,8 +136,7 @@ tracks/0/keys = {
 "values": [ 1, 7, 1, 13 ]
 }
 
-[sub_resource type="Animation" id=10]
-resource_name = "up_run"
+[sub_resource type="Animation" id=11]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -157,8 +152,7 @@ tracks/0/keys = {
 "values": [ 21, 27, 33, 39, 45 ]
 }
 
-[sub_resource type="Animation" id=11]
-resource_name = "up_walk"
+[sub_resource type="Animation" id=12]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -174,9 +168,6 @@ tracks/0/keys = {
 "values": [ 3, 9, 3, 15 ]
 }
 
-[sub_resource type="CircleShape2D" id=12]
-radius = 128.0
-
 [node name="Enemy04" type="KinematicBody2D" groups=[
 "Living",
 "Immovable",
@@ -186,6 +177,14 @@ __meta__ = {
 "_edit_group_": true
 }
 
+[node name="MatingArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MatingArea"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 vframes = 8
@@ -194,25 +193,17 @@ frame = 20
 region_enabled = true
 region_rect = Rect2( 0, 0, 384, 512 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/down_run = SubResource( 2 )
-anims/down_walk = SubResource( 3 )
-anims/left_death = SubResource( 4 )
-anims/left_run = SubResource( 5 )
-anims/left_walk = SubResource( 6 )
-anims/right_death = SubResource( 7 )
-anims/right_run = SubResource( 8 )
-anims/right_walk = SubResource( 9 )
-anims/up_run = SubResource( 10 )
-anims/up_walk = SubResource( 11 )
-
-[node name="MatingArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MatingArea"]
-shape = SubResource( 12 )
+anims/down_run = SubResource( 3 )
+anims/down_walk = SubResource( 4 )
+anims/left_death = SubResource( 5 )
+anims/left_run = SubResource( 6 )
+anims/left_walk = SubResource( 7 )
+anims/right_death = SubResource( 8 )
+anims/right_run = SubResource( 9 )
+anims/right_walk = SubResource( 10 )
+anims/up_run = SubResource( 11 )
+anims/up_walk = SubResource( 12 )
 
 [node name="MatingCooldown" type="Timer" parent="."]
 wait_time = 20.0
