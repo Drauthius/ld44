@@ -28,7 +28,6 @@ export var worth : int = 5
 var difficulty = 0
 enum {PURSUE, CHARGE, CHARGING, EVADE, MATING, WANDER, WAIT}
 var behaviour_switch = WANDER
-var behaviour_timer = 0.0
 
 onready var player = $"../Player"
 
@@ -46,22 +45,11 @@ func _physics_process(delta):
 		$AnimationPlayer.stop()
 		return
 	
-	behaviour_timer += delta
-	if behaviour_timer < 0.0:
-		return
 	
-	if behaviour_switch == CHARGE:
-		if behaviour_timer > charge_timer:
-			behaviour_switch = CHARGING
-			direction = (player.position - position).normalized()
-			charge_target = position + direction * (charge_distance + charge_distance_span)
-			#charge_target = player.position
-			_set_sprite(direction.angle())
-			$AnimationPlayer.playback_speed = 2.0
-		return
-	elif behaviour_switch == MATING:
+	if behaviour_switch == MATING:
 		if mate == null or mate.is_dead:
-			behaviour_timer = WANDER
+			behaviour_switch = WANDER
+			$WalkTimer.start()
 			return
 		direction = (mate.position - position).normalized()
 		direction = direction * 0.1 + direction.tangent()
@@ -73,42 +61,23 @@ func _physics_process(delta):
 		_set_sprite(direction.angle(), velocity.length_squared() <= 1000)
 	elif behaviour_switch == WANDER:
 		if $WalkTimer.is_stopped():
+			print("start wandering")
 			$WalkTimer.start()
+			$WaitTimer.stop()
+			print("walktimer time left: ",$WalkTimer.time_left)
 			direction = _get_random_direction()
 			current_speed = walk_speed
 		var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
-		_set_sprite(direction.angle(), velocity.length_squared() <= 1000)
+		_set_sprite(direction.angle(), velocity.length_squared() <= 1000, "walk")
 		pass
 	elif behaviour_switch == WAIT:
 		if $WaitTimer.is_stopped():
 			$WaitTimer.start()
+			$WalkTimer.stop()
 			direction = _get_random_direction()
 			current_speed = 0
 		var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
-		_set_sprite(direction.angle(), velocity.length_squared() <= 1000)
-	elif behaviour_switch == WANDER and $WalkTimer.is_stopped():
-		if $WalkTimer.is_stopped():
-			$WalkTimer.start()
-			direction = _get_random_direction()
-			current_speed = walk_speed
-		var velocity = move_and_slide(direction * current_speed, Vector2(0, 0), true, 1, 0.0, false)
-		_set_sprite(direction.angle(), velocity.length_squared() <= 1000)
-	elif behaviour_switch == CHARGING:
-		direction = (charge_target - position).normalized()
-		var coll = move_and_collide(direction * delta * charge_speed)
-		if coll:
-			if coll.collider.is_in_group("Living"):
-				coll.collider.die()
-			behaviour_switch = PURSUE
-			behaviour_timer = -charge_cooldown
-			$AnimationPlayer.stop()
-			$AnimationPlayer.playback_speed = 1.0
-		elif position.distance_squared_to(charge_target) < 10:
-			behaviour_switch = PURSUE
-			behaviour_timer = -charge_cooldown
-			$AnimationPlayer.stop()
-			$AnimationPlayer.playback_speed = 1.0
-		return
+		_set_sprite(direction.angle(), velocity.length_squared() <= 1000, "walk")
 	
 	# Check for player collision
 	for i in range(get_slide_count()):
@@ -117,20 +86,21 @@ func _physics_process(delta):
 			player.die()
 			$AnimationPlayer.stop()
 
-func _set_sprite(angle, paused = false):
+func _set_sprite(angle, paused = false, state = "run"):
 	angle += PI
 	var wide = true
-	
+	if state != "":
+		state = str("_"+state)
 	if angle > 5*QPI and angle < 7*QPI:
-		$AnimationPlayer.play("down_run")
+		$AnimationPlayer.play("down"+state)
 		wide = false
 	elif angle > 3*QPI and angle < 5*QPI:
-		$AnimationPlayer.play("right_run")
+		$AnimationPlayer.play("right"+state)
 	elif angle > QPI and angle < 3*QPI:
-		$AnimationPlayer.play("up_run")
+		$AnimationPlayer.play("up"+state)
 		wide = false
 	else:
-		$AnimationPlayer.play("left_run")
+		$AnimationPlayer.play("left"+state)
 	
 	if paused:
 		$AnimationPlayer.advance(0.01)
@@ -143,8 +113,8 @@ func _set_sprite(angle, paused = false):
 		$CollisionShape2D.rotation = 0
 
 func _get_random_direction():
-	var angle = randf() * 2 * PI
-	return Vector2(cos(angle), sin(angle))
+	var _angle = randf() * 2 * PI
+	return Vector2(cos(_angle), sin(_angle))
 
 func get_worth():
 	return worth
@@ -195,6 +165,8 @@ func _on_RunTimer_timeout():
 
 
 func _on_WalkTimer_timeout():
+	print("walk timer timeout")
+	print("walktimer time left: ",$WalkTimer.time_left)
 	behaviour_switch = WAIT
 
 

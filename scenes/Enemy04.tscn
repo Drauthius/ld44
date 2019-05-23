@@ -6,14 +6,14 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 128.0
 
-[sub_resource type="CircleShape2D" id=13]
+[sub_resource type="CircleShape2D" id=2]
 radius = 164.0
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=3]
 radius = 14.0
 height = 14.0
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -29,7 +29,7 @@ tracks/0/keys = {
 "values": [ 20, 26, 32, 38, 44 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -45,7 +45,7 @@ tracks/0/keys = {
 "values": [ 2, 8, 2, 14 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -60,7 +60,7 @@ tracks/0/keys = {
 "values": [ 4, 10, 16, 22, 28, 34, 40, 46 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -76,7 +76,7 @@ tracks/0/keys = {
 "values": [ 18, 24, 30, 36, 42 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -92,7 +92,7 @@ tracks/0/keys = {
 "values": [ 0, 6, 0, 12 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -107,7 +107,7 @@ tracks/0/keys = {
 "values": [ 5, 11, 17, 23, 29, 35, 41, 47 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -123,7 +123,7 @@ tracks/0/keys = {
 "values": [ 19, 25, 31, 37, 43 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -139,7 +139,7 @@ tracks/0/keys = {
 "values": [ 1, 7, 1, 13 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=12]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -155,7 +155,7 @@ tracks/0/keys = {
 "values": [ 21, 27, 33, 39, 45 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=13]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -172,8 +172,8 @@ tracks/0/keys = {
 }
 
 [node name="Enemy04" type="KinematicBody2D" groups=[
-"Immovable",
 "Living",
+"Immovable",
 ]]
 script = ExtResource( 1 )
 __meta__ = {
@@ -188,10 +188,10 @@ shape = SubResource( 1 )
 [node name="AttackArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-shape = SubResource( 13 )
+shape = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -202,16 +202,16 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 384, 512 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/down_run = SubResource( 3 )
-anims/down_walk = SubResource( 4 )
-anims/left_death = SubResource( 5 )
-anims/left_run = SubResource( 6 )
-anims/left_walk = SubResource( 7 )
-anims/right_death = SubResource( 8 )
-anims/right_run = SubResource( 9 )
-anims/right_walk = SubResource( 10 )
-anims/up_run = SubResource( 11 )
-anims/up_walk = SubResource( 12 )
+anims/down_run = SubResource( 4 )
+anims/down_walk = SubResource( 5 )
+anims/left_death = SubResource( 6 )
+anims/left_run = SubResource( 7 )
+anims/left_walk = SubResource( 8 )
+anims/right_death = SubResource( 9 )
+anims/right_run = SubResource( 10 )
+anims/right_walk = SubResource( 11 )
+anims/up_run = SubResource( 12 )
+anims/up_walk = SubResource( 13 )
 
 [node name="MatingCooldown" type="Timer" parent="."]
 wait_time = 20.0
