@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scripts/Enemy01.gd" type="Script" id=1]
 [ext_resource path="res://art/enemy_01.png" type="Texture" id=2]
@@ -20,7 +20,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 6, 14, 22 ]
+"values": [ 18, 19, 20 ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -33,10 +33,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 10, 18 ]
+"values": [ 6, 7, 8 ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -52,7 +52,23 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 4, 12, 20 ]
+"values": [ 12, 13, 14 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "left_explosion"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 24 ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -65,10 +81,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 8, 16 ]
+"values": [ 0, 1, 2 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -84,7 +100,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 5, 13, 21 ]
+"values": [ 15, 16, 17 ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -97,10 +113,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 9, 17 ]
+"values": [ 3, 4, 5 ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -116,7 +132,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 7, 15, 23 ]
+"values": [ 21, 22, 23 ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -129,10 +145,314 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 11, 19 ]
+"values": [ 9, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "down_death"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 18, 19, 20 ]
+}
+
+[sub_resource type="Animation" id=12]
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 7, 8 ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "left_death"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14 ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "left_explosion"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 24 ]
+}
+
+[sub_resource type="Animation" id=15]
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "right_death"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 15, 16, 17 ]
+}
+
+[sub_resource type="Animation" id=17]
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5 ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "up_death"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 21, 22, 23 ]
+}
+
+[sub_resource type="Animation" id=19]
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "down_death"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 18, 19, 20 ]
+}
+
+[sub_resource type="Animation" id=21]
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 7, 8 ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "left_death"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14 ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "left_explosion"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 24, 25, 26 ]
+}
+
+[sub_resource type="Animation" id=24]
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "right_death"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 15, 16, 17 ]
+}
+
+[sub_resource type="Animation" id=26]
+resource_name = "right_explosion"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 27, 28, 29 ]
+}
+
+[sub_resource type="Animation" id=27]
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5 ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "up_death"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 21, 22, 23 ]
+}
+
+[sub_resource type="Animation" id=29]
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 10, 11 ]
 }
 
 [node name="Enemy01" type="KinematicBody2D" groups=[
@@ -146,11 +466,11 @@ __meta__ = {
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
-vframes = 3
-hframes = 8
-frame = 22
+vframes = 10
+hframes = 3
+frame = 29
 region_enabled = true
-region_rect = Rect2( 0, 0, 256, 96 )
+region_rect = Rect2( 0, 0, 96, 320 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -160,11 +480,35 @@ shape = SubResource( 1 )
 anims/down_death = SubResource( 2 )
 anims/down_run = SubResource( 3 )
 anims/left_death = SubResource( 4 )
+anims/left_explosion = SubResource( 10 )
 anims/left_run = SubResource( 5 )
 anims/right_death = SubResource( 6 )
 anims/right_run = SubResource( 7 )
 anims/up_death = SubResource( 8 )
 anims/up_run = SubResource( 9 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+anims/down_death = SubResource( 11 )
+anims/down_run = SubResource( 12 )
+anims/left_death = SubResource( 13 )
+anims/left_explosion = SubResource( 14 )
+anims/left_run = SubResource( 15 )
+anims/right_death = SubResource( 16 )
+anims/right_run = SubResource( 17 )
+anims/up_death = SubResource( 18 )
+anims/up_run = SubResource( 19 )
+
+[node name="AnimationPlayer3" type="AnimationPlayer" parent="."]
+anims/down_death = SubResource( 20 )
+anims/down_run = SubResource( 21 )
+anims/left_death = SubResource( 22 )
+anims/left_explosion = SubResource( 23 )
+anims/left_run = SubResource( 24 )
+anims/right_death = SubResource( 25 )
+anims/right_explosion = SubResource( 26 )
+anims/right_run = SubResource( 27 )
+anims/up_death = SubResource( 28 )
+anims/up_run = SubResource( 29 )
 
 [node name="Tween" type="Tween" parent="."]
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
