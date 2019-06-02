@@ -167,7 +167,7 @@ tracks/0/keys = {
 "values": [ 9, 10, 11 ]
 }
 
-[node name="Enemy01" type="KinematicBody2D" groups=[
+[node name="Enemy" type="KinematicBody2D" groups=[
 "Living",
 "Mate",
 ]]
@@ -204,6 +204,8 @@ anims/up_run = SubResource( 11 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Gun" type="Node" parent="."]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
