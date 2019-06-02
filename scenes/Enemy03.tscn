@@ -19,7 +19,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 2, 5, 8, 11, 14 ]
+"values": [ 10, 11, 12, 13, 14 ]
 }
 tracks/1/type = "audio"
 tracks/1/path = NodePath("AudioStreamPlayer")
@@ -49,14 +49,14 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.4, 0.8, 1.2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 3, 10, 4, 13 ]
+"values": [ 6, 8, 0, 9 ]
 }
 tracks/1/type = "audio"
 tracks/1/path = NodePath("AudioStreamPlayer")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
@@ -98,14 +98,14 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.4, 0.8, 1.2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 3, 9, 4, 12 ]
+"values": [ 1, 3, 6, 4 ]
 }
 tracks/1/type = "audio"
 tracks/1/path = NodePath("AudioStreamPlayer")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
@@ -132,14 +132,14 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.4, 0.8, 1.2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 3, 9, 4, 12 ]
+"values": [ 4, 6, 3, 1 ]
 }
 tracks/1/type = "audio"
 tracks/1/path = NodePath("AudioStreamPlayer")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
@@ -227,10 +227,11 @@ __meta__ = {
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
-vframes = 5
-hframes = 3
+vframes = 3
+hframes = 5
+frame = 14
 region_enabled = true
-region_rect = Rect2( 0, 0, 192, 320 )
+region_rect = Rect2( 0, 0, 320, 192 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( 21.3552, -19.6698, 23.1826, -4.97709, 10.1652, -4.72495, 19.8932, 1.52864, 27.0785, 26.7891, 17.481, 27.2592, 7.54972, 5.77193, -7.21591, 5.71239, -17.3375, 27.7418, -27.2805, 25.5984, -19.2143, 1.67483, -9.99101, -4.86023, -22.2113, -5.85427, -21.5534, -20.6932, -12.7816, -22.4475, 0.595306, -9.07058, 14.8494, -22.5206 )
@@ -245,7 +246,7 @@ anims/spawn = SubResource( 6 )
 anims/up_run = SubResource( 7 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource( 3 )
 bus = "Enemy"
 
 [node name="Gun" type="Node" parent="."]
