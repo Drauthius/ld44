@@ -116,7 +116,7 @@ func _physics_process(delta):
 			bullet.lifetime = shooting_distance / float(bullet_speed)
 			bullet.speed = bullet_speed
 			$Gun.add_child(bullet)
-			SoundService.gunshot_enemy02()
+			SoundService.enemy02_gunshot()
 			
 			# Muzzle flash
 			var muzzle_flash = MuzzleFlash.instance()

@@ -7,14 +7,12 @@ var loops = {
 }
 
 var sfx = {
-	"gunshot_player": AudioStreamPlayer.new(),
+	"player_gunshot": AudioStreamPlayer.new(),
 	"player_death01": AudioStreamPlayer.new(),
 	"player_speech01": AudioStreamPlayer.new(),
 	"player_speech02": AudioStreamPlayer.new(),
 	"player_speech03": AudioStreamPlayer.new(),
 	"katching": AudioStreamPlayer.new(),
-	"gunshot_enemy02": AudioStreamPlayer.new(),
-	"gunshot_enemy03": AudioStreamPlayer.new(),
 	"meny_click": AudioStreamPlayer.new(),
 	"end_game": AudioStreamPlayer.new(),
 	"weapon_hit": AudioStreamPlayer.new(),
@@ -29,9 +27,11 @@ var sfx = {
 	"enemy02_death01": AudioStreamPlayer.new(),
 	"enemy02_death02": AudioStreamPlayer.new(),
 	"enemy02_death03": AudioStreamPlayer.new(),
+	"enemy02_gunshot": AudioStreamPlayer.new(),
 	"enemy03_spawn01": AudioStreamPlayer.new(),
 	"enemy03_spawn02": AudioStreamPlayer.new(),
 	"enemy03_spawn03": AudioStreamPlayer.new(),
+	"enemy03_gunshot": AudioStreamPlayer.new(),
 	"ricochet01": AudioStreamPlayer.new()
 }
 
@@ -58,9 +58,9 @@ func _ready():
 	sfx.player_speech02.stream = preload("res://sounds/sfx/player_speech02.wav")
 	sfx.player_speech03.stream = preload("res://sounds/sfx/player_speech03.wav")
 	sfx.katching.stream = preload("res://sounds/sfx/katching!.wav")
-	sfx.gunshot_player.stream = preload("res://sounds/sfx/gun01.wav")
-	sfx.gunshot_enemy02.stream = preload("res://sounds/sfx/gun02.wav")
-	sfx.gunshot_enemy03.stream = preload("res://sounds/sfx/enemy03_gun01.wav")
+	sfx.player_gunshot.stream = preload("res://sounds/sfx/gun01.wav")
+	sfx.enemy02_gunshot.stream = preload("res://sounds/sfx/gun02.wav")
+	sfx.enemy03_gunshot.stream = preload("res://sounds/sfx/enemy03_gun01.wav")
 	sfx.enemy01_spawn01.stream = preload("res://sounds/sfx/enemy01_spawn01.wav")
 	sfx.enemy01_spawn02.stream = preload("res://sounds/sfx/enemy01_spawn02.wav")
 	sfx.enemy01_spawn03.stream = preload("res://sounds/sfx/enemy01_spawn03.wav")
@@ -198,17 +198,17 @@ func enemy04_spawn():
 	print("enemy04 spawn sound")
 	pass
 
-func gunshot_player():
-	sfx.gunshot_player.pitch_scale = randf() * 0.8 + 0.8
-	sfx.gunshot_player.play()
+func player_gunshot():
+	sfx.player_gunshot.pitch_scale = randf() * 0.8 + 0.8
+	sfx.player_gunshot.play()
 
-func gunshot_enemy02():
-	sfx.gunshot_enemy02.pitch_scale = randf() * 0.8 + 0.8
-	sfx.gunshot_enemy02.play()
+func enemy02_gunshot():
+	sfx.enemy02_gunshot.pitch_scale = randf() * 0.8 + 0.8
+	sfx.enemy02_gunshot.play()
 
-func gunshot_enemy03():
-	sfx.gunshot_enemy03.pitch_scale = randf() * 0.8 + 0.8
-	sfx.gunshot_enemy03.play()
+func enemy03_gunshot():
+	sfx.enemy03_gunshot.pitch_scale = randf() * 0.8 + 0.8
+	sfx.enemy03_gunshot.play()
 
 func ricochet():
 	sfx.ricochet01.pitch_scale = randf() * 0.8 + 0.8

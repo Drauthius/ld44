@@ -7,8 +7,10 @@ var is_choosing = false
 
 onready var Enemies = [
 	preload("res://scenes/Enemy01.tscn"),
-	preload("res://scenes/Enemy02.tscn"),
-	preload("res://scenes/Enemy03.tscn")
+	preload("res://scenes/Enemy01.tscn"),
+	preload("res://scenes/Enemy01.tscn")
+	#preload("res://scenes/Enemy02.tscn"),
+	#preload("res://scenes/Enemy03.tscn")
 ]
 onready var ChoicePanel = preload("res://scenes/ChoicePanel.tscn")
 onready var Outhouse = preload("res://scenes/Outhouse.tscn")
@@ -40,7 +42,6 @@ func _on_SpawnTimer_timeout():
 		var spawn_point = randi() % $SpawnPoints.get_child_count()
 		enemy.position = $SpawnPoints.get_child(spawn_point).position
 		enemy.position += Vector2(randf() * 6 - 3, randf() * 6 - 3) # Variance to avoid some physics problems hopefully
-		enemy.difficulty = difficulty
 		add_child(enemy)
 		enemy.connect("death", self, "_on_Enemy_death")
 
@@ -50,7 +51,7 @@ func _on_ScoreTimer_timeout():
 func _on_Enemy_death(enemy):
 	if not $ScoreTimer.is_stopped():
 		$GUI.set_score($GUI.get_score() + 5)
-		$GUI.set_money($GUI.get_money() + enemy.get_worth())
+		$GUI.set_money($GUI.get_money() + enemy.worth)
 
 func _on_Player_death():
 	$ScoreTimer.stop()

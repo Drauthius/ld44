@@ -77,7 +77,7 @@ func _physics_process(_delta):
 		
 		# Muzzle flash
 		var muzzle_flash = MuzzleFlash.instance()
-		SoundService.gunshot_player()
+		SoundService.player_gunshot()
 		muzzle_flash.position = -Vector2(16, 0).rotated(angle)
 		muzzle_flash.rotation = bullet.rotation
 		add_child(muzzle_flash)

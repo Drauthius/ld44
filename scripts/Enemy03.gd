@@ -82,7 +82,7 @@ func _physics_process(delta):
 			shooting_timer += delta
 		else:
 			shooting_timer = 0.0
-			SoundService.gunshot_enemy03()
+			SoundService.enemy03_gunshot()
 			var bullet = Bullet.instance()
 			bullet.position = get_global_transform().get_origin() - Vector2(0, 16)
 			bullet.rotation = (-bullet.position + player.position).angle()
