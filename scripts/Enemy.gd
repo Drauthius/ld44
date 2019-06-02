@@ -119,7 +119,7 @@ func _set_sprite(angle, paused = false):
 		$AnimationPlayer.stop()
 	
 	if rotate_collision:
-		$CollisionShape2D.rotation = 0 if wide else HPI
+		$CollisionShape2D.rotation = HPI if wide else 0
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name.ends_with("_explosion"):
@@ -134,11 +134,11 @@ func _on_Timer_timeout():
 			queue_free()
 		States.SHOOTING:
 			var angle = target.position.angle_to_point(position) + PI
-			var bullet = Bullet.instance()
+			var bullet = Bullet.instance() #GenEditState.GEN_EDIT_STATE_INSTANCE)
 			bullet.position = get_global_transform().get_origin() - Vector2(16, 0).rotated(angle)
 			bullet.rotation = angle - PI
 			bullet.init(Color("e3c7ff"))
-			bullet.lifetime = attack_distance / float(bullet_speed)
+			bullet.lifetime = attack_distance.y / float(bullet_speed)
 			bullet.speed = bullet_speed
 			$Gun.add_child(bullet)
 			SoundService.call(sound + "_gunshot")

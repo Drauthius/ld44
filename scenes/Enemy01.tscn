@@ -6,3 +6,4 @@
 [node name="Enemy01" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 sound = "enemy01"
+rotate_collision = true
