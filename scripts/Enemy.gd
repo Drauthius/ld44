@@ -1,11 +1,15 @@
 extends KinematicBody2D
 
 export(int, 1, 1000) var movement_speed = 150
-export(float, 0.0, 1.0) var evade_chance = 0.5
 export(String, "enemy01", "enemy02", "enemy03", "enemy04") var sound
 export(int, 1, 100) var hitpoints = 1
 export(int, 0, 100) var worth = 5
 export(float, 0.0, 1000.0) var despawn_time = 4.0
+
+export(float, 0.0, 100.0) var alter_behaviour_time = 1.0
+export(bool) var can_evade = false
+export(float, 0.0, 1.0) var evade_chance = 0.5
+export(float, 0.0, 100.0) var evade_time = 0.5
 
 export(Vector2) var attack_distance
 export(bool) var can_shoot = false
@@ -22,8 +26,11 @@ const HPI : float = PI/2.0
 const QPI : float = PI/4.0
 const STOPPED_SQUARED : float = 1000.0
 
-enum States {SPAWNING, PURSUE, CHARGE, CHARGING, SHOOTING, EVADE, MATING, DEAD}
+enum States {SPAWNING, PURSUING, CHARGE, CHARGING, SHOOTING, EVADING, MATING, DEAD}
 var state = States.SPAWNING
+
+enum Evade {LEFT, RIGHT}
+var evade_direction
 
 onready var player = $"../Player"
 onready var target = player
@@ -40,16 +47,19 @@ func _process(delta):
 		return
 	
 	if state == States.SPAWNING:
-		state = States.PURSUE
+		state = States.PURSUING
 	elif can_shoot:
 		var distance_squared = position.distance_squared_to(target.position)
 		if distance_squared >= attack_distance_squared.x and distance_squared <= attack_distance_squared.y:
 			state = States.SHOOTING
 			$Timer.start(shoot_time)
 		else:
-			state = States.PURSUE
-	else:
-		state = States.PURSUE
+			state = States.PURSUING
+	elif state != States.EVADING:
+		state = States.PURSUING
+		
+		if can_evade and $Timer.is_stopped():
+			$Timer.start(alter_behaviour_time)
 	
 	_on_process(delta)
 
@@ -60,7 +70,13 @@ func _physics_process(delta):
 		return
 	
 	var direction = (target.position - position).normalized()
-	if state == States.PURSUE:
+	if state == States.EVADING:
+		if evade_direction == Evade.LEFT:
+			direction = (direction - direction.tangent()).normalized()
+		else:
+			direction = (direction + direction.tangent()).normalized()
+		
+	if state == States.PURSUING or state == States.EVADING:
 		var velocity = move_and_slide(direction * movement_speed, Vector2(0, 0), true, 1, 0.0, false)
 		_set_sprite(direction.angle(), velocity.length_squared() <= STOPPED_SQUARED)
 		
@@ -148,6 +164,13 @@ func _on_Timer_timeout():
 			muzzle_flash.position = -Vector2(16, 0).rotated(angle)
 			muzzle_flash.rotation = bullet.rotation
 			add_child(muzzle_flash)
+		States.PURSUING:
+			if can_evade and randf() < evade_chance:
+				state = States.EVADING
+				evade_direction = Evade.LEFT if randf() < 0.5 else Evade.RIGHT
+				$Timer.start(evade_time)
+		States.EVADING:
+			state = States.PURSUING
 
 # Override these instead of the default _process/_physics_process.
 func _on_process(delta):
