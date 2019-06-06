@@ -11,6 +11,10 @@ export(bool) var can_evade = false
 export(float, 0.0, 1.0) var evade_chance = 0.5
 export(float, 0.0, 100.0) var evade_time = 0.5
 
+export(bool) var can_flee = false
+export(float, 0.0, 1000.0) var flee_distance
+export(float, 0.0, 100.0) var flee_time = 0.5
+
 export(Vector2) var attack_distance
 export(bool) var can_shoot = false
 export(float, 0.1, 10.0) var shoot_time = 0.8
@@ -26,7 +30,7 @@ const HPI : float = PI/2.0
 const QPI : float = PI/4.0
 const STOPPED_SQUARED : float = 1000.0
 
-enum States {SPAWNING, PURSUING, CHARGE, CHARGING, SHOOTING, EVADING, MATING, DEAD}
+enum States {SPAWNING, PURSUING, CHARGE, CHARGING, SHOOTING, EVADING, FLEEING, MATING, DEAD}
 var state = States.SPAWNING
 
 enum Evade {LEFT, RIGHT}
@@ -35,6 +39,7 @@ var evade_direction
 onready var player = $"../Player"
 onready var target = player
 onready var attack_distance_squared = attack_distance * attack_distance
+onready var flee_distance_squared = flee_distance * flee_distance
 
 func _ready():
 	SoundService.call(sound + "_spawn")
@@ -46,20 +51,22 @@ func _process(delta):
 		$AnimationPlayer.stop()
 		return
 	
+	var distance_squared = position.distance_squared_to(target.position)
+	
 	if state == States.SPAWNING:
 		state = States.PURSUING
-	elif can_shoot:
-		var distance_squared = position.distance_squared_to(target.position)
-		if distance_squared >= attack_distance_squared.x and distance_squared <= attack_distance_squared.y:
-			state = States.SHOOTING
-			$Timer.start(shoot_time)
-		else:
-			state = States.PURSUING
+	elif can_flee and $Timer.is_stopped() and position.distance_squared_to(target.position) < flee_distance_squared: # TODO: Check if walking against a wall
+		state = States.FLEEING
+		evade_direction = Evade.LEFT if randf() < 0.5 else Evade.RIGHT
+		$Timer.start(flee_time)
+	elif can_shoot and $Timer.is_stopped() and distance_squared >= attack_distance.x and distance_squared <= attack_distance_squared.y:
+		state = States.SHOOTING
+		$Timer.start(shoot_time)
+		_set_sprite(target.position.angle_to_point(position), true)
+	elif can_evade and $Timer.is_stopped():
+		$Timer.start(alter_behaviour_time) # There is a % chance to evade, evaluated every alter_behaviour_time period.
 	elif state != States.EVADING:
 		state = States.PURSUING
-		
-		if can_evade and $Timer.is_stopped():
-			$Timer.start(alter_behaviour_time)
 	
 	_on_process(delta)
 
@@ -69,14 +76,18 @@ func _physics_process(delta):
 	elif $"..".is_choosing: # TODO: Remove
 		return
 	
-	var direction = (target.position - position).normalized()
-	if state == States.EVADING:
-		if evade_direction == Evade.LEFT:
-			direction = (direction - direction.tangent()).normalized()
-		else:
-			direction = (direction + direction.tangent()).normalized()
+	if state == States.PURSUING or state == States.EVADING or state == States.FLEEING:
+		var direction = (target.position - position).normalized()
+		var tangent = direction.tangent()
 		
-	if state == States.PURSUING or state == States.EVADING:
+		if state == States.FLEEING:
+			direction = -direction
+		if evade_direction == Evade.LEFT:
+			tangent = -tangent
+		
+		if state == States.EVADING or state == States.FLEEING:
+			direction = (direction + tangent).normalized()
+		
 		var velocity = move_and_slide(direction * movement_speed, Vector2(0, 0), true, 1, 0.0, false)
 		_set_sprite(direction.angle(), velocity.length_squared() <= STOPPED_SQUARED)
 		
@@ -169,7 +180,7 @@ func _on_Timer_timeout():
 				state = States.EVADING
 				evade_direction = Evade.LEFT if randf() < 0.5 else Evade.RIGHT
 				$Timer.start(evade_time)
-		States.EVADING:
+		States.EVADING, States.FLEEING:
 			state = States.PURSUING
 
 # Override these instead of the default _process/_physics_process.
