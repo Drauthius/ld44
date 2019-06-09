@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/enemy03_step.wav-e953bb2e1d778dace416175d5d4e427d.sample"
+path="res://.import/boss01_step.wav-0c955e07a8cf26ec84b4306db2946f92.sample"
 
 [deps]
 
-source_file="res://sounds/sfx/enemy03_step.wav"
-dest_files=[ "res://.import/enemy03_step.wav-e953bb2e1d778dace416175d5d4e427d.sample" ]
+source_file="res://sounds/sfx/boss01_step.wav"
+dest_files=[ "res://.import/boss01_step.wav-0c955e07a8cf26ec84b4306db2946f92.sample" ]
 
 [params]
 

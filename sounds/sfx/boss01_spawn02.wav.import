@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/boss01_spawn02.wav-7f7fe15449c7ea6b23dc409d451edf27.sample"
+
+[deps]
+
+source_file="res://sounds/sfx/boss01_spawn02.wav"
+dest_files=[ "res://.import/boss01_spawn02.wav-7f7fe15449c7ea6b23dc409d451edf27.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

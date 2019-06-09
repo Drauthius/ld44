@@ -1,9 +1,9 @@
 extends KinematicBody2D
 
 export(int, 1, 1000) var movement_speed = 150
-export(String, "enemy01", "enemy02", "enemy03", "enemy04") var sound
+export(String, "enemy01", "enemy02", "enemy03", "enemy04", "boss01") var sound
 export(int, 1, 100) var hitpoints = 1
-export(int, 0, 100) var _worth = 5
+export(int, 0, 100) var worth = 5
 export(float, 0.0, 1000.0) var despawn_time = 4.0
 
 export(float, 0.0, 100.0) var alter_behaviour_time = 1.0
@@ -99,6 +99,9 @@ func _physics_process(delta):
 				target.die()
 	
 	_on_physics_process(delta)
+
+func get_worth():
+	return worth
 
 func die():
 	hitpoints -= 1

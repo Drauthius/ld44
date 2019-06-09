@@ -28,12 +28,12 @@ var sfx = {
 	"enemy02_death02": AudioStreamPlayer.new(),
 	"enemy02_death03": AudioStreamPlayer.new(),
 	"enemy02_gunshot": AudioStreamPlayer.new(),
-	"enemy03_spawn01": AudioStreamPlayer.new(),
-	"enemy03_spawn02": AudioStreamPlayer.new(),
-	"enemy03_spawn03": AudioStreamPlayer.new(),
-	"enemy03_gunshot": AudioStreamPlayer.new(),
-	"enemy03_step": AudioStreamPlayer.new(),
-	"enemy03_death01": AudioStreamPlayer.new(),
+	"boss01_spawn01": AudioStreamPlayer.new(),
+	"boss01_spawn02": AudioStreamPlayer.new(),
+	"boss01_spawn03": AudioStreamPlayer.new(),
+	"boss01_gunshot": AudioStreamPlayer.new(),
+	"boss01_step": AudioStreamPlayer.new(),
+	"boss01_death01": AudioStreamPlayer.new(),
 	"ricochet01": AudioStreamPlayer.new()
 }
 
@@ -60,24 +60,29 @@ func _ready():
 	sfx.player_speech03.stream = preload("res://sounds/sfx/player_speech03.wav")
 	sfx.katching.stream = preload("res://sounds/sfx/katching!.wav")
 	sfx.player_gunshot.stream = preload("res://sounds/sfx/gun01.wav")
-	sfx.enemy02_gunshot.stream = preload("res://sounds/sfx/gun02.wav")
-	sfx.enemy03_gunshot.stream = preload("res://sounds/sfx/enemy03_gun01.wav")
+
+	
 	sfx.enemy01_spawn01.stream = preload("res://sounds/sfx/enemy01_spawn01.wav")
 	sfx.enemy01_spawn02.stream = preload("res://sounds/sfx/enemy01_spawn02.wav")
 	sfx.enemy01_spawn03.stream = preload("res://sounds/sfx/enemy01_spawn03.wav")
 	sfx.enemy01_death01.stream = preload("res://sounds/sfx/enemy01_death01.wav")
 	sfx.enemy01_death02.stream = preload("res://sounds/sfx/enemy01_death02.wav")
+	
 	sfx.enemy02_speech01.stream = preload("res://sounds/sfx/enemy02_speech01.wav")
 	sfx.enemy02_speech02.stream = preload("res://sounds/sfx/enemy02_speech02.wav")
 	sfx.enemy02_speech03.stream = preload("res://sounds/sfx/enemy02_speech03.wav")
+	sfx.enemy02_gunshot.stream = preload("res://sounds/sfx/gun02.wav")
 	sfx.enemy02_death01.stream = preload("res://sounds/sfx/enemy02_death01.wav")
 	sfx.enemy02_death02.stream = preload("res://sounds/sfx/enemy02_death02.wav")
 	sfx.enemy02_death03.stream = preload("res://sounds/sfx/enemy02_death03.wav")
-	sfx.enemy03_spawn01.stream = preload("res://sounds/sfx/enemy03_spawn01.wav")
-	sfx.enemy03_spawn02.stream = preload("res://sounds/sfx/enemy03_spawn02.wav")
-	sfx.enemy03_spawn03.stream = preload("res://sounds/sfx/enemy03_spawn03.wav")
-	sfx.enemy03_step.stream = preload("res://sounds/sfx/enemy03_step.wav")
-	sfx.enemy03_death01.stream = preload("res://sounds/sfx/enemy03_death01.wav")
+	
+	sfx.boss01_spawn01.stream = preload("res://sounds/sfx/boss01_spawn01.wav")
+	sfx.boss01_spawn02.stream = preload("res://sounds/sfx/boss01_spawn02.wav")
+	sfx.boss01_spawn03.stream = preload("res://sounds/sfx/boss01_spawn03.wav")
+	sfx.boss01_gunshot.stream = preload("res://sounds/sfx/boss01_gun01.wav")
+	sfx.boss01_step.stream = preload("res://sounds/sfx/boss01_step.wav")
+	sfx.boss01_death01.stream = preload("res://sounds/sfx/boss01_death01.wav")
+	
 	sfx.ricochet01.stream = preload("res://sounds/sfx/ricochet01.wav")
 	
 	for key in loops:
@@ -93,7 +98,7 @@ func _ready():
 			sfx[key].set_bus("Spawn")
 		if "enemy02_speech" in key or "enemy02_death" in key:
 			sfx[key].set_bus("Speech")
-		if "enemy03_spawn" in key or "enemy03_death" in key:
+		if "boss01_spawn" in key or "boss01_death" in key:
 			sfx[key].set_bus("Music") #this might be controversial, wanna find other soln
 	sfx.ricochet01.set_bus("Player")
 
@@ -190,31 +195,35 @@ func enemy02_death():
 	sfx[key_string].play()
 	pass
 
-func enemy03_hit():
-	ricochet()
+func enemy04_spawn():
+	print("enemy04 spawn sound")
+	pass
 
-func enemy03_spawn():
+func boss01_spawn():
 	var index = randi() % 3 + 1
-	var key_string = str("enemy03_spawn0", index)
+	var key_string = str("boss01_spawn0", index)
 	sfx[key_string].pitch_scale = randf() * 0.6 + 0.4
 	sfx[key_string].play()
 	pass
 
-func enemy03_step():
-	var key_string = "enemy03_step"
+func boss01_step():
+	var key_string = "boss01_step"
 	sfx[key_string].pitch_scale = randf() * 0.4 + 1.2
 	sfx[key_string].play()
 	pass
 
-func enemy03_death():
+func boss01_gunshot():
+	sfx.boss01_gunshot.pitch_scale = randf() * 0.8 + 0.8
+	sfx.boss01_gunshot.play()
+
+func boss01_hit():
+	ricochet()
+
+func boss01_death():
 	var index = 1
-	var key_string = str("enemy03_death0", index)
+	var key_string = str("boss01_death0", index)
 	sfx[key_string].pitch_scale = randf() * 0.4 + 1.2
 	sfx[key_string].play()
-	pass
-
-func enemy04_spawn():
-	print("enemy04 spawn sound")
 	pass
 
 func player_gunshot():
@@ -224,10 +233,6 @@ func player_gunshot():
 func enemy02_gunshot():
 	sfx.enemy02_gunshot.pitch_scale = randf() * 0.8 + 0.8
 	sfx.enemy02_gunshot.play()
-
-func enemy03_gunshot():
-	sfx.enemy03_gunshot.pitch_scale = randf() * 0.8 + 0.8
-	sfx.enemy03_gunshot.play()
 
 func ricochet():
 	sfx.ricochet01.pitch_scale = randf() * 0.8 + 0.8

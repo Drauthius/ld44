@@ -3,7 +3,7 @@
 [ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Boss01.gd" type="Script" id=2]
 [ext_resource path="res://scenes/BulletDaddy.tscn" type="PackedScene" id=3]
-[ext_resource path="res://art/enemy_03.png" type="Texture" id=4]
+[ext_resource path="res://art/boss_01.png" type="Texture" id=4]
 
 [sub_resource type="ConcavePolygonShape2D" id=1]
 segments = PoolVector2Array( -22, -15, -7, 0, -7, 0, -22, 15, -22, 15, -7, 22, -7, 22, -3, 10, -3, 10, 0, 20, 0, 20, 25, 25, 25, 25, 26, 17, 26, 17, 5, 10, 5, 10, 5, -10, 5, -10, 26, -15, 26, -15, 26, -25, 26, -25, 0, -18, 0, -18, -8, -10, -8, -10, -8, -24, -8, -24, -22, -15 )
@@ -291,7 +291,8 @@ tracks/1/keys = {
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 movement_speed = 50
-sound = "enemy03"
+sound = "boss01"
+hitpoints = 30
 attack_distance = Vector2( 0, 300 )
 can_shoot = true
 Bullet = ExtResource( 3 )

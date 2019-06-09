@@ -60,7 +60,7 @@ func _on_ScoreTimer_timeout():
 func _on_Enemy_death(enemy):
 	if not $ScoreTimer.is_stopped():
 		$GUI.set_score($GUI.get_score() + 5)
-		$GUI.set_money($GUI.get_money() + enemy.worth)
+		$GUI.set_money($GUI.get_money() + enemy.get_worth())
 
 func _on_Player_death():
 	$ScoreTimer.stop()

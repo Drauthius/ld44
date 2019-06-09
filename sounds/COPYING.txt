@@ -12,7 +12,7 @@ gun02
 https://freesound.org/people/hellboy1305/sounds/370275/
 hellboy1305
 
-enemy03_land02.wav
+boss01_land02.wav
 https://freesound.org/people/brunoboselli/sounds/457294/
 brunoboselli
 
@@ -52,11 +52,11 @@ enemy02_step.wav
 https://freesound.org/people/keemocore/sounds/148309/
 keemocore
 
-enemy03_death01.wav
+boss01_death01.wav
 https://freesound.org/people/HerbertBoland/sounds/142016/
 HerbertBoland
 
-enemy03_gun01.wav
+boss01_gun01.wav
 https://freesound.org/people/humanoide9000/sounds/422440/
 humanoide9000
 
