@@ -187,11 +187,18 @@ func enemy02_death():
 	sfx[key_string].play()
 	pass
 
+func enemy03_hit():
+	ricochet()
+
 func enemy03_spawn():
 	var index = randi() % 3 + 1
 	var key_string = str("enemy03_spawn0", index)
 	sfx[key_string].pitch_scale = randf() * 0.6 + 0.4
 	sfx[key_string].play()
+	pass
+
+func enemy03_death():
+	# Handled by animationplayer
 	pass
 
 func enemy04_spawn():

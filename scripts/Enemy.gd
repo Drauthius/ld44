@@ -19,6 +19,7 @@ export(Vector2) var attack_distance
 export(bool) var can_shoot = false
 export(float, 0.1, 10.0) var shoot_time = 0.8
 export(PackedScene) var Bullet = preload("res://scenes/BulletBig.tscn")
+export(Color) var bullet_modulate
 export(PackedScene) var MuzzleFlash = preload("res://scenes/MuzzleFlash.tscn")
 export(float, 1, 1000) var bullet_speed = 180
 
@@ -111,6 +112,8 @@ func die():
 		$Timer.start(despawn_time)
 		
 		emit_signal("death", self)
+	elif SoundService.has_method(sound + "_hit"):
+		SoundService.call(sound + "_hit")
 	
 	if hitpoints <= -3:
 		$CollisionShape2D.set_deferred("disabled", true) # No longer affects physics
@@ -161,20 +164,21 @@ func _on_Timer_timeout():
 			queue_free()
 		States.SHOOTING:
 			var angle = target.position.angle_to_point(position) + PI
-			var bullet = Bullet.instance() #GenEditState.GEN_EDIT_STATE_INSTANCE)
+			var bullet = Bullet.instance()
 			bullet.position = get_global_transform().get_origin() - Vector2(16, 0).rotated(angle)
 			bullet.rotation = angle - PI
-			bullet.init(Color("e3c7ff"))
-			bullet.lifetime = attack_distance.y / float(bullet_speed)
+			bullet.init(bullet_modulate)
+			bullet.lifetime = attack_distance.y / float(bullet_speed) * 1.1
 			bullet.speed = bullet_speed
 			$Gun.add_child(bullet)
 			SoundService.call(sound + "_gunshot")
 			
 			# Muzzle flash
-			var muzzle_flash = MuzzleFlash.instance()
-			muzzle_flash.position = -Vector2(16, 0).rotated(angle)
-			muzzle_flash.rotation = bullet.rotation
-			add_child(muzzle_flash)
+			if MuzzleFlash:
+				var muzzle_flash = MuzzleFlash.instance()
+				muzzle_flash.position = -Vector2(16, 0).rotated(angle)
+				muzzle_flash.rotation = bullet.rotation
+				add_child(muzzle_flash)
 		States.PURSUING:
 			if can_evade and randf() < evade_chance:
 				state = States.EVADING

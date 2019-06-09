@@ -169,6 +169,7 @@ can_flee = true
 flee_distance = 180.0
 attack_distance = Vector2( 180, 195 )
 can_shoot = true
+bullet_modulate = Color( 0.890196, 0.780392, 1, 1 )
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )

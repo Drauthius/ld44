@@ -1,39 +1,14 @@
-extends Area2D
-
-export var speed : int = 300
-export var lifetime : float = 0.95
-export var push : int = 10
-
-onready var direction = Vector2(cos(rotation), sin(rotation))
+extends "res://scripts/Bullet.gd"
 
 func _ready():
+	speed = 300
+	lifetime = 0.95
+	push = 10
+
+func spawn():
 	$AnimationPlayer.play("spawn")
 	$Timer.start($AnimationPlayer.get_animation("spawn").get_length() + lifetime)
 
-func init(color):
-	$Sprite.self_modulate = color
-
-func _physics_process(delta):
-	if not $AnimationPlayer.is_playing():
-		position += direction * speed * delta
-
-func _on_Timer_timeout():
-	$CollisionShape2D.disabled = true
-	$AnimationPlayer.play_backwards("spawn")
-	
-func _on_Bullet_body_entered(body):
-	if body == $"../..":
-		return
-	
-	var groups = body.get_groups()
-	if groups.has("Living"):
-		# Push back
-		body.position += direction * push
-		body.die()
-	
+func despawn():
 	$CollisionShape2D.set_deferred("disabled", true)
 	$AnimationPlayer.play_backwards("spawn")
-
-func _on_AnimationPlayer_animation_finished(_anim_name):
-	if $CollisionShape2D.disabled:
-		queue_free()

@@ -7,7 +7,14 @@ export var push : int = 5
 onready var direction = Vector2(cos(rotation), sin(rotation))
 
 func _ready():
+	spawn()
+
+func spawn():
 	$Timer.start(lifetime)
+
+func despawn():
+	$CollisionShape2D.set_deferred("disabled", true)
+	$AnimationPlayer.play("despawn")
 
 func init(color):
 	$Sprite.self_modulate = color
@@ -17,8 +24,7 @@ func _physics_process(delta):
 		position += direction * speed * delta
 
 func _on_Timer_timeout():
-	$CollisionShape2D.disabled = true
-	$AnimationPlayer.play("despawn")
+	despawn()
 	
 func _on_Bullet_body_entered(body):
 	if body == $"../..":
@@ -30,8 +36,8 @@ func _on_Bullet_body_entered(body):
 			body.position += direction * push
 		body.die()
 	
-	$CollisionShape2D.set_deferred("disabled", true)
-	$AnimationPlayer.play("despawn")
+	despawn()
 
 func _on_AnimationPlayer_animation_finished(_anim_name):
-	queue_free()
+	if $CollisionShape2D.disabled:
+		queue_free()
