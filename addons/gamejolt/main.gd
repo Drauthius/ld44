@@ -33,8 +33,7 @@ func init(gameId, gamePrivateKey):
 	private_key = gamePrivateKey
 
 func _ready():
-	connect("request_completed", self, '_on_HTTPRequest_request_completed')
-	pass
+	var _err = connect("request_completed", self, '_on_HTTPRequest_request_completed')
 
 func auto_auth():
 	#get username and token form url on gamejolt (only work with html5)

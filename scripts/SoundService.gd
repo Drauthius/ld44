@@ -32,9 +32,10 @@ var sfx = {
 	"enemy03_spawn02": AudioStreamPlayer.new(),
 	"enemy03_spawn03": AudioStreamPlayer.new(),
 	"enemy03_gunshot": AudioStreamPlayer.new(),
+	"enemy03_step": AudioStreamPlayer.new(),
+	"enemy03_death01": AudioStreamPlayer.new(),
 	"ricochet01": AudioStreamPlayer.new()
 }
-
 
 var current_bg_music = {
 #	"drums": null,
@@ -75,6 +76,8 @@ func _ready():
 	sfx.enemy03_spawn01.stream = preload("res://sounds/sfx/enemy03_spawn01.wav")
 	sfx.enemy03_spawn02.stream = preload("res://sounds/sfx/enemy03_spawn02.wav")
 	sfx.enemy03_spawn03.stream = preload("res://sounds/sfx/enemy03_spawn03.wav")
+	sfx.enemy03_step.stream = preload("res://sounds/sfx/enemy03_step.wav")
+	sfx.enemy03_death01.stream = preload("res://sounds/sfx/enemy03_death01.wav")
 	sfx.ricochet01.stream = preload("res://sounds/sfx/ricochet01.wav")
 	
 	for key in loops:
@@ -197,8 +200,17 @@ func enemy03_spawn():
 	sfx[key_string].play()
 	pass
 
+func enemy03_step():
+	var key_string = "enemy03_step"
+	sfx[key_string].pitch_scale = randf() * 0.4 + 1.2
+	sfx[key_string].play()
+	pass
+
 func enemy03_death():
-	# Handled by animationplayer
+	var index = 1
+	var key_string = str("enemy03_death0", index)
+	sfx[key_string].pitch_scale = randf() * 0.4 + 1.2
+	sfx[key_string].play()
 	pass
 
 func enemy04_spawn():

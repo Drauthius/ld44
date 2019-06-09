@@ -3,7 +3,7 @@ extends KinematicBody2D
 export(int, 1, 1000) var movement_speed = 150
 export(String, "enemy01", "enemy02", "enemy03", "enemy04") var sound
 export(int, 1, 100) var hitpoints = 1
-export(int, 0, 100) var worth = 5
+export(int, 0, 100) var _worth = 5
 export(float, 0.0, 1000.0) var despawn_time = 4.0
 
 export(float, 0.0, 100.0) var alter_behaviour_time = 1.0
@@ -149,7 +149,7 @@ func _set_sprite(angle, paused = false):
 		$AnimationPlayer.stop()
 	
 	if rotate_collision:
-		$CollisionShape2D.rotation = HPI if wide else 0
+		$CollisionShape2D.rotation = HPI if wide else 0.0
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name.ends_with("_explosion"):
@@ -188,7 +188,7 @@ func _on_Timer_timeout():
 			state = States.PURSUING
 
 # Override these instead of the default _process/_physics_process.
-func _on_process(delta):
+func _on_process(_delta):
 	pass
-func _on_physics_process(delta):
+func _on_physics_process(_delta):
 	pass

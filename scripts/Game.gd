@@ -24,7 +24,7 @@ func _ready():
 	$ScoreTimer.start()
 	SoundService.game()
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("spawn_enemy_01"):
 		spawn_enemy(Enemies[0])
 	if Input.is_action_just_pressed("spawn_enemy_02"):
@@ -43,7 +43,7 @@ func spawn_enemy(Enemy):
 func _on_SpawnTimer_timeout():
 	var num_spawns = 0
 	while spawn_enemies and num_spawns < $GUI.get_score() / 100 + 1:
-		var difficulty = $GUI.get_score() / 50
+		#var difficulty = $GUI.get_score() / 50
 		var enemy_index = null
 		var rand = randf()
 		if $GUI.get_score() < 200 or rand >= 0.04:
