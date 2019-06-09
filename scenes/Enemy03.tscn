@@ -56,7 +56,7 @@ tracks/1/path = NodePath("AudioStreamPlayer")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = false
+tracks/1/enabled = true
 tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
@@ -105,7 +105,7 @@ tracks/1/path = NodePath("AudioStreamPlayer")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = false
+tracks/1/enabled = true
 tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
@@ -139,7 +139,7 @@ tracks/1/path = NodePath("AudioStreamPlayer")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = false
+tracks/1/enabled = true
 tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
@@ -217,8 +217,8 @@ tracks/1/keys = {
 
 [node name="Enemy03" type="KinematicBody2D" groups=[
 "Living",
-"Metal",
 "Immovable",
+"Metal",
 ]]
 script = ExtResource( 1 )
 __meta__ = {
@@ -229,7 +229,7 @@ __meta__ = {
 texture = ExtResource( 2 )
 vframes = 3
 hframes = 5
-frame = 14
+frame = 8
 region_enabled = true
 region_rect = Rect2( 0, 0, 320, 192 )
 
@@ -246,7 +246,7 @@ anims/spawn = SubResource( 6 )
 anims/up_run = SubResource( 7 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
+stream = ExtResource( 4 )
 bus = "Enemy"
 
 [node name="Gun" type="Node" parent="."]

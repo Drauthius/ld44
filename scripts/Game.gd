@@ -1,5 +1,6 @@
 extends Node2D
 
+export(bool) var spawn_enemies = true
 export var respawn_cost_initial : int = 150
 export var respawn_cost_increase_per_death : int = 100
 
@@ -23,9 +24,25 @@ func _ready():
 	$ScoreTimer.start()
 	SoundService.game()
 
+func _process(delta):
+	if Input.is_action_just_pressed("spawn_enemy_01"):
+		spawn_enemy(Enemies[0])
+	if Input.is_action_just_pressed("spawn_enemy_02"):
+		spawn_enemy(Enemies[1])
+	if Input.is_action_just_pressed("spawn_enemy_03"):
+		spawn_enemy(Enemies[2])
+
+func spawn_enemy(Enemy):
+	var enemy = Enemy.instance()
+	var spawn_point = randi() % $SpawnPoints.get_child_count()
+	enemy.position = $SpawnPoints.get_child(spawn_point).position
+	enemy.position += Vector2(randf() * 6 - 3, randf() * 6 - 3) # Variance to avoid some physics problems hopefully
+	add_child(enemy)
+	enemy.connect("death", self, "_on_Enemy_death")
+
 func _on_SpawnTimer_timeout():
 	var num_spawns = 0
-	while num_spawns < $GUI.get_score() / 100 + 1:
+	while spawn_enemies and num_spawns < $GUI.get_score() / 100 + 1:
 		var difficulty = $GUI.get_score() / 50
 		var enemy_index = null
 		var rand = randf()
@@ -35,13 +52,7 @@ func _on_SpawnTimer_timeout():
 			enemy_index = 2 # Boss time
 		
 		num_spawns += enemy_index + 1
-		
-		var enemy = Enemies[enemy_index].instance()
-		var spawn_point = randi() % $SpawnPoints.get_child_count()
-		enemy.position = $SpawnPoints.get_child(spawn_point).position
-		enemy.position += Vector2(randf() * 6 - 3, randf() * 6 - 3) # Variance to avoid some physics problems hopefully
-		add_child(enemy)
-		enemy.connect("death", self, "_on_Enemy_death")
+		spawn_enemy(Enemies[enemy_index])
 
 func _on_ScoreTimer_timeout():
 	$GUI.set_score($GUI.get_score() + 1)
