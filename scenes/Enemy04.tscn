@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/Enemy04.gd" type="Script" id=1]
 [ext_resource path="res://art/enemy_04.png" type="Texture" id=2]
@@ -23,10 +23,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3, 0.5, 0.6 ),
+"times": PoolRealArray( 0, 0.2, 0.3, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 20, 26, 32, 38, 44 ]
+"values": [ 48, 49, 50, 51, 52 ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -42,7 +42,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 2, 8, 2, 14 ]
+"values": [ 16, 17, 16, 17 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -57,7 +57,23 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.8, 1.1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 4, 10, 16, 22, 28, 34, 40, 46 ]
+"values": [ 64, 65, 66, 67, 68, 69, 70, 71 ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "left_explosion"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 80, 81, 82, 83, 84 ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -70,10 +86,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3, 0.5, 0.6 ),
+"times": PoolRealArray( 0, 0.2, 0.3, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 18, 24, 30, 36, 42 ]
+"values": [ 32, 33, 34, 35, 36 ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -89,7 +105,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 6, 0, 12 ]
+"values": [ 0, 1, 0, 2 ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -104,7 +120,23 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.8, 1.1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 5, 11, 17, 23, 29, 35, 41, 47 ]
+"values": [ 72, 73, 74, 75, 76, 77, 78, 79 ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "right_explosion"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 88, 89, 90, 91, 92 ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -117,10 +149,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3, 0.5, 0.6 ),
+"times": PoolRealArray( 0, 0.2, 0.3, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 19, 25, 31, 37, 43 ]
+"values": [ 40, 41, 42, 43, 44 ]
 }
 
 [sub_resource type="Animation" id=11]
@@ -136,7 +168,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 1, 7, 1, 13 ]
+"values": [ 8, 10, 8, 9 ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -149,10 +181,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3, 0.5, 0.6 ),
+"times": PoolRealArray( 0, 0.2, 0.3, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 21, 27, 33, 39, 45 ]
+"values": [ 56, 57, 58, 59, 60 ]
 }
 
 [sub_resource type="Animation" id=13]
@@ -168,7 +200,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 3, 9, 3, 15 ]
+"values": [ 24, 25, 24, 26 ]
 }
 
 [node name="Enemy04" type="KinematicBody2D" groups=[
@@ -195,19 +227,21 @@ shape = SubResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
-vframes = 8
-hframes = 6
-frame = 20
+vframes = 12
+hframes = 8
+frame = 92
 region_enabled = true
-region_rect = Rect2( 0, 0, 384, 512 )
+region_rect = Rect2( 0, 0, 512, 768 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/down_run = SubResource( 4 )
 anims/down_walk = SubResource( 5 )
 anims/left_death = SubResource( 6 )
+anims/left_explosion = SubResource( 14 )
 anims/left_run = SubResource( 7 )
 anims/left_walk = SubResource( 8 )
 anims/right_death = SubResource( 9 )
+anims/right_explosion = SubResource( 15 )
 anims/right_run = SubResource( 10 )
 anims/right_walk = SubResource( 11 )
 anims/up_run = SubResource( 12 )
