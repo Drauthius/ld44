@@ -4,9 +4,9 @@ export(float, 0.0, 100.0) var pursue_tire_time = 2.5
 export(float, 0.0, 5000.0) var pursue_distance_rest = 80.0 # Getting too close removes the rest.
 export(float, 0.0, 100.0) var pursue_rest_time = 4.0 # How long to rest before pursuing again
 
-onready var old_pursue_distance = pursue_distance
-onready var old_pursue_distance_squared = pursue_distance_squared
-onready var pursue_distance_rest_squared = pursue_distance_rest * pursue_distance_rest
+onready var old_pursue_distance : float = pursue_distance
+onready var old_pursue_distance_squared : float = pursue_distance_squared
+onready var pursue_distance_rest_squared : float = pursue_distance_rest * pursue_distance_rest
 
 func _on_process(_delta : float) -> void:
 	# Make sure that we're not pursuing for too long.
@@ -55,7 +55,7 @@ func _on_MatingArea_body_entered(body : PhysicsBody2D) -> void:
 			# Stop any lingering timers
 			$Timer.stop()
 			mate.get_node("Timer").stop()
-			# Start the mate timer
+			# Start the mating cooldown
 			$MatingCooldown.start()
 
 func _on_Timer_timeout() -> void:

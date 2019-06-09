@@ -4,12 +4,11 @@
 [ext_resource path="res://scripts/Enemy04.gd" type="Script" id=2]
 [ext_resource path="res://art/enemy_04.png" type="Texture" id=3]
 
-[sub_resource type="CapsuleShape2D" id=17]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 14.0
 height = 14.0
 
-[sub_resource type="Animation" id=1]
-resource_name = "down_death"
+[sub_resource type="Animation" id=2]
 length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -24,7 +23,7 @@ tracks/0/keys = {
 "values": [ 64, 65, 66, 67, 68, 69, 70, 71 ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -40,8 +39,7 @@ tracks/0/keys = {
 "values": [ 48, 49, 50, 51, 52 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "down_walk"
+[sub_resource type="Animation" id=4]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -57,7 +55,7 @@ tracks/0/keys = {
 "values": [ 16, 17, 16, 18 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -72,7 +70,7 @@ tracks/0/keys = {
 "values": [ 64, 65, 66, 67, 68, 69, 70, 71 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -87,7 +85,7 @@ tracks/0/keys = {
 "values": [ 80, 81, 82, 83, 84 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -103,8 +101,7 @@ tracks/0/keys = {
 "values": [ 32, 33, 34, 35, 36 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "left_walk"
+[sub_resource type="Animation" id=8]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -120,7 +117,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 0, 2 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -135,7 +132,7 @@ tracks/0/keys = {
 "values": [ 72, 73, 74, 75, 76, 77, 78, 79 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -150,7 +147,7 @@ tracks/0/keys = {
 "values": [ 88, 89, 90, 91, 92 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -166,8 +163,7 @@ tracks/0/keys = {
 "values": [ 40, 41, 42, 43, 44 ]
 }
 
-[sub_resource type="Animation" id=11]
-resource_name = "right_walk"
+[sub_resource type="Animation" id=12]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -183,7 +179,7 @@ tracks/0/keys = {
 "values": [ 8, 10, 8, 9 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=13]
 length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -198,7 +194,7 @@ tracks/0/keys = {
 "values": [ 72, 73, 74, 75, 76, 77, 78, 79 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=14]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -214,7 +210,7 @@ tracks/0/keys = {
 "values": [ 56, 57, 58, 59, 60 ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=15]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -242,6 +238,7 @@ sound = "enemy04"
 hitpoints = 5
 worth = 15
 pursue_distance = 200.0
+rotate_collision = true
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 3 )
@@ -251,23 +248,23 @@ frame = 17
 region_rect = Rect2( 0, 0, 512, 768 )
 
 [node name="CollisionShape2D" parent="." index="1"]
-shape = SubResource( 17 )
+shape = SubResource( 1 )
 
 [node name="AnimationPlayer" parent="." index="2"]
-anims/down_death = SubResource( 1 )
-anims/down_run = SubResource( 2 )
-anims/down_walk = SubResource( 3 )
-anims/left_death = SubResource( 4 )
-anims/left_explosion = SubResource( 5 )
-anims/left_run = SubResource( 6 )
-anims/left_walk = SubResource( 7 )
-anims/right_death = SubResource( 8 )
-anims/right_explosion = SubResource( 9 )
-anims/right_run = SubResource( 10 )
-anims/right_walk = SubResource( 11 )
-anims/up_death = SubResource( 12 )
-anims/up_run = SubResource( 13 )
-anims/up_walk = SubResource( 14 )
+anims/down_death = SubResource( 2 )
+anims/down_run = SubResource( 3 )
+anims/down_walk = SubResource( 4 )
+anims/left_death = SubResource( 5 )
+anims/left_explosion = SubResource( 6 )
+anims/left_run = SubResource( 7 )
+anims/left_walk = SubResource( 8 )
+anims/right_death = SubResource( 9 )
+anims/right_explosion = SubResource( 10 )
+anims/right_run = SubResource( 11 )
+anims/right_walk = SubResource( 12 )
+anims/up_death = SubResource( 13 )
+anims/up_run = SubResource( 14 )
+anims/up_walk = SubResource( 15 )
 
 [node name="PursueCooldown" type="Timer" parent="." index="6"]
 one_shot = true

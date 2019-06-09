@@ -74,7 +74,7 @@ func _process(delta : float) -> void:
 	elif not $Timer.is_stopped() and state != States.IDLE and state != States.WANDERING:
 		return # Wait for the timer if in a state that matters.
 	
-	var distance_squared = position.distance_squared_to(target.position)
+	var distance_squared := position.distance_squared_to(target.position)
 	
 	if can_flee and not cornered and distance_squared < flee_distance_squared:
 		state = States.FLEEING
@@ -102,9 +102,9 @@ func _physics_process(delta : float) -> void:
 		return
 	
 	if state == States.PURSUING or state == States.EVADING or state == States.FLEEING or state == States.WANDERING or state == States.MATING:
-		var direction = (target.position - position).normalized()
-		var tangent = direction.tangent()
-		var speed = movement_speed
+		var direction : Vector2 = (target.position - position).normalized()
+		var tangent := direction.tangent()
+		var speed : float = movement_speed
 		
 		if state == States.FLEEING:
 			direction = -direction
@@ -117,8 +117,8 @@ func _physics_process(delta : float) -> void:
 		if state == States.EVADING or state == States.FLEEING or state == States.MATING:
 			direction = (direction + tangent).normalized()
 		
-		var velocity = move_and_slide(direction * speed, Vector2(0, 0), true, 1, 0.0, false)
-		var stopped = velocity.length_squared() <= STOPPED_SQUARED
+		var velocity := move_and_slide(direction * speed, Vector2(0, 0), true, 1, 0.0, false)
+		var stopped := velocity.length_squared() <= STOPPED_SQUARED
 		cornered = stopped if state == States.FLEEING else false
 		_set_sprite(direction.angle(), stopped, state == States.WANDERING)
 		
@@ -162,20 +162,20 @@ func die() -> void:
 		return
 	
 	# Play the death animation for every shot it receives
-	var anim = current_animation.replace("_run", "_death").replace("_walk", "_death")
+	var anim := current_animation.replace("_run", "_death").replace("_walk", "_death")
 	current_animation = anim
 	$AnimationPlayer.play(anim)
 	# Bug?? Play won't change the current animation when called by Game from a signal
 	$AnimationPlayer.current_animation = anim
 
 func _get_random_direction() -> Vector2:
-	var angle = randf() * 2 * PI
+	var angle := randf() * 2 * PI
 	return Vector2(cos(angle), sin(angle))
 
 func _set_sprite(angle : float, paused : bool = false, walking : bool = false) -> void:
 	angle += PI
-	var wide = true
-	var anim = "_walk" if walking else "_run"
+	var wide := true
+	var anim := "_walk" if walking else "_run"
 	
 	if angle > 5*QPI and angle < 7*QPI:
 		$AnimationPlayer.play("down" + anim)
@@ -208,7 +208,7 @@ func _on_Timer_timeout() -> void:
 		States.DEAD:
 			queue_free()
 		States.SHOOTING:
-			var angle = target.position.angle_to_point(position) + PI
+			var angle : float = target.position.angle_to_point(position) + PI
 			var bullet = Bullet.instance()
 			bullet.position = get_global_transform().get_origin() - Vector2(16, 0).rotated(angle)
 			bullet.rotation = angle - PI
