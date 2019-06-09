@@ -168,7 +168,6 @@ tracks/0/keys = {
 }
 
 [node name="Enemy" type="KinematicBody2D" groups=[
-"Mate",
 "Living",
 ]]
 script = ExtResource( 1 )

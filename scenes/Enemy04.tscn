@@ -1,19 +1,30 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://scripts/Enemy04.gd" type="Script" id=1]
-[ext_resource path="res://art/enemy_04.png" type="Texture" id=2]
+[ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/Enemy04.gd" type="Script" id=2]
+[ext_resource path="res://art/enemy_04.png" type="Texture" id=3]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 128.0
-
-[sub_resource type="CircleShape2D" id=2]
-radius = 164.0
-
-[sub_resource type="CapsuleShape2D" id=3]
+[sub_resource type="CapsuleShape2D" id=17]
 radius = 14.0
 height = 14.0
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=1]
+resource_name = "down_death"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.8, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 64, 65, 66, 67, 68, 69, 70, 71 ]
+}
+
+[sub_resource type="Animation" id=2]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -29,7 +40,8 @@ tracks/0/keys = {
 "values": [ 48, 49, 50, 51, 52 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
+resource_name = "down_walk"
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -42,10 +54,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 16, 17, 16, 17 ]
+"values": [ 16, 17, 16, 18 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -60,8 +72,7 @@ tracks/0/keys = {
 "values": [ 64, 65, 66, 67, 68, 69, 70, 71 ]
 }
 
-[sub_resource type="Animation" id=14]
-resource_name = "left_explosion"
+[sub_resource type="Animation" id=5]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -76,7 +87,7 @@ tracks/0/keys = {
 "values": [ 80, 81, 82, 83, 84 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -92,7 +103,8 @@ tracks/0/keys = {
 "values": [ 32, 33, 34, 35, 36 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=7]
+resource_name = "left_walk"
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -108,7 +120,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 0, 2 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=8]
 length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -123,8 +135,7 @@ tracks/0/keys = {
 "values": [ 72, 73, 74, 75, 76, 77, 78, 79 ]
 }
 
-[sub_resource type="Animation" id=15]
-resource_name = "right_explosion"
+[sub_resource type="Animation" id=9]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -156,6 +167,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=11]
+resource_name = "right_walk"
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -172,6 +184,21 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=12]
+length = 1.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.8, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 72, 73, 74, 75, 76, 77, 78, 79 ]
+}
+
+[sub_resource type="Animation" id=13]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -187,7 +214,7 @@ tracks/0/keys = {
 "values": [ 56, 57, 58, 59, 60 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=14]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -203,61 +230,55 @@ tracks/0/keys = {
 "values": [ 24, 25, 24, 26 ]
 }
 
-[node name="Enemy04" type="KinematicBody2D" groups=[
-"Living",
+[sub_resource type="CircleShape2D" id=16]
+radius = 250.0
+
+[node name="Enemy04" index="0" groups=[
 "Immovable",
-]]
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
+] instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+movement_speed = 100
+sound = "enemy04"
+hitpoints = 5
+worth = 15
+pursue_distance = 200.0
 
-[node name="MatingArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MatingArea"]
-shape = SubResource( 1 )
-
-[node name="AttackArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-shape = SubResource( 2 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 3 )
-
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 3 )
 vframes = 12
 hframes = 8
-frame = 92
-region_enabled = true
+frame = 17
 region_rect = Rect2( 0, 0, 512, 768 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/down_run = SubResource( 4 )
-anims/down_walk = SubResource( 5 )
-anims/left_death = SubResource( 6 )
-anims/left_explosion = SubResource( 14 )
-anims/left_run = SubResource( 7 )
-anims/left_walk = SubResource( 8 )
-anims/right_death = SubResource( 9 )
-anims/right_explosion = SubResource( 15 )
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource( 17 )
+
+[node name="AnimationPlayer" parent="." index="2"]
+anims/down_death = SubResource( 1 )
+anims/down_run = SubResource( 2 )
+anims/down_walk = SubResource( 3 )
+anims/left_death = SubResource( 4 )
+anims/left_explosion = SubResource( 5 )
+anims/left_run = SubResource( 6 )
+anims/left_walk = SubResource( 7 )
+anims/right_death = SubResource( 8 )
+anims/right_explosion = SubResource( 9 )
 anims/right_run = SubResource( 10 )
 anims/right_walk = SubResource( 11 )
-anims/up_run = SubResource( 12 )
-anims/up_walk = SubResource( 13 )
+anims/up_death = SubResource( 12 )
+anims/up_run = SubResource( 13 )
+anims/up_walk = SubResource( 14 )
 
-[node name="MatingCooldown" type="Timer" parent="."]
+[node name="PursueCooldown" type="Timer" parent="." index="6"]
+one_shot = true
+
+[node name="MatingCooldown" type="Timer" parent="." index="7"]
 wait_time = 20.0
+one_shot = true
 
-[node name="RunTimer" type="Timer" parent="."]
-wait_time = 5.0
+[node name="MatingArea" type="Area2D" parent="." index="8"]
 
-[node name="WalkTimer" type="Timer" parent="."]
-
-[node name="WaitTimer" type="Timer" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MatingArea" index="0"]
+shape = SubResource( 16 )
+[connection signal="timeout" from="PursueCooldown" to="." method="_on_PursueCooldown_timeout"]
 [connection signal="body_entered" from="MatingArea" to="." method="_on_MatingArea_body_entered"]
-[connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]
-[connection signal="timeout" from="RunTimer" to="." method="_on_RunTimer_timeout"]
-[connection signal="timeout" from="WalkTimer" to="." method="_on_WalkTimer_timeout"]
-[connection signal="timeout" from="WaitTimer" to="." method="_on_WaitTimer_timeout"]

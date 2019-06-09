@@ -136,7 +136,7 @@ func play_or_queue(loops):
 		for key in current_bg_music:
 			if current_bg_music[key] != null:
 				current_bg_music[key].play()
-				print("bus ", current_bg_music[key].get_bus() )
+				#print("bus ", current_bg_music[key].get_bus() )
 	elif at_least_one_is_null:
 		pass
 	for key in loops:
@@ -188,6 +188,10 @@ func enemy02_speech():
 	sfx[key_string].play()
 	pass
 
+func enemy02_gunshot():
+	sfx.enemy02_gunshot.pitch_scale = randf() * 0.8 + 0.8
+	sfx.enemy02_gunshot.play()
+
 func enemy02_death():
 	var index = randi() % 2 + 1
 	var key_string = str("enemy02_death0", index)
@@ -198,6 +202,12 @@ func enemy02_death():
 func enemy04_spawn():
 	print("enemy04 spawn sound")
 	pass
+
+func enemy04_hit():
+	fleshthump()
+
+func enemy04_death():
+	print("enemy04 death sound")
 
 func boss01_spawn():
 	var index = randi() % 3 + 1
@@ -229,10 +239,6 @@ func boss01_death():
 func player_gunshot():
 	sfx.player_gunshot.pitch_scale = randf() * 0.8 + 0.8
 	sfx.player_gunshot.play()
-
-func enemy02_gunshot():
-	sfx.enemy02_gunshot.pitch_scale = randf() * 0.8 + 0.8
-	sfx.enemy02_gunshot.play()
 
 func ricochet():
 	sfx.ricochet01.pitch_scale = randf() * 0.8 + 0.8

@@ -9,7 +9,8 @@ var is_choosing = false
 onready var Enemies = [
 	preload("res://scenes/Enemy01.tscn"),
 	preload("res://scenes/Enemy02.tscn"),
-	preload("res://scenes/Boss01.tscn")
+	preload("res://scenes/Boss01.tscn"),
+	preload("res://scenes/Enemy04.tscn")
 ]
 onready var ChoicePanel = preload("res://scenes/ChoicePanel.tscn")
 onready var Outhouse = preload("res://scenes/Outhouse.tscn")
@@ -31,6 +32,8 @@ func _process(_delta):
 		spawn_enemy(Enemies[1])
 	if Input.is_action_just_pressed("spawn_enemy_03"):
 		spawn_enemy(Enemies[2])
+	if Input.is_action_just_pressed("spawn_enemy_04"):
+		spawn_enemy(Enemies[3])
 
 func spawn_enemy(Enemy):
 	var enemy = Enemy.instance()
