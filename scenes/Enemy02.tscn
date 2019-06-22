@@ -173,7 +173,7 @@ bullet_modulate = Color( 0.890196, 0.780392, 1, 1 )
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
-frame = 10
+frame = 0
 
 [node name="CollisionShape2D" parent="." index="1"]
 rotation = 0.0
