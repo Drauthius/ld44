@@ -9,4 +9,5 @@
 script = ExtResource( 2 )
 sound = "enemy01"
 can_evade = true
+can_charge = true
 rotate_collision = true

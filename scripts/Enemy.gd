@@ -17,6 +17,13 @@ export(bool) var can_evade = false
 export(float, 0.0, 1.0) var evade_chance = 0.5
 export(float, 0.0, 100.0) var evade_time = 0.5
 
+export(bool) var can_charge = false
+export(float, 0.0, 1.0) var charge_chance = 0.75
+export(Vector2) var charge_distance = Vector2(190.0, 250.0)
+export(float, 0.0, 100.0) var charge_up_time = 2.0
+export(float, 0.0, 100.0) var charge_down_time = 1.0
+export(int, 1, 1000) var charge_speed = 300
+
 export(bool) var can_flee = false
 export(float, 0.0, 1000.0) var flee_distance
 export(float, 0.0, 100.0) var flee_time = 0.5
@@ -37,12 +44,13 @@ const HPI : float = PI/2.0
 const QPI : float = PI/4.0
 const STOPPED_SQUARED : float = 1000.0
 
-enum States {IDLE, WANDERING, PURSUING, CHARGE, CHARGING, SHOOTING, EVADING, FLEEING, MATING, DEAD}
+enum States {IDLE, WANDERING, PURSUING, CHARGE_WINDUP, CHARGING, CHARGE_WINDDOWN, SHOOTING, EVADING, FLEEING, MATING, DEAD}
 var state = States.IDLE
 
 enum Evade {LEFT, RIGHT}
 var evade_direction
 
+var charge_target : Vector2
 var wander_direction : Vector2
 var cornered : bool = false
 
@@ -55,6 +63,7 @@ onready var target : Node = player
 onready var pursue_distance_squared : float = pursue_distance * pursue_distance
 onready var attack_distance_squared : Vector2 = attack_distance * attack_distance
 onready var flee_distance_squared : float = flee_distance * flee_distance
+onready var charge_distance_squared : Vector2 = charge_distance * charge_distance
 
 func _ready() -> void:
 	SoundService.call(sound + "_spawn")
@@ -73,6 +82,8 @@ func _process(delta : float) -> void:
 		return # They only have eyes for each other.
 	elif not $Timer.is_stopped() and state != States.IDLE and state != States.WANDERING:
 		return # Wait for the timer if in a state that matters.
+	elif state == States.CHARGING:
+		return # Wait until the charging has completed.
 	
 	var distance_squared := position.distance_squared_to(target.position)
 	
@@ -86,8 +97,8 @@ func _process(delta : float) -> void:
 		_set_sprite(target.position.angle_to_point(position), true)
 	elif distance_squared < pursue_distance_squared or state == States.PURSUING: # Locked on?
 		state = States.PURSUING
-		if can_evade and $Timer.is_stopped():
-			$Timer.start(alter_behaviour_time) # There is a % chance to evade, evaluated every alter_behaviour_time period.
+		if (can_charge or can_evade) and $Timer.is_stopped():
+			$Timer.start(alter_behaviour_time) # There is a % chance to charge or evade, evaluated every alter_behaviour_time period.
 	elif state != States.WANDERING:
 		state = States.IDLE
 		if $Timer.is_stopped():
@@ -101,11 +112,14 @@ func _physics_process(delta : float) -> void:
 	elif $"..".is_choosing: # TODO: Remove
 		return
 	
-	if state == States.PURSUING or state == States.EVADING or state == States.FLEEING or state == States.WANDERING or state == States.MATING:
-		var direction : Vector2 = (target.position - position).normalized()
+	if state == States.PURSUING or state == States.EVADING or state == States.CHARGING or state == States.FLEEING or state == States.WANDERING or state == States.MATING:
+		var targetPos : Vector2 = charge_target if state == States.CHARGING else target.position
+		var direction : Vector2 = (targetPos - position).normalized()
 		var tangent := direction.tangent()
 		var speed : float = movement_speed
 		
+		if state == States.CHARGING:
+			speed = charge_speed
 		if state == States.FLEEING:
 			direction = -direction
 		if evade_direction == Evade.LEFT:
@@ -131,6 +145,11 @@ func _physics_process(delta : float) -> void:
 						$Timer.start(mating_time)
 				else:
 					target.die()
+			elif state == States.CHARGING:
+				if coll.collider.is_in_group("Living"):
+					coll.collider.die()
+				$Timer.stop()
+				_on_Timer_timeout()
 	
 	_on_physics_process(delta)
 
@@ -225,10 +244,30 @@ func _on_Timer_timeout() -> void:
 				muzzle_flash.rotation = bullet.rotation
 				add_child(muzzle_flash)
 		States.PURSUING:
-			if can_evade and randf() < evade_chance:
+			var distance_squared : float = position.distance_squared_to(target.position)
+			if can_charge and distance_squared >= charge_distance_squared.x and distance_squared <= charge_distance_squared.y and randf() < charge_chance:
+				state = States.CHARGE_WINDUP
+				$Tween.interpolate_property($AnimationPlayer, "playback_speed", 1.5, 4.0, charge_up_time, Tween.TRANS_LINEAR, Tween.EASE_IN)
+				$Tween.start()
+				$Timer.start(charge_up_time)
+			elif can_evade and randf() < evade_chance:
 				state = States.EVADING
 				evade_direction = Evade.LEFT if randf() < 0.5 else Evade.RIGHT
 				$Timer.start(evade_time)
+		States.CHARGE_WINDUP:
+			state = States.CHARGING
+			var direction : Vector2 = (target.position - position).normalized()
+			charge_target = position + direction * charge_distance.y * 1.1
+			var time : float = position.distance_to(charge_target) / charge_speed
+			#$Tween.interpolate_property($AnimationPlayer, "playback_speed", 4.0, 0.0, time, Tween.TRANS_QUINT, Tween.EASE_IN)
+			#$Tween.start()
+			$Timer.start(time)
+		States.CHARGING:
+			state = States.CHARGE_WINDDOWN
+			$AnimationPlayer.stop()
+			$Timer.start(charge_down_time)
+		States.CHARGE_WINDDOWN:
+			state = States.PURSUING
 		States.IDLE:
 			if randf() < wander_chance:
 				state = States.WANDERING
