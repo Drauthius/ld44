@@ -7,10 +7,10 @@ export var respawn_cost_increase_per_death : int = 100
 var is_choosing = false
 
 onready var Enemies = [
-	preload("res://scenes/Enemy01.tscn"),
-	preload("res://scenes/Enemy02.tscn"),
-	preload("res://scenes/Boss01.tscn"),
-	preload("res://scenes/Enemy04.tscn")
+	preload("res://scenes/Enemy03.tscn"),
+	preload("res://scenes/Enemy03.tscn"),
+#	preload("res://scenes/Boss01.tscn"),
+#	preload("res://scenes/Enemy04.tscn")
 ]
 onready var ChoicePanel = preload("res://scenes/ChoicePanel.tscn")
 onready var Outhouse = preload("res://scenes/Outhouse.tscn")

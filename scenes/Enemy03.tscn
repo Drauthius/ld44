@@ -1,10 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Enemy03.gd" type="Script" id=2]
 [ext_resource path="res://art/enemy_03.png" type="Texture" id=3]
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=1]
 resource_name = "down_death"
 length = 0.8
 tracks/0/type = "value"
@@ -21,7 +21,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=2]
-length = 1.2
+length = 0.8
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -30,14 +30,29 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 30, 31, 32, 33 ]
 }
 
-[sub_resource type="Animation" id=12]
-resource_name = "left_death"
+[sub_resource type="Animation" id=3]
+resource_name = "down_shoot"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 10, 11, 12, 13, 14, 10 ]
+}
+
+[sub_resource type="Animation" id=4]
 length = 0.8
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -52,8 +67,7 @@ tracks/0/keys = {
 "values": [ 40, 41, 42, 43, 44 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "left_explosion"
+[sub_resource type="Animation" id=5]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -68,8 +82,8 @@ tracks/0/keys = {
 "values": [ 50, 51, 52, 53, 54 ]
 }
 
-[sub_resource type="Animation" id=5]
-length = 1.2
+[sub_resource type="Animation" id=6]
+length = 0.8
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -78,14 +92,28 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 20, 21, 22, 23 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "right_death"
+[sub_resource type="Animation" id=7]
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 0 ]
+}
+
+[sub_resource type="Animation" id=8]
 length = 0.8
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -100,8 +128,7 @@ tracks/0/keys = {
 "values": [ 45, 46, 47, 48, 49 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "right_explosion"
+[sub_resource type="Animation" id=9]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -116,8 +143,8 @@ tracks/0/keys = {
 "values": [ 55, 56, 57, 58, 59 ]
 }
 
-[sub_resource type="Animation" id=8]
-length = 1.2
+[sub_resource type="Animation" id=10]
+length = 0.8
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -126,14 +153,28 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 25, 26, 27, 28 ]
 }
 
-[sub_resource type="Animation" id=13]
-resource_name = "up_death"
+[sub_resource type="Animation" id=11]
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 5, 6, 7, 8, 9, 5 ]
+}
+
+[sub_resource type="Animation" id=12]
 length = 0.8
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -148,8 +189,8 @@ tracks/0/keys = {
 "values": [ 45, 46, 47, 48, 49 ]
 }
 
-[sub_resource type="Animation" id=10]
-length = 1.2
+[sub_resource type="Animation" id=13]
+length = 0.8
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -158,35 +199,56 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 35, 36, 37, 38 ]
 }
 
+[sub_resource type="Animation" id=14]
+resource_name = "up_shoot"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 15, 16, 17, 18, 19, 15 ]
+}
+
 [node name="Enemy03" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-movement_speed = 80
+movement_speed = 60
 sound = "enemy03"
 hitpoints = 2
 worth = 15
+attack_distance = Vector2( 0, 200 )
 can_shoot = true
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 3 )
 vframes = 12
 hframes = 5
-frame = 59
+frame = 9
 region_rect = Rect2( 0, 0, 160, 384 )
 
 [node name="AnimationPlayer" parent="." index="2"]
-anims/down_death = SubResource( 11 )
+anims/down_death = SubResource( 1 )
 anims/down_run = SubResource( 2 )
-anims/left_death = SubResource( 12 )
-anims/left_explosion = SubResource( 4 )
-anims/left_run = SubResource( 5 )
-anims/right_death = SubResource( 6 )
-anims/right_explosion = SubResource( 7 )
-anims/right_run = SubResource( 8 )
-anims/up_death = SubResource( 13 )
-anims/up_run = SubResource( 10 )
+anims/down_shoot = SubResource( 3 )
+anims/left_death = SubResource( 4 )
+anims/left_explosion = SubResource( 5 )
+anims/left_run = SubResource( 6 )
+anims/left_shoot = SubResource( 7 )
+anims/right_death = SubResource( 8 )
+anims/right_explosion = SubResource( 9 )
+anims/right_run = SubResource( 10 )
+anims/right_shoot = SubResource( 11 )
+anims/up_death = SubResource( 12 )
+anims/up_run = SubResource( 13 )
+anims/up_shoot = SubResource( 14 )

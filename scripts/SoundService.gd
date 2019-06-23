@@ -199,6 +199,19 @@ func enemy02_death():
 	sfx[key_string].play()
 	pass
 
+func enemy03_spawn():
+	print("enemy03 spawn sound")
+	pass
+
+func enemy03_hit():
+	fleshthump()
+
+func enemy03_gunshot():
+	print("enemy03 gunshot sound")
+
+func enemy03_death():
+	print("enemy03 death sound")
+
 func enemy04_spawn():
 	print("enemy04 spawn sound")
 	pass
