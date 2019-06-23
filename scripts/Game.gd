@@ -7,10 +7,11 @@ export var respawn_cost_increase_per_death : int = 100
 var is_choosing = false
 
 onready var Enemies = [
+	preload("res://scenes/Enemy01.tscn"),
+	preload("res://scenes/Enemy02.tscn"),
 	preload("res://scenes/Enemy03.tscn"),
-	preload("res://scenes/Enemy03.tscn"),
-#	preload("res://scenes/Boss01.tscn"),
-#	preload("res://scenes/Enemy04.tscn")
+	preload("res://scenes/Enemy04.tscn"),
+#	preload("res://scenes/Boss01.tscn")
 ]
 onready var ChoicePanel = preload("res://scenes/ChoicePanel.tscn")
 onready var Outhouse = preload("res://scenes/Outhouse.tscn")
@@ -44,15 +45,10 @@ func spawn_enemy(Enemy):
 	enemy.connect("death", self, "_on_Enemy_death")
 
 func _on_SpawnTimer_timeout():
-	var num_spawns = 0
+	var num_spawns : int = 0
 	while spawn_enemies and num_spawns < $GUI.get_score() / 100 + 1:
-		#var difficulty = $GUI.get_score() / 50
-		var enemy_index = null
-		var rand = randf()
-		if $GUI.get_score() < 200 or rand >= 0.04:
-			enemy_index = int(rand * rand * 2)
-		else:
-			enemy_index = 2 # Boss time
+		var rand : float = randf()
+		var enemy_index : int = int(rand * rand * Enemies.size())
 		
 		num_spawns += enemy_index + 1
 		spawn_enemy(Enemies[enemy_index])

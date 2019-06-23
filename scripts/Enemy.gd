@@ -170,6 +170,8 @@ func die() -> void:
 		emit_signal("death", self)
 	elif SoundService.has_method(sound + "_hit"):
 		SoundService.call(sound + "_hit")
+		if state != States.DEAD:
+			return
 	
 	if hitpoints <= -3:
 		$CollisionShape2D.set_deferred("disabled", true) # No longer affects physics
