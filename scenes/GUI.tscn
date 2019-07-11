@@ -24,29 +24,29 @@ margin_bottom = 60.0
 margin_right = 1019.0
 margin_bottom = 28.0
 
-[node name="ScoreLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MoneyLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 margin_right = 85.0
 margin_bottom = 28.0
-text = "SCORE:"
+text = "MONEY:"
 
-[node name="Score" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Money" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 margin_left = 89.0
-margin_right = 105.0
+margin_right = 121.0
 margin_bottom = 28.0
-text = "0"
+text = "$0"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 32.0
 margin_right = 1019.0
 margin_bottom = 60.0
 
-[node name="MoneyLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="ScoreLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
 margin_right = 85.0
 margin_bottom = 28.0
-text = "MONEY:"
+text = "SCORE:"
 
-[node name="Money" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Score" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 89.0
-margin_right = 121.0
+margin_right = 105.0
 margin_bottom = 28.0
-text = "$0"
+text = "0"

@@ -1,32 +1,33 @@
 extends Node2D
 
-export(bool) var spawn_enemies = true
-export var respawn_cost_initial : int = 150
-export var respawn_cost_increase_per_death : int = 100
+export(float, 0.01, 100.0) var spawn_time = 2.75
 
-var is_choosing = false
+export(bool) var has_score = false
+export(float, 0.01, 100.0) var score_time = 1.0
 
-onready var Enemies = [
+onready var Enemies : Array = [
 	preload("res://scenes/Enemy01.tscn"),
 	preload("res://scenes/Enemy02.tscn"),
 	preload("res://scenes/Enemy03.tscn"),
-	preload("res://scenes/Enemy04.tscn"),
-#	preload("res://scenes/Boss01.tscn")
+	preload("res://scenes/Enemy04.tscn")
 ]
-onready var ChoicePanel = preload("res://scenes/ChoicePanel.tscn")
-onready var Outhouse = preload("res://scenes/Outhouse.tscn")
-onready var Scoreboard = $"/root/Scoreboard"
 
-func _ready():
-	randomize()
-	
+onready var Bosses : Array = [
+	preload("res://scenes/Boss01.tscn")
+]
+
+func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
-	$GUI.set_score(0)
-	Scoreboard.hide()
-	$ScoreTimer.start()
 	SoundService.game()
+	$SpawnTimer.start(spawn_time)
+	
+	$GUI.set_score(0)
+	if has_score:
+		$ScoreTimer.start(score_time)
+	else:
+		$GUI.hide_score()
 
-func _process(_delta):
+func _process(_delta : float) -> void:
 	if Input.is_action_just_pressed("spawn_enemy_01"):
 		spawn_enemy(Enemies[0])
 	if Input.is_action_just_pressed("spawn_enemy_02"):
@@ -35,8 +36,10 @@ func _process(_delta):
 		spawn_enemy(Enemies[2])
 	if Input.is_action_just_pressed("spawn_enemy_04"):
 		spawn_enemy(Enemies[3])
+	if Input.is_key_pressed(KEY_ESCAPE):
+		get_tree().quit()
 
-func spawn_enemy(Enemy):
+func spawn_enemy(Enemy : PackedScene) -> void:
 	var enemy = Enemy.instance()
 	var spawn_point = randi() % $SpawnPoints.get_child_count()
 	enemy.position = $SpawnPoints.get_child(spawn_point).position
@@ -44,75 +47,22 @@ func spawn_enemy(Enemy):
 	add_child(enemy)
 	enemy.connect("death", self, "_on_Enemy_death")
 
-func _on_SpawnTimer_timeout():
-	var num_spawns : int = 0
-	while spawn_enemies and num_spawns < $GUI.get_score() / 100 + 1:
-		var rand : float = randf()
-		var enemy_index : int = int(rand * rand * Enemies.size())
-		
-		num_spawns += enemy_index + 1
-		spawn_enemy(Enemies[enemy_index])
+func _on_SpawnTimer_timeout() -> void:
+	pass # Replace in subclass.
 
-func _on_ScoreTimer_timeout():
+func _on_ScoreTimer_timeout() -> void:
 	$GUI.set_score($GUI.get_score() + 1)
 
-func _on_Enemy_death(enemy):
-	if not $ScoreTimer.is_stopped():
-		$GUI.set_score($GUI.get_score() + 5)
-		$GUI.set_money($GUI.get_money() + enemy.get_worth())
-
-func _on_Player_death():
+func _on_Player_death() -> void:
 	$ScoreTimer.stop()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	print("Death")
+
+func _on_Enemy_death(enemy : Enemy) -> void:
+	if $Player.is_dead:
+		return
 	
-	# Don't give players that can't shoot straight an option.
-	if $GUI.get_score() >= 100:
-		var choice = ChoicePanel.instance()
-		add_child(choice)
-		choice.connect("give_up", self, "_on_Choice_give_up")
-		choice.connect("respawn", self, "_on_Choice_respawn")
-		choice.set_sum(respawn_cost_initial + respawn_cost_increase_per_death * ($Player.num_deaths - 1), $GUI.get_money())
-		$SpawnTimer.paused = true
-		is_choosing = choice.can_respawn()
-	else:
-		_on_Choice_give_up()
-
-func _on_Choice_give_up():
-	is_choosing = false
+	if has_score:
+		$GUI.set_score($GUI.get_score() + 5)
 	
-	Scoreboard.show()
-	Scoreboard.add_score($GUI.get_score())
-	$SpawnTimer.paused = false # Let them loose
-
-func _on_Choice_respawn():
-	SoundService.katching()
-	$GUI.set_money($GUI.get_money() - (respawn_cost_initial + respawn_cost_increase_per_death * ($Player.num_deaths - 1)))
-	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
-	
-	var outhouse = Outhouse.instance()
-	add_child(outhouse)
-	outhouse.position = $Player.position
-	outhouse.connect("dropped", self, "_on_Outhouse_dropped")
-	outhouse.connect("exploded", self, "_on_Outhouse_exploded")
-	outhouse.connect("opened", self, "_on_Outhouse_opened")
-
-func _on_Outhouse_dropped(bodies):
-	for body in bodies:
-		if body.is_in_group("Living"):
-			body.die()
-	$Player.get_node("Camera2D").shake(Vector2(5, 5), 0.4)
-	$Player.respawn()
-
-func _on_Outhouse_exploded():
-	$Player.get_node("Camera2D").shake(Vector2(5, 5), 0.4)
-
-func _on_Outhouse_opened():
-	$ScoreTimer.start()
-	$SpawnTimer.paused = false
-	$Player.is_dead = false
-	is_choosing = false # Start the enemies a little later
-
-func _unhandled_input(event):
-	if event is InputEventKey:
-		if event.pressed and event.scancode == KEY_ESCAPE:
-			get_tree().quit()
+	$GUI.set_money($GUI.get_money() + enemy.get_worth())

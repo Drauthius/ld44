@@ -71,9 +71,6 @@ func _ready() -> void:
 func _process(delta : float) -> void:
 	if state == States.DEAD:
 		return
-	elif $"..".is_choosing: # TODO: Remove
-		$AnimationPlayer.stop()
-		return
 	
 	if state == States.MATING:
 		if not target or not is_instance_valid(target) or target.state == States.DEAD:
@@ -108,8 +105,6 @@ func _process(delta : float) -> void:
 
 func _physics_process(delta : float) -> void:
 	if state == States.DEAD:
-		return
-	elif $"..".is_choosing: # TODO: Remove
 		return
 	
 	if state == States.PURSUING or state == States.EVADING or state == States.CHARGING or state == States.FLEEING or state == States.WANDERING or state == States.MATING:

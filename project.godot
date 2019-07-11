@@ -27,7 +27,7 @@ config/icon="res://art/icon.png"
 [autoload]
 
 SoundService="*res://scripts/SoundService.gd"
-Scoreboard="*res://scenes/Scoreboard.tscn"
+Scoreboard="res://scenes/Scoreboard.tscn"
 
 [debug]
 

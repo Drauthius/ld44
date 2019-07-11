@@ -92,7 +92,9 @@ tracks/0/keys = {
 "values": [ 3, 8, 13, 18 ]
 }
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"Living",
+]]
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
