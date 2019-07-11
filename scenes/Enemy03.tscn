@@ -238,6 +238,10 @@ hframes = 5
 frame = 9
 region_rect = Rect2( 0, 0, 160, 384 )
 
+[node name="CollisionShape2D" parent="." index="1"]
+rotation = 0.0
+scale = Vector2( 1, 1.2 )
+
 [node name="AnimationPlayer" parent="." index="2"]
 anims/down_death = SubResource( 1 )
 anims/down_run = SubResource( 2 )

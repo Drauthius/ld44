@@ -20,6 +20,10 @@ extents = Vector2( 600, 50 )
 
 [node name="Level01" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+spawn_time = 5.0
+
+[node name="Background" parent="." index="0"]
+editor/display_folded = true
 
 [node name="Ground" type="TileMap" parent="Background" index="0"]
 z_index = -2
