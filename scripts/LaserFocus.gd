@@ -9,8 +9,7 @@ var remove = false
 func _ready():
 	$Timer.set_wait_time(0.9)
 	$Timer.start()
-	pass 
-
+	$AnimationPlayer.play("TimedExplosionAnimation")
 
 func _on_Timer_timeout():
 	$CollisionShape2D.disabled = false
@@ -18,7 +17,6 @@ func _on_Timer_timeout():
 func _on_AnimationPlayer_animation_finished(anim_name):
 	$CollisionShape2D.disabled = true
 	queue_free()
-
 
 func _on_ExplosionArea_body_entered(body):
 	if body.is_in_group("Living"):
