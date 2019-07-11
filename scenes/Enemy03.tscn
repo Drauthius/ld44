@@ -221,7 +221,7 @@ tracks/0/keys = {
 "values": [ 15, 16, 17, 18, 19, 15 ]
 }
 
-[node name="Enemy03" index="0" instance=ExtResource( 1 )]
+[node name="Enemy03" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 movement_speed = 60
 sound = "enemy03"
