@@ -28,13 +28,17 @@ var sfx = {
 	"enemy02_death02": AudioStreamPlayer.new(),
 	"enemy02_death03": AudioStreamPlayer.new(),
 	"enemy02_gunshot": AudioStreamPlayer.new(),
+	"enemy03_spawn01": AudioStreamPlayer.new(),
+	"enemy03_gunshot": AudioStreamPlayer.new(),
+	"enemy03_death01": AudioStreamPlayer.new(),
 	"boss01_spawn01": AudioStreamPlayer.new(),
 	"boss01_spawn02": AudioStreamPlayer.new(),
 	"boss01_spawn03": AudioStreamPlayer.new(),
 	"boss01_gunshot": AudioStreamPlayer.new(),
 	"boss01_step": AudioStreamPlayer.new(),
 	"boss01_death01": AudioStreamPlayer.new(),
-	"ricochet01": AudioStreamPlayer.new()
+	"ricochet01": AudioStreamPlayer.new(),
+	"small_explosion": AudioStreamPlayer.new()
 }
 
 var current_bg_music = {
@@ -76,6 +80,16 @@ func _ready():
 	sfx.enemy02_death02.stream = preload("res://sounds/sfx/enemy02_death02.wav")
 	sfx.enemy02_death03.stream = preload("res://sounds/sfx/enemy02_death03.wav")
 	
+	#tmp
+	sfx.enemy03_spawn01.stream = preload("res://sounds/sfx/enemy02_speech01.wav")
+	sfx.enemy03_gunshot.stream = preload("res://sounds/sfx/enemy02_speech01.wav")
+	sfx.enemy03_death01.stream = preload("res://sounds/sfx/enemy02_speech01.wav")
+	
+	#TODO:
+#	sfx.enemy03_spawn01 = preload("res://sounds/sfx/enemy03_spawn01.wav")
+#	sfx.enemy03_gunshot = preload("res://sounds/sfx/enemy03_gunshot01.wav")
+#	sfx.enemy03_death01 = preload("res://sounds/sfx/enemy03_death01.wav")
+	
 	sfx.boss01_spawn01.stream = preload("res://sounds/sfx/boss01_spawn01.wav")
 	sfx.boss01_spawn02.stream = preload("res://sounds/sfx/boss01_spawn02.wav")
 	sfx.boss01_spawn03.stream = preload("res://sounds/sfx/boss01_spawn03.wav")
@@ -84,6 +98,7 @@ func _ready():
 	sfx.boss01_death01.stream = preload("res://sounds/sfx/boss01_death01.wav")
 	
 	sfx.ricochet01.stream = preload("res://sounds/sfx/ricochet01.wav")
+	sfx.small_explosion.stream = preload("res://sounds/sfx/boss01_death01.wav")
 	
 	for key in loops:
 		add_child(loops[key])
@@ -256,6 +271,10 @@ func player_gunshot():
 func ricochet():
 	sfx.ricochet01.pitch_scale = randf() * 0.8 + 0.8
 	sfx.ricochet01.play()
+
+func small_explosion():
+	sfx.small_explosion.pitch_scale = randf() * 0.8 + 0.8
+	sfx.small_explosion.play()
 
 func fleshthump():
 	print("fleshy sound")

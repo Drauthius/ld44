@@ -11,7 +11,9 @@ func _ready():
 	$Timer.start()
 	$AnimationPlayer.play("TimedExplosionAnimation")
 
+#explosion/some manner of death happens
 func _on_Timer_timeout():
+	SoundService.small_explosion()
 	$CollisionShape2D.disabled = false
 
 func _on_AnimationPlayer_animation_finished(anim_name):
