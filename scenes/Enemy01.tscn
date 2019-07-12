@@ -3,7 +3,7 @@
 [ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Enemy01.gd" type="Script" id=2]
 
-[node name="Enemy01" index="0" groups=[
+[node name="Enemy01" groups=[
 "Mate",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -11,3 +11,6 @@ sound = "enemy01"
 can_evade = true
 can_charge = true
 rotate_collision = true
+
+[node name="Sprite" parent="." index="0"]
+frame = 0

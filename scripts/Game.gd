@@ -9,7 +9,8 @@ onready var Enemies : Array = [
 	preload("res://scenes/Enemy01.tscn"),
 	preload("res://scenes/Enemy02.tscn"),
 	preload("res://scenes/Enemy03.tscn"),
-	preload("res://scenes/Enemy04.tscn")
+	preload("res://scenes/Enemy04.tscn"),
+	preload("res://scenes/Enemy05.tscn")
 ]
 
 onready var Bosses : Array = [
@@ -36,6 +37,8 @@ func _process(_delta : float) -> void:
 		spawn_enemy(Enemies[2])
 	if Input.is_action_just_pressed("spawn_enemy_04"):
 		spawn_enemy(Enemies[3])
+	if Input.is_action_just_pressed("spawn_enemy_05"):
+		spawn_enemy(Enemies[4])
 	if Input.is_key_pressed(KEY_ESCAPE):
 		get_tree().quit()
 
