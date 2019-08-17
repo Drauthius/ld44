@@ -26,7 +26,7 @@ func die() -> void:
 	.die()
 
 func _on_MatingArea_body_entered(body : PhysicsBody2D) -> void:
-	if state == States.DEAD:
+	if state == States.DEAD or body == null:
 		return
 	
 	if body.is_in_group("Mate"):
