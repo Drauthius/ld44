@@ -229,7 +229,7 @@ tracks/0/keys = {
 [sub_resource type="CircleShape2D" id=16]
 radius = 250.0
 
-[node name="Enemy04" index="0" groups=[
+[node name="Enemy04" groups=[
 "Immovable",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )

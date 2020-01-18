@@ -7,7 +7,7 @@
 
 [node name="Enemy05" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-sound = "enemy01"
+sound = "enemy02"
 can_shoot = true
 shoot_time = 1.1
 Bullet = ExtResource( 3 )

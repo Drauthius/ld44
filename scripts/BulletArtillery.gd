@@ -1,13 +1,21 @@
 extends "res://scripts/Bullet.gd"
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+export var vertical_speed : float = 50
+export var gravitational_acceleration : float = 10
 
-# Called when the node enters the scene tree for the first time.
+var velocity = Vector2()
+var init_vertical_speed : float
+
+
 func _ready():
-	pass # Replace with function body.
+	velocity = speed * direction + Vector2(0, vertical_speed)
+	init_vertical_speed = direction.y
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
+func _on_physics_process(_delta : float) -> void:
+	if not $AnimationPlayer.is_playing():
+		velocity += Vector2(0, gravitational_acceleration) * _delta
+		position += velocity * _delta
+		#update rotation
+	if velocity.y + init_vertical_speed < vertical_speed:
+		despawn()

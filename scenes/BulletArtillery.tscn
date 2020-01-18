@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/BulletBig.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/BulletArtillery.gd" type="Script" id=2]
 
-[node name="BulletArtillery" index="0" instance=ExtResource( 1 )]
+[sub_resource type="CircleShape2D" id=1]
+radius = 4.01886
+
+[node name="BulletArtillery" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource( 1 )
+disabled = true

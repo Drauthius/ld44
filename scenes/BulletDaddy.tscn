@@ -3,7 +3,6 @@
 [ext_resource path="res://scripts/BulletDelayed.gd" type="Script" id=1]
 [ext_resource path="res://art/boss01_shot01.png" type="Texture" id=2]
 
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.01886
 

@@ -15,6 +15,7 @@ func _on_Timer_timeout() -> void:
 			bullet.init(bullet_modulate)
 			bullet_speed = (position - player.position).length() / bullet.lifetime
 			bullet.speed = bullet_speed
+			bullet.rotation = angle - PI
 			$Gun.add_child(bullet)
 			SoundService.call(sound + "_gunshot")
 			
