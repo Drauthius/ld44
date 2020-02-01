@@ -35,6 +35,7 @@ export(PackedScene) var Bullet = preload("res://scenes/BulletBig.tscn")
 export(Color) var bullet_modulate
 export(PackedScene) var MuzzleFlash = preload("res://scenes/MuzzleFlash.tscn")
 export(float, 1, 1000) var bullet_speed = 180
+export(PackedScene) var Baby = null #preload("res://scenes/Enemy01.tscn")
 
 export(bool) var rotate_collision = false # Whether to rotate the collision shape when going left/right
 
@@ -271,7 +272,12 @@ func _on_Timer_timeout() -> void:
 				wander_direction = _get_random_direction()
 				$Timer.start(wander_time)
 		States.MATING:
-			print("POP out a baby")
+			if Baby:
+				var baby = Baby.instance()
+				var angle = randf() * 2 * PI
+				baby.position = get_global_transform().get_origin() - Vector2(16, 0).rotated(angle)
+				get_parent().add_child(baby)
+				print("POP out a baby")
 			state = States.IDLE
 			target = player
 			mate = null

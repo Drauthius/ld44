@@ -13,6 +13,7 @@ func _on_Timer_timeout() -> void:
 			var bullet = Bullet.instance() #need to do something before bullet ready function is called?
 			bullet.position = get_global_transform().get_origin() - Vector2(16, 0).rotated(angle)
 			bullet.init(bullet_modulate)
+			bullet.lifetime = 0.63
 			bullet_speed = (position - player.position).length() / bullet.lifetime
 			bullet.speed = bullet_speed
 			bullet.rotation = angle - PI

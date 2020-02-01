@@ -13,6 +13,10 @@ onready var Enemies : Array = [
 	preload("res://scenes/Enemy05.tscn")
 ]
 
+onready var Levels : Array = [
+	#preload("res://scenes/Level01.tscn")
+]
+
 onready var Bosses : Array = [
 	preload("res://scenes/Boss01.tscn")
 ]
@@ -39,6 +43,13 @@ func _process(_delta : float) -> void:
 		spawn_enemy(Enemies[3])
 	if Input.is_action_just_pressed("spawn_enemy_05"):
 		spawn_enemy(Enemies[4])
+	if Input.is_action_just_pressed("reload_level"):
+		#var _err = get_tree().change_scene("res://scenes/Level01.tscn")
+		#var _err = get_tree().change_scene_to(Levels[0])
+		var _err = get_tree().reload_current_scene()
+	if Input.is_action_just_pressed("load_lvl_01"):
+		var _err = get_tree().change_scene("res://scenes/Level01.tscn")
+		#var _err = get_tree().change_scene_to(Levels[0])	
 	if Input.is_key_pressed(KEY_ESCAPE):
 		get_tree().quit()
 

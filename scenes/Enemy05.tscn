@@ -5,9 +5,12 @@
 [ext_resource path="res://scenes/BulletArtillery.tscn" type="PackedScene" id=3]
 [ext_resource path="res://art/enemy_05.png" type="Texture" id=4]
 
-[node name="Enemy05" index="0" instance=ExtResource( 1 )]
+[node name="Enemy05" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 sound = "enemy02"
+can_flee = true
+flee_distance = 100.0
+attack_distance = Vector2( 100, 200 )
 can_shoot = true
 shoot_time = 1.1
 Bullet = ExtResource( 3 )
