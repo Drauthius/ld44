@@ -8,6 +8,7 @@ onready var direction = Vector2(cos(rotation), sin(rotation))
 
 func _ready():
 	spawn()
+	owner = $"../.."
 
 func spawn():
 	$Timer.start(lifetime)
@@ -26,7 +27,7 @@ func _on_Timer_timeout():
 	despawn()
 	
 func _on_Bullet_body_entered(body):
-	if body == $"../..":
+	if body == owner:
 		return
 	
 	if body.is_in_group("Living"):

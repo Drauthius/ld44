@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/Game.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Level01.gd" type="Script" id=2]
 [ext_resource path="res://resources/tileset_grass_dirt.tres" type="TileSet" id=3]
 [ext_resource path="res://art/house.png" type="Texture" id=4]
 [ext_resource path="res://art/barn.png" type="Texture" id=5]
+[ext_resource path="res://scenes/ShootingRange.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 158.342, 23.1537 )
@@ -22,6 +23,9 @@ extents = Vector2( 600, 50 )
 script = ExtResource( 2 )
 spawn_time = 5.0
 
+[node name="Background" parent="." index="0"]
+editor/display_folded = true
+
 [node name="Ground" type="TileMap" parent="Background" index="0"]
 z_index = -2
 tile_set = ExtResource( 3 )
@@ -32,6 +36,7 @@ tile_data = PoolIntArray( -65538, 3, 65536, -65537, 3, 65536, -131072, 3, 65536,
 [node name="House" type="StaticBody2D" parent="Background" index="1"]
 editor/display_folded = true
 position = Vector2( 466.531, 31.8139 )
+collision_mask = 7
 
 [node name="Sprite" type="Sprite" parent="Background/House" index="0"]
 texture = ExtResource( 4 )
@@ -43,6 +48,7 @@ shape = SubResource( 1 )
 [node name="Barn" type="StaticBody2D" parent="Background" index="2"]
 editor/display_folded = true
 position = Vector2( 957.446, 62.8348 )
+collision_mask = 7
 
 [node name="Sprite" type="Sprite" parent="Background/Barn" index="0"]
 texture = ExtResource( 5 )
@@ -53,6 +59,7 @@ shape = SubResource( 2 )
 
 [node name="Bounds" type="StaticBody2D" parent="Background" index="3"]
 editor/display_folded = true
+collision_mask = 7
 
 [node name="Left" type="CollisionShape2D" parent="Background/Bounds" index="0"]
 position = Vector2( -50, 300 )
@@ -99,3 +106,6 @@ position = Vector2( 421.004, 586.786 )
 
 [node name="Spawn8" type="Position2D" parent="SpawnPoints" index="7"]
 position = Vector2( 705.507, 587.328 )
+
+[node name="ShootingRange" parent="." index="6" instance=ExtResource( 6 )]
+position = Vector2( 709.366, 127.906 )

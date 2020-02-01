@@ -28,6 +28,7 @@ tile_data = PoolIntArray( 0, 4, 1, 1, 4, 0, 2, 4, 1, 3, 4, 1, 4, 4, 0, 5, 4, 1, 
 
 [node name="Bounds" type="StaticBody2D" parent="Background" index="2"]
 editor/display_folded = true
+collision_mask = 7
 
 [node name="Left" type="CollisionShape2D" parent="Background/Bounds" index="0"]
 position = Vector2( -50, 300 )
